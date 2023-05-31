@@ -9,6 +9,7 @@ private:
 	std::string nazwa;
 public:
 	Pole() :powierzchnia(0.0), klasa(1) {};
+
 	std::string getNazwa() { return nazwa; };
 	int getKlasa() { return klasa; };
 	float getPowierzchnia() { return powierzchnia; };

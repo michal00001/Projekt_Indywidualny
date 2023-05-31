@@ -2,7 +2,7 @@
 #include <list>
 #include "Zabieg.h"
 #include <iostream>
-
+#include <fstream>
 class Kalendarz
 {
 	std::list<Zabieg> Kalendarz;
@@ -11,10 +11,10 @@ class Kalendarz
 public:
 
 	void dodajZabieg();
-	void dodajZabieg(std::ifstream plik);
+	void dodajZabieg(char* _sciezka);
 
 	void wydrukujKalendarz();
-	void wydrukujKalendarz(std::ofstream plik);
+	void wydrukujKalendarz(char* _sciezka);
 
 };
 

@@ -8,7 +8,7 @@ private:
 	int miesiac;
 	int rok;
 public:
-	Data();
+	Data() :dzien(0), miesiac(0), rok(0) {};
 	//Data(int _dzien);
 	//Data(int _dzien, int _miesiac);
 	Data(int _dzien, int _miesiac, int _rok);
@@ -25,5 +25,14 @@ public:
 	int getDzien() { return dzien; };
 	int getMiesiac() { return miesiac; };
 	int getRok() { return rok; };
+
+	bool operator>(Data& _obiekt);
+	bool operator<(Data& _obiekt);
+	bool operator>=(Data& _obiekt);
+	bool operator<=(Data& _obiekt);
+	bool operator==(Data& _obiekt);
+	bool operator!=(Data& _obiekt);
+
+
 };
 

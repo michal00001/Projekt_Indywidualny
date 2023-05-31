@@ -29,6 +29,60 @@ Data::Data(int _dzien, int _miesiac, int _rok) {
 
 }
 
+bool Data::operator>(Data& _obiekt) {
+    if (this->getRok() < _obiekt.getRok())
+        return false;
+    if (this->getMiesiac() < _obiekt.getMiesiac())
+        return false;
+    if (this->getDzien() < _obiekt.getDzien())
+        return false;
+    return true;
+}
+
+bool Data::operator<(Data& _obiekt)
+{
+    if (*this > _obiekt)
+        return false;
+    else
+    return true;
+}
+
+bool Data::operator>=(Data& _obiekt)
+{
+    if(*this < _obiekt)
+        return false;
+    if(*this != _obiekt)
+        return false;
+
+    return true;
+}
+
+bool Data::operator<=(Data& _obiekt)
+{
+    if(*this >= _obiekt)
+    return false;
+
+    return true;
+}
+
+bool Data::operator==(Data& _obiekt)
+{
+    if (this->getRok() != _obiekt.getRok())
+        return false;
+    if (this->getMiesiac() != _obiekt.getMiesiac())
+        return false;
+    if (this->getDzien() != _obiekt.getDzien())
+        return false;
+
+    return true;
+}
+
+bool Data::operator!=(Data& _obiekt) {
+    if (*this == _obiekt)
+        return false;
+
+    return true;
+}
 /*
 
 Date& Date::operator+=(Date::serial_type days) {
