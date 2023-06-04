@@ -1,29 +1,18 @@
 #include "Zabieg.h"
 
-std::string Zabieg::getData()
-{
-	std::string out;
-	out = data.getDzien();
-	out += ";";
-	out += data.getMiesiac();
-	out += ";";
-	out += data.getRok();
+std::ostream& operator<<(std::ostream& out,const Zabieg& obiekt) {
+	out << "| " << obiekt.data << "  |" << std::setw(23) << obiekt.maszyna << "|" << std::setw(42) << obiekt.pole << "|";
 	return out;
 }
 
-std::string Zabieg::getMaszyna()
+Zabieg::Zabieg(Data _data, Maszyna _maszyna, Pole _pole)
 {
-	return maszyna.getNazwa();
-}
-
-std::string Zabieg::getPole()
-{
-	std::string out;
-	out = pole.getNazwa();
-	out += ";";
-	out += pole.getPowierzchnia();
-
-	return out;
+	//if(_data.czyPoprawny())
+	data = _data;
+	//if(_maszyna.czyPoprawny())
+	maszyna = _maszyna;
+	//if(_pole.czyPoprawny())
+	pole = _pole;
 }
 
 void Zabieg::setData(int _dzien,int _miesiac, int _rok)

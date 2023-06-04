@@ -1,8 +1,8 @@
 #pragma once
 #include <list>
-#include "Zabieg.h"
-#include <iostream>
 #include <fstream>
+#include "Zabieg.h"
+
 class Kalendarz
 {
 	std::list<Zabieg> Kalendarz;
@@ -11,10 +11,12 @@ class Kalendarz
 public:
 
 	void dodajZabieg();
+	void dodajZabieg(Zabieg _obiekt);
 	void dodajZabieg(char* _sciezka);
 
 	void wydrukujKalendarz();
 	void wydrukujKalendarz(char* _sciezka);
+	void wydrukujKalendarz(char* _sciezka,bool _csv);
 
 };
 

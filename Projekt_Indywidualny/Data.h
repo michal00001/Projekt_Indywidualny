@@ -1,5 +1,6 @@
 #pragma once
-#include <string>
+#include <iostream>
+#include <iomanip>
 
 class Data
 {
@@ -8,15 +9,18 @@ private:
 	int miesiac;
 	int rok;
 public:
-	Data() :dzien(0), miesiac(0), rok(0) {};
+	Data() :dzien(1), miesiac(1), rok(1901) {};
+	Data(int _dzien, int _miesiac, int _rok);
 	//Data(int _dzien);
 	//Data(int _dzien, int _miesiac);
-	Data(int _dzien, int _miesiac, int _rok);
+	
 
 	//fragmenty biblioteki QuantLib
 	//problem z dodaniem do Visuala
 	bool isLeap(int _rok);
 	int monthLength(int _miesiac, bool leapYear);
+	std::string ktoryMiesiac(int _miesiac);
+
 
 	void setDzien(int _dzien);
 	void setMiesiac(int _miesiac);
@@ -33,6 +37,8 @@ public:
 	bool operator==(Data& _obiekt);
 	bool operator!=(Data& _obiekt);
 
+	
+
+	friend std::ostream& operator<<(std::ostream& out, const Data& obiekt);
 
 };
-

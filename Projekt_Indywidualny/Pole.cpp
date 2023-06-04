@@ -1,5 +1,11 @@
 #include "Pole.h"
 
+std::ostream& operator<<(std::ostream& out,const Pole& obiekt) {
+	out.fill(' ');
+	out << obiekt.nazwa << ";";	out << obiekt.powierzchnia << ";" << obiekt.klasa;
+	return out;
+}
+
 void Pole::setNazwa(std::string _nazwa)
 {
 	nazwa = _nazwa;

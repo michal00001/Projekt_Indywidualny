@@ -1,90 +1,26 @@
 #include "Data.h"
 
-void Data::setDzien(int _dzien)
-{
-    int dlugosc = monthLength(miesiac, isLeap(rok));
-    if (_dzien <= dlugosc && _dzien > 0)
-        dzien = _dzien;
-}
-
-void Data::setMiesiac(int _miesiac) {
-    if (_miesiac > 0 && _miesiac < 13)
-        miesiac = _miesiac;
-}
-
-void Data::setRok(int _rok)
-{
-    if (_rok > 1900 && _rok < 2200)
-        rok = _rok;
+std::ostream& operator<<(std::ostream& out,const Data& obiekt) {
+    out <<std::setw(2)<< obiekt.dzien << ".";
+    out.width(2);
+    out.fill('0');
+    out << obiekt.miesiac << "." << obiekt.rok;
+    return out;
 }
 
 Data::Data(int _dzien, int _miesiac, int _rok) {
    if(_rok >1900 && _rok <2200)
     rok = _rok;
+
    if(_miesiac >0 && _miesiac <13)
     miesiac = _miesiac;
    int dlugosc = monthLength(miesiac, isLeap(_rok));
+
    if (_dzien <= dlugosc && _dzien > 0)
        dzien = _dzien;
-
 }
 
-bool Data::operator>(Data& _obiekt) {
-    if (this->getRok() < _obiekt.getRok())
-        return false;
-    if (this->getMiesiac() < _obiekt.getMiesiac())
-        return false;
-    if (this->getDzien() < _obiekt.getDzien())
-        return false;
-    return true;
-}
-
-bool Data::operator<(Data& _obiekt)
-{
-    if (*this > _obiekt)
-        return false;
-    else
-    return true;
-}
-
-bool Data::operator>=(Data& _obiekt)
-{
-    if(*this < _obiekt)
-        return false;
-    if(*this != _obiekt)
-        return false;
-
-    return true;
-}
-
-bool Data::operator<=(Data& _obiekt)
-{
-    if(*this >= _obiekt)
-    return false;
-
-    return true;
-}
-
-bool Data::operator==(Data& _obiekt)
-{
-    if (this->getRok() != _obiekt.getRok())
-        return false;
-    if (this->getMiesiac() != _obiekt.getMiesiac())
-        return false;
-    if (this->getDzien() != _obiekt.getDzien())
-        return false;
-
-    return true;
-}
-
-bool Data::operator!=(Data& _obiekt) {
-    if (*this == _obiekt)
-        return false;
-
-    return true;
-}
 /*
-
 Date& Date::operator+=(Date::serial_type days) {
     Date::serial_type serial = serialNumber_ + days;
     checkSerialNumber(serial);
@@ -198,3 +134,82 @@ int Data::monthLength(int _miesiac, bool leapYear) {
     return (leapYear ? MonthLeapLength[_miesiac - 1] : MonthLength[_miesiac - 1]);
 }
 
+std::string Data::ktoryMiesiac(int _miesiac)
+{
+    const std::string miesiace[] = { "Styczen","Luty","Marzec","Kwiecien","Maj","Czerwiec","Lipiec","Sierpien","Wrzesien","Pazdziernik","Listopad","Grudzien" };
+    return miesiace[_miesiac-1];
+}
+
+void Data::setDzien(int _dzien)
+{
+    int dlugosc = monthLength(miesiac, isLeap(rok));
+    if (_dzien <= dlugosc && _dzien > 0)
+        dzien = _dzien;
+}
+
+void Data::setMiesiac(int _miesiac) {
+    if (_miesiac > 0 && _miesiac < 13)
+        miesiac = _miesiac;
+}
+
+void Data::setRok(int _rok)
+{
+    if (_rok > 1900 && _rok < 2200)
+        rok = _rok;
+}
+
+
+bool Data::operator>(Data& _obiekt) {
+    if (this->getRok() < _obiekt.getRok())
+        return false;
+    if (this->getMiesiac() < _obiekt.getMiesiac())
+        return false;
+    if (this->getDzien() < _obiekt.getDzien())
+        return false;
+    return true;
+}
+
+bool Data::operator<(Data& _obiekt)
+{
+    if (*this > _obiekt)
+        return false;
+    else
+        return true;
+}
+
+bool Data::operator>=(Data& _obiekt)
+{
+    if (*this < _obiekt)
+        return false;
+    if (*this != _obiekt)
+        return false;
+
+    return true;
+}
+
+bool Data::operator<=(Data& _obiekt)
+{
+    if (*this >= _obiekt)
+        return false;
+
+    return true;
+}
+
+bool Data::operator==(Data& _obiekt)
+{
+    if (this->getRok() != _obiekt.getRok())
+        return false;
+    if (this->getMiesiac() != _obiekt.getMiesiac())
+        return false;
+    if (this->getDzien() != _obiekt.getDzien())
+        return false;
+
+    return true;
+}
+
+bool Data::operator!=(Data& _obiekt) {
+    if (*this == _obiekt)
+        return false;
+
+    return true;
+}

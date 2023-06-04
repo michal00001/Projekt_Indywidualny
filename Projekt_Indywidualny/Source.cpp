@@ -2,11 +2,28 @@
 
 int main(void) {
 	Kalendarz masno;
-	masno.dodajZabieg();
-	/*masno.dodajZabieg();
-	masno.dodajZabieg();
-	masno.dodajZabieg();*/
 	char sciezka[] = { "Pliczek.txt" };
-	masno.wydrukujKalendarz();
+	Data zabieg(12, 5, 2020);
+	Pole koloDomu;
+	Maszyna traktor;
+	Zabieg wMaju(zabieg, traktor, koloDomu);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.dodajZabieg(wMaju);
+	masno.wydrukujKalendarz(sciezka);
+
+	masno.dodajZabieg(sciezka);
 	return 0;
 }
