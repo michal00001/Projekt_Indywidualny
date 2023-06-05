@@ -159,17 +159,17 @@ void Data::setRok(int _rok)
 }
 
 
-bool Data::operator>(Data& _obiekt) {
-    if (this->getRok() < _obiekt.getRok())
+bool Data::operator>(const Data& _obiekt) {
+    if (this->getRok() < _obiekt.rok)
         return false;
-    if (this->getMiesiac() < _obiekt.getMiesiac())
+    if (this->getMiesiac() < _obiekt.miesiac)
         return false;
-    if (this->getDzien() < _obiekt.getDzien())
+    if (this->getDzien() < _obiekt.dzien)
         return false;
     return true;
 }
 
-bool Data::operator<(Data& _obiekt)
+bool Data::operator<(const Data& _obiekt)
 {
     if (*this > _obiekt)
         return false;
@@ -177,7 +177,18 @@ bool Data::operator<(Data& _obiekt)
         return true;
 }
 
-bool Data::operator>=(Data& _obiekt)
+bool Data::operator<(const Data& _obiekt) const
+{
+    if (rok > _obiekt.rok)
+        return false;
+    if (miesiac > _obiekt.miesiac)
+        return false;
+    if (dzien > _obiekt.dzien)
+        return false;
+    return true;
+}
+
+bool Data::operator>=(const Data& _obiekt)
 {
     if (*this < _obiekt)
         return false;
@@ -187,7 +198,7 @@ bool Data::operator>=(Data& _obiekt)
     return true;
 }
 
-bool Data::operator<=(Data& _obiekt)
+bool Data::operator<=(const Data& _obiekt)
 {
     if (*this >= _obiekt)
         return false;
@@ -195,19 +206,19 @@ bool Data::operator<=(Data& _obiekt)
     return true;
 }
 
-bool Data::operator==(Data& _obiekt)
+bool Data::operator==(const Data& _obiekt)
 {
-    if (this->getRok() != _obiekt.getRok())
+    if (this->getRok() != _obiekt.rok)
         return false;
-    if (this->getMiesiac() != _obiekt.getMiesiac())
+    if (this->getMiesiac() != _obiekt.miesiac)
         return false;
-    if (this->getDzien() != _obiekt.getDzien())
+    if (this->getDzien() != _obiekt.dzien)
         return false;
 
     return true;
 }
 
-bool Data::operator!=(Data& _obiekt) {
+bool Data::operator!=(const Data& _obiekt) {
     if (*this == _obiekt)
         return false;
 

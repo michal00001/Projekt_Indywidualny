@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 
+
 class Data
 {
 private:
@@ -13,7 +14,7 @@ public:
 	Data(int _dzien, int _miesiac, int _rok);
 	//Data(int _dzien);
 	//Data(int _dzien, int _miesiac);
-	
+
 
 	//fragmenty biblioteki QuantLib
 	//problem z dodaniem do Visuala
@@ -30,15 +31,18 @@ public:
 	int getMiesiac() { return miesiac; };
 	int getRok() { return rok; };
 
-	bool operator>(Data& _obiekt);
-	bool operator<(Data& _obiekt);
-	bool operator>=(Data& _obiekt);
-	bool operator<=(Data& _obiekt);
-	bool operator==(Data& _obiekt);
-	bool operator!=(Data& _obiekt);
 
-	
+
+	bool operator>(const Data& _obiekt);
+	bool operator<(const Data& _obiekt);
+	bool operator<(const Data& _obiekt) const;
+
+	bool operator>=(const Data& _obiekt);
+	bool operator<=(const Data& _obiekt);
+	bool operator==(const Data& _obiekt);
+	bool operator!=(const Data& _obiekt);
+
+
 
 	friend std::ostream& operator<<(std::ostream& out, const Data& obiekt);
-
 };

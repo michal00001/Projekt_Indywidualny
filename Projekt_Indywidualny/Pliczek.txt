@@ -1,17 +1,8 @@
 Zapis danych
 |    Data     |       Maszyna         |                     Pole                     |
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
-| 12.05.2020  |               Przyklad|                                          ;0;1|
+12.05.2020;               Przyklad;                                          ;0;1
+15.05.2020;               Przyklad;                                          ;0;1
+18.05.2020;               Przyklad;                                          ;0;1
+19.05.2020;               Przyklad;                                          ;0;1
+13.05.2020;               Przyklad;                                          ;0;1
+14.05.2020;               Przyklad;                                          ;0;1

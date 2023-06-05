@@ -7,6 +7,7 @@ int main(void) {
 	Pole koloDomu;
 	Maszyna traktor;
 	Zabieg wMaju(zabieg, traktor, koloDomu);
+	/*masno.dodajZabieg(wMaju);
 	masno.dodajZabieg(wMaju);
 	masno.dodajZabieg(wMaju);
 	masno.dodajZabieg(wMaju);
@@ -21,9 +22,9 @@ int main(void) {
 	masno.dodajZabieg(wMaju);
 	masno.dodajZabieg(wMaju);
 	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.wydrukujKalendarz(sciezka);
+	masno.wydrukujKalendarz(sciezka);*/
 
 	masno.dodajZabieg(sciezka);
+	masno.wydrukujlistaZabiegow();
 	return 0;
 }
