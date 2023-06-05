@@ -15,7 +15,6 @@ void Kalendarz::sortujZabiegi()
 	// gdzie wartoscia zwracana jest miejsce wartosc boolowska 
 }
 
-
 void Kalendarz::dodajZabieg()
 {
 	Zabieg temp;

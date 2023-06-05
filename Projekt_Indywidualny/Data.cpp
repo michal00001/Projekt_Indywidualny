@@ -20,38 +20,6 @@ Data::Data(int _dzien, int _miesiac, int _rok) {
        dzien = _dzien;
 }
 
-/*
-Date& Date::operator+=(Date::serial_type days) {
-    Date::serial_type serial = serialNumber_ + days;
-    checkSerialNumber(serial);
-    serialNumber_ = serial;
-    return *this;
-}
-
-
-Date& Date::operator-=(Date::serial_type days) {
-    Date::serial_type serial = serialNumber_ - days;
-    checkSerialNumber(serial);
-    serialNumber_ = serial;
-    return *this;
-}
-
-
-Date& Date::operator++() {
-    Date::serial_type serial = serialNumber_ + 1;
-    checkSerialNumber(serial);
-    serialNumber_ = serial;
-    return *this;
-}
-
-Date& Date::operator--() {
-    Date::serial_type serial = serialNumber_ - 1;
-    checkSerialNumber(serial);
-    serialNumber_ = serial;
-    return *this;
-}
-*/
-
 bool Data::isLeap(int _rok) {
     static const bool YearIsLeap[] = {
         // 1900 is leap in agreement with Excel's bug
@@ -123,7 +91,6 @@ bool Data::isLeap(int _rok) {
     return YearIsLeap[_rok - 1900];
 }
 
-
 int Data::monthLength(int _miesiac, bool leapYear) {
     static const int MonthLength[] = {
         31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
@@ -159,22 +126,14 @@ void Data::setRok(int _rok)
 }
 
 
-bool Data::operator>(const Data& _obiekt) {
-    if (this->getRok() < _obiekt.rok)
+bool Data::operator>(const Data& _obiekt) const {
+    if (rok < _obiekt.rok)
         return false;
-    if (this->getMiesiac() < _obiekt.miesiac)
+    if (miesiac < _obiekt.miesiac)
         return false;
-    if (this->getDzien() < _obiekt.dzien)
+    if (dzien < _obiekt.dzien)
         return false;
     return true;
-}
-
-bool Data::operator<(const Data& _obiekt)
-{
-    if (*this > _obiekt)
-        return false;
-    else
-        return true;
 }
 
 bool Data::operator<(const Data& _obiekt) const
@@ -188,7 +147,7 @@ bool Data::operator<(const Data& _obiekt) const
     return true;
 }
 
-bool Data::operator>=(const Data& _obiekt)
+bool Data::operator>=(const Data& _obiekt) const
 {
     if (*this < _obiekt)
         return false;
@@ -198,7 +157,7 @@ bool Data::operator>=(const Data& _obiekt)
     return true;
 }
 
-bool Data::operator<=(const Data& _obiekt)
+bool Data::operator<=(const Data& _obiekt) const
 {
     if (*this >= _obiekt)
         return false;
@@ -206,19 +165,20 @@ bool Data::operator<=(const Data& _obiekt)
     return true;
 }
 
-bool Data::operator==(const Data& _obiekt)
+bool Data::operator==(const Data& _obiekt) const
 {
-    if (this->getRok() != _obiekt.rok)
+    if (this->rok != _obiekt.rok)
         return false;
-    if (this->getMiesiac() != _obiekt.miesiac)
+    if (this->miesiac != _obiekt.miesiac)
         return false;
-    if (this->getDzien() != _obiekt.dzien)
+    if (this->dzien != _obiekt.dzien)
         return false;
 
     return true;
 }
 
-bool Data::operator!=(const Data& _obiekt) {
+bool Data::operator!=(const Data& _obiekt) const
+{
     if (*this == _obiekt)
         return false;
 

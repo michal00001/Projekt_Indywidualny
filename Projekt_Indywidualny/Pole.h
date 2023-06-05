@@ -6,19 +6,31 @@ class Pole
 {
 private:
 	float powierzchnia;
-	int klasa;
+	int stadiumWzrostu;//liczba od 0 do 6
 	std::string nazwa;
+	bool uprawiono;
+	bool nawieziono;
+	bool zasiano;
+	bool zebrano;
 
 public:
-	Pole() :powierzchnia(0.0), klasa(1),nazwa() {};
+	Pole() :powierzchnia(0.0), stadiumWzrostu(1), nazwa("1"), uprawiono(false), nawieziono(false), zasiano(false), zebrano(false) {};
 
 	std::string getNazwa() { return nazwa; };
-	int getKlasa() { return klasa; };
+	int getstadiumWzrostu() { return stadiumWzrostu; };
 	float getPowierzchnia() { return powierzchnia; };
+	bool const czyNawieziono() { return nawieziono; };
+	bool const czyUprawiono() { return uprawiono; };
+	bool const czyZasiano() { return zasiano; } ;
+	bool const czyZebrano() { return zebrano; } ;
 
 	void setNazwa(std::string _nazwa);
-	void setKlasa(int _klasa);
+	void setstadiumWzrostu(int _stadiumWzrostu);
 	void setPowierzchnia(float _powierzchnia);
+	void setUprawiono(bool _stan);
+	void setNawieziono (bool _stan);
+	void setZasiano (bool _stan);
+	void setZebrano (bool _stan);
 
 	friend std::ostream& operator<<(std::ostream& out,const Pole& obiekt);
 };

@@ -31,18 +31,13 @@ public:
 	int getMiesiac() { return miesiac; };
 	int getRok() { return rok; };
 
-
-
-	bool operator>(const Data& _obiekt);
-	bool operator<(const Data& _obiekt);
+	bool operator>(const Data& _obiekt) const;
 	bool operator<(const Data& _obiekt) const;
 
-	bool operator>=(const Data& _obiekt);
-	bool operator<=(const Data& _obiekt);
-	bool operator==(const Data& _obiekt);
-	bool operator!=(const Data& _obiekt);
-
-
+	bool operator>=(const Data& _obiekt) const;
+	bool operator<=(const Data& _obiekt) const;
+	bool operator==(const Data& _obiekt) const;
+	bool operator!=(const Data& _obiekt) const;
 
 	friend std::ostream& operator<<(std::ostream& out, const Data& obiekt);
 };

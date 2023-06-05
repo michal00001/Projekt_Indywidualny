@@ -29,9 +29,9 @@ void Zabieg::setMaszyna(std::string _nazwa)
 	maszyna.setNazwa(_nazwa);
 }
 
-void Zabieg::setPole(float _powierzchnia, std::string _nazwa, int _klasa)
+void Zabieg::setPole(float _powierzchnia, std::string _nazwa, int _stadiumWzrostu)
 {
 	pole.setPowierzchnia(_powierzchnia);
 	pole.setNazwa(_nazwa);
-	pole.setKlasa(_klasa);
+	pole.setstadiumWzrostu(_stadiumWzrostu);
 }
