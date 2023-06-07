@@ -28,9 +28,9 @@ public:
 	void setMiesiac(int _miesiac);
 	void setRok(int _rok);
 
-	int getDzien() { return dzien; };
-	int getMiesiac() { return miesiac; };
-	int getRok() { return rok; };
+	const int getDzien() { return dzien; };
+	const int getMiesiac() { return miesiac; };
+	const int getRok() { return rok; };
 
 	//operatory porownania
 	bool operator>(const Data& _obiekt) const;

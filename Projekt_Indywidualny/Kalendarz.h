@@ -18,7 +18,7 @@ public:
 	void dodajZabieg(Zabieg _obiekt);
 	void dodajZabieg(char* _sciezka);
 
-	std::list<Zabieg>& getlistaZabiegow() { return listaZabiegow; };
+	std::list<Zabieg>& getlistaZabiegow() { return listaZabiegow; }; 
 
 	//zrob z tego osobn¹ klasê DrukarkaFactory 
 	//drukowanie do .txt , do .csv

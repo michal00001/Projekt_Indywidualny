@@ -17,7 +17,11 @@ public:
 
 	Data& getData() {	return data;};
 	Maszyna& getMaszyna() {	return maszyna;};
-	Pole& getPole() {		return pole;};
+	Pole& getPole() { return pole;};
+
+	bool czyPoprawny(Data& _data) const ;
+	bool czyPoprawny( Pole& _pole) const ;
+	bool czyPoprawny( Maszyna& _maszyna) const ;
 
 	//void setData(int _dzien);
 	//void setData(int _dzien, int _miesiac);

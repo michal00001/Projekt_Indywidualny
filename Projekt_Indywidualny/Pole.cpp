@@ -2,7 +2,7 @@
 
 std::ostream& operator<<(std::ostream& out,const Pole& obiekt) {
 	out.fill(' ');
-	out << obiekt.nazwa << " " << obiekt.powierzchnia << " " << obiekt.stadiumWzrostu;
+	out << obiekt.nazwa << " " << std::setprecision(5)<< obiekt.powierzchnia << " [ha]" << " " << obiekt.stadiumWzrostu;
 	return out;
 }
 
@@ -13,8 +13,10 @@ void Pole::setNazwa(std::string _nazwa)
 
 void Pole::setstadiumWzrostu(int _stadiumWzrostu)
 {
-	if (_stadiumWzrostu >= 0 && _stadiumWzrostu < 7)
+	if (_stadiumWzrostu >= 0 && _stadiumWzrostu <= 7)
 		stadiumWzrostu = _stadiumWzrostu;
+	else
+		throw std::out_of_range("Wartosc stadium wzrostu jest spoza zakresu <0,7>");
 	//0 - brak uprawy
 	// 1 - zasiane
 	// 2 - kielkowanie
@@ -29,6 +31,8 @@ void Pole::setPowierzchnia(float _powierzchnia)
 {
 	if (_powierzchnia > 0)
 		powierzchnia = _powierzchnia;
+	else
+		throw std::domain_error("Powierzchnia pola jest <= 0");
 }
 
 void Pole::setUprawiono(bool _stan)
@@ -53,9 +57,6 @@ void Pole::setZebrano(bool _stan)
 
 bool Pole::operator<(const Pole& _obiekt) const
 {
-	if (powierzchnia > _obiekt.powierzchnia)
-		return false;
-	else
-		return true;
+	return (powierzchnia < _obiekt.powierzchnia);
 }
 

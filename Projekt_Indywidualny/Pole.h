@@ -14,11 +14,12 @@ private:
 	bool zebrano;
 
 public:
-	Pole() :powierzchnia(0.0), stadiumWzrostu(1), nazwa("1"), uprawiono(false), nawieziono(false), zasiano(false), zebrano(false) {};
+	Pole() :powierzchnia(0.0), stadiumWzrostu(0), nazwa("Basic"), uprawiono(false), nawieziono(false), zasiano(false), zebrano(false) {};
 
-	std::string getNazwa() { return nazwa; };
-	int getstadiumWzrostu() { return stadiumWzrostu; };
-	float getPowierzchnia() { return powierzchnia; };
+	std::string const getNazwa() { return nazwa; };
+	int const getstadiumWzrostu() { return stadiumWzrostu; };
+	float const getPowierzchnia() { return powierzchnia; };
+
 	bool const czyNawieziono() { return nawieziono; };
 	bool const czyUprawiono() { return uprawiono; };
 	bool const czyZasiano() { return zasiano; } ;
@@ -27,6 +28,7 @@ public:
 	void setNazwa(std::string _nazwa);
 	void setstadiumWzrostu(int _stadiumWzrostu);
 	void setPowierzchnia(float _powierzchnia);
+
 	void setUprawiono(bool _stan);
 	void setNawieziono (bool _stan);
 	void setZasiano (bool _stan);

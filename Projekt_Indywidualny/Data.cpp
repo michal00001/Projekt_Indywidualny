@@ -9,15 +9,20 @@ std::ostream& operator<<(std::ostream& out,const Data& obiekt) {
 }
 
 Data::Data(int _dzien, int _miesiac, int _rok) {
-   if(_rok >1900 && _rok <2200)
-    rok = _rok;
+    if (_rok > 1900 && _rok < 2200)
+        rok = _rok;
+    else
+        throw std::out_of_range("Rok jest z poza zakresu <1901,2199>");
+    if (_miesiac > 0 && _miesiac < 13)
+        miesiac = _miesiac;
+    else
+        throw std::out_of_range("Miesiac jest z poza zakresu <1,12>");
 
-   if(_miesiac >0 && _miesiac <13)
-    miesiac = _miesiac;
    int dlugosc = monthLength(miesiac, isLeap(_rok));
-
    if (_dzien <= dlugosc && _dzien > 0)
        dzien = _dzien;
+   else
+       throw std::out_of_range("Ten miesiac nie ma tylu dni");
 }
 
 bool Data::isLeap(int _rok) {
@@ -103,6 +108,8 @@ int Data::monthLength(int _miesiac, bool leapYear) {
 
 std::string Data::ktoryMiesiac(int _miesiac)
 {
+    if (_miesiac > 12 || _miesiac < 1) _miesiac = 1;
+
     const std::string miesiace[] = { "Styczen","Luty","Marzec","Kwiecien","Maj","Czerwiec","Lipiec","Sierpien","Wrzesien","Pazdziernik","Listopad","Grudzien" };
     return miesiace[_miesiac-1];
 }
@@ -112,17 +119,23 @@ void Data::setDzien(int _dzien)
     int dlugosc = monthLength(miesiac, isLeap(rok));
     if (_dzien <= dlugosc && _dzien > 0)
         dzien = _dzien;
+    else
+        throw std::out_of_range("Ten miesiac nie ma tylu dni");
 }
 
 void Data::setMiesiac(int _miesiac) {
     if (_miesiac > 0 && _miesiac < 13)
         miesiac = _miesiac;
+    else
+        throw std::out_of_range("Miesiac jest z poza zakresu <1,12>");
 }
 
 void Data::setRok(int _rok)
 {
     if (_rok > 1900 && _rok < 2200)
         rok = _rok;
+    else
+       throw std::out_of_range("Rok jest z poza zakresu <1901,2199>");
 }
 
 

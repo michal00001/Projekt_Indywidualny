@@ -4,16 +4,17 @@
 #include "Pole.h"
 class Maszyna
 {
+private:
 	std::string nazwa;
 	bool doUprawy;
 	bool doSiewu;
 	bool doNawozenia;
 	bool doZbioru;
 
-public:
-	Maszyna() :nazwa("Przyklad"),doUprawy(false),doSiewu(false),doNawozenia(false),doZbioru(false) {};
-
 	void setNazwa(std::string _nazwa);
+public:
+	Maszyna() :nazwa("Basic"),doUprawy(false),doSiewu(false),doNawozenia(false),doZbioru(false) {};
+
 	void setDoUprawy();
 	void setDoSiewu();
 	void setdDoNawozenia();

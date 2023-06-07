@@ -2,40 +2,20 @@
 #include "Drukarka.h"
 int main(void) {
 	Kalendarz masno;
-	char sciezka[] = { "Pliczek.txt" };
-	//Data zabieg(12, 5, 2020);
-	Pole koloDomu;
-	Maszyna traktor;
-	traktor.setDoSiewu();
-	traktor.zasiej(koloDomu);
-	if (koloDomu.czyZasiano())
-		std::cout << "Zasiano\n";
-	else
-		std::cout << "Nie zasiano\n";
-
-	masno.dodajZabieg(sciezka);
 	std::unique_ptr<Drukarka> ted = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+	/*try {
 	(*ted).drukuj(masno.getlistaZabiegow());
-
-	//Zabieg wMaju(zabieg, traktor, koloDomu);
-	/*masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.dodajZabieg(wMaju);
-	masno.wydrukujKalendarz(sciezka);*/
-
-	
-	//masno.wydrukujlistaZabiegow();
+	}
+	catch (std::domain_error e) {
+		std::cerr << e.what()<<std::endl;
+		return -1;
+	}*/
+	try{
+	Data piateczek(31, 12, 2001);
+	}
+	catch (std::out_of_range e) {
+		std::cerr << e.what() << std::endl;
+		return - 1;
+	}
 	return 0;
 }
