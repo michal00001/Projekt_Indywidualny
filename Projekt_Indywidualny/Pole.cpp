@@ -2,7 +2,7 @@
 
 std::ostream& operator<<(std::ostream& out,const Pole& obiekt) {
 	out.fill(' ');
-	out << obiekt.nazwa << ";";	out << obiekt.powierzchnia << ";" << obiekt.stadiumWzrostu;
+	out << obiekt.nazwa << " " << obiekt.powierzchnia << " " << obiekt.stadiumWzrostu;
 	return out;
 }
 
@@ -49,5 +49,13 @@ void Pole::setZasiano(bool _stan)
 void Pole::setZebrano(bool _stan)
 {
 	zebrano = _stan;
+}
+
+bool Pole::operator<(const Pole& _obiekt) const
+{
+	if (powierzchnia > _obiekt.powierzchnia)
+		return false;
+	else
+		return true;
 }
 

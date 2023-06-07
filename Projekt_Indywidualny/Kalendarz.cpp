@@ -1,6 +1,6 @@
 #include "Kalendarz.h"
 
-void Kalendarz::sortujZabiegi()
+void Kalendarz::sortujZabiegi(const Data& _data)
 {
 	listaZabiegow.sort([](Zabieg& a, Zabieg& b) ->bool {return a.getData() < b.getData();});
 
@@ -13,6 +13,15 @@ void Kalendarz::sortujZabiegi()
 	//funkcja sort() jako argument przyjmuje funckje typu 
 	//bool cmp(const Type1 &a, const Type2 &b)
 	// gdzie wartoscia zwracana jest miejsce wartosc boolowska 
+}
+
+void Kalendarz::sortujZabiegi(const Pole& _powierzchnia)
+{
+	listaZabiegow.sort([](Zabieg& a, Zabieg& b) ->bool {return a.getPole() < b.getPole(); });
+}
+
+void Kalendarz::sortujZabiegi(const Maszyna& _nazwa) {
+	listaZabiegow.sort([](Zabieg& a, Zabieg& b) ->bool {return a.getMaszyna() < b.getMaszyna(); });
 }
 
 void Kalendarz::dodajZabieg()
@@ -90,54 +99,23 @@ void Kalendarz::dodajZabieg(char* _sciezka)
 			std::cout << i<<"\n";
 		}
 	}
-	sortujZabiegi();
+	Data _data;
+	sortujZabiegi(_data);
 
 	plik.close();
 }
 
 void Kalendarz::wydrukujlistaZabiegow()
 {
-	//naglowek tabelki
-	using namespace std;
-	cout.fill(' ');
-	cout << "|" << std::setw(8) << "Data" << std::setw(6) << "|" << std::setw(14) << "Maszyna" << std::setw(10)
-		<< "|" << std::setw(25) << "Pole" << std::setw(22) << "|" << std::endl;
-	for (K_Iter  = listaZabiegow.begin(); K_Iter != listaZabiegow.end(); K_Iter++)
-	{
-		std::cout << *K_Iter << std::endl;
-	}
+	
 }
 
 void Kalendarz::wydrukujlistaZabiegow(char* _sciezka)
 {
-	std::fstream plik;
-	plik.open(_sciezka, std::ofstream::out);
-	if (!plik.is_open())
-		return;//blad
-	plik << "Zapis danych\n";
-	plik.fill(' ');
-	plik << "|" << std::setw(8) << "Data" << std::setw(6) << "|" << std::setw(14) << "Maszyna" << std::setw(10) 
-		<< "|" << std::setw(25) << "Pole" << std::setw(22) << "|" << std::endl;
-	for (K_Iter = listaZabiegow.begin(); K_Iter != listaZabiegow.end(); K_Iter++)
-	{
-		plik << *K_Iter << std::endl;
-	}
-	plik.close();
+	
 }
 
 void Kalendarz::wydrukujlistaZabiegow(char* _sciezka,bool _csv)
 {
-	std::fstream plik;
-	plik.open(_sciezka, std::ofstream::out);
-	if (!plik.is_open())
-		return;//blad
-	plik << "Zapis danych\n";
-	plik.fill(' ');
-	plik << "|" << std::setw(8) << "Data" << std::setw(6) << "|" << std::setw(14) << "Maszyna" << std::setw(10)
-		<< "|" << std::setw(25) << "Pole" << std::setw(22) << "|" << std::endl;
-	for (K_Iter = listaZabiegow.begin(); K_Iter != listaZabiegow.end(); K_Iter++)
-	{
-		plik << *K_Iter << std::endl;
-	}
-	plik.close();
+	
 }

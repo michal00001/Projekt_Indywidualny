@@ -11,6 +11,42 @@ void Maszyna::setNazwa(std::string _nazwa)
 	nazwa = _nazwa;
 }
 
+void Maszyna::setDoUprawy()
+{
+	doUprawy = true;
+	doSiewu = false;
+	doNawozenia = false;
+	doZbioru = false;
+	nazwa = "Kultywator";
+}
+
+void Maszyna::setDoSiewu()
+{
+	doUprawy = false;
+	doSiewu = true;
+	doNawozenia = false;
+	doZbioru = false;
+	nazwa = "Siewnik";
+}
+
+void Maszyna::setdDoNawozenia()
+{
+	doUprawy = false;
+	doSiewu = false;
+	doNawozenia = true;
+	doZbioru = false;
+	nazwa = "Rozsiewacz";
+}
+
+void Maszyna::setDoZbioru()
+{
+	doUprawy = false;
+	doSiewu = false;
+	doNawozenia = false;
+	doZbioru = true;
+	nazwa = "Kombajn";
+}
+
 void Maszyna::zasiej(Pole& _pole) {
 	if (doSiewu)
 	{
@@ -56,4 +92,12 @@ void Maszyna::zbierz(Pole& _pole)
 		_pole.setZasiano(0);
 		_pole.setZebrano(1);
 	}
+}
+
+bool Maszyna::operator<(const Maszyna& _maszyna) const
+{
+	if (nazwa > _maszyna.nazwa)
+		return false;
+	else
+		return true;
 }

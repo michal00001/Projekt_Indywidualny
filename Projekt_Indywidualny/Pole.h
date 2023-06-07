@@ -32,5 +32,7 @@ public:
 	void setZasiano (bool _stan);
 	void setZebrano (bool _stan);
 
+	bool operator<(const Pole& _obiekt) const;
+
 	friend std::ostream& operator<<(std::ostream& out,const Pole& obiekt);
 };

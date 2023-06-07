@@ -10,6 +10,7 @@ private:
 	int miesiac;
 	int rok;
 public:
+	//konstruktory
 	Data() :dzien(1), miesiac(1), rok(1901) {};
 	Data(int _dzien, int _miesiac, int _rok);
 	//Data(int _dzien);
@@ -22,7 +23,7 @@ public:
 	int monthLength(int _miesiac, bool leapYear);
 	std::string ktoryMiesiac(int _miesiac);
 
-
+	//akcesory
 	void setDzien(int _dzien);
 	void setMiesiac(int _miesiac);
 	void setRok(int _rok);
@@ -31,9 +32,9 @@ public:
 	int getMiesiac() { return miesiac; };
 	int getRok() { return rok; };
 
+	//operatory porownania
 	bool operator>(const Data& _obiekt) const;
 	bool operator<(const Data& _obiekt) const;
-
 	bool operator>=(const Data& _obiekt) const;
 	bool operator<=(const Data& _obiekt) const;
 	bool operator==(const Data& _obiekt) const;

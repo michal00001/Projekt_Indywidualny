@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Data.h" />
+    <ClInclude Include="Drukarka.h" />
     <ClInclude Include="Kalendarz.h" />
     <ClInclude Include="Maszyna.h" />
     <ClInclude Include="Pole.h" />

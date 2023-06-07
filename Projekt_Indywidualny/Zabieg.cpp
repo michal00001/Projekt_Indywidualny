@@ -1,8 +1,7 @@
 #include "Zabieg.h"
 
 std::ostream& operator<<(std::ostream& out,const Zabieg& obiekt) {
-	//out << "| " << obiekt.data << "  |" << std::setw(23) << obiekt.maszyna << "|" << std::setw(42) << obiekt.pole << "|";
-	out << obiekt.data << ";"  << obiekt.maszyna << ";"  << obiekt.pole;
+	out << obiekt.data << " "  << obiekt.maszyna << " "  << obiekt.pole;
 
 	return out;
 }

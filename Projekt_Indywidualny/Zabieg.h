@@ -15,9 +15,9 @@ public:
 	Zabieg() :data(1, 1, 1901), maszyna(), pole() {} ;
 	Zabieg(Data _data, Maszyna _maszyna, Pole _pole);
 
-	const Data& getData() {	return data;};
-	const Maszyna& getMaszyna() {	return maszyna;};
-	const Pole& getPole() {		return pole;};
+	Data& getData() {	return data;};
+	Maszyna& getMaszyna() {	return maszyna;};
+	Pole& getPole() {		return pole;};
 
 	//void setData(int _dzien);
 	//void setData(int _dzien, int _miesiac);
