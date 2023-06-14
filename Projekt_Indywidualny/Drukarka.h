@@ -1,17 +1,18 @@
 #pragma once
 #include "Kalendarz.h"
+#include "Gospodarstwo.h"
 
-std::string DatatoString(Data& _data){
+inline std::string DatatoString(Data& _data) {
 	std::string out = std::to_string(_data.getDzien()) + ";" + std::to_string(_data.getMiesiac()) + ";" + std::to_string(_data.getRok());
 	return out;
 }
 
-std::string PoletoString(Pole& _pole, int _opcja){
+inline std::string PoletoString(Pole& _pole, int _opcja) {
 	std::string out;
-	if(_opcja == 0)
-	 out = _pole.getNazwa() + ";" + std::to_string(_pole.getPowierzchnia()) + ";" + std::to_string(_pole.getstadiumWzrostu());
-	else if(_opcja == 1)
-	 out = _pole.getNazwa() + " " + std::to_string(_pole.getPowierzchnia()) + " " + std::to_string(_pole.getstadiumWzrostu());
+	if (_opcja == 0)
+		out = _pole.getNazwa() + ";" + std::to_string(_pole.getPowierzchnia()) + ";" + std::to_string(_pole.getstadiumWzrostu());
+	else if (_opcja == 1)
+		out = _pole.getNazwa() + " " + std::to_string(_pole.getPowierzchnia()) + " " + std::to_string(_pole.getstadiumWzrostu());
 
 	return out;
 }
@@ -29,7 +30,7 @@ public:
 		drukuj(_listaZabiegow, sciezka);
 	};
 
-	void drukuj(std::list<Zabieg>& _listaZabiegow,char* _sciezka) const {
+	void drukuj(std::list<Zabieg>& _listaZabiegow, char* _sciezka) const {
 		if (_listaZabiegow.size() == 0)
 			throw std::domain_error("Kalendarz zabiegow jest pusty");
 		else {
@@ -61,7 +62,7 @@ public:
 		drukuj(_listaZabiegow, sciezka);
 	};
 
-	void drukuj(std::list<Zabieg>& _listaZabiegow,char * _sciezka)const {
+	void drukuj(std::list<Zabieg>& _listaZabiegow, char* _sciezka)const {
 		if (_listaZabiegow.size() == 0)
 			throw std::domain_error("Kalendarz zabiegow jest pusty");
 		else {

@@ -26,6 +26,7 @@ public:
 	//void setData(int _dzien);
 	//void setData(int _dzien, int _miesiac);
 	void setData(int _dzien, int _miesiac, int _rok);
+	//void setData(Data& _data);
 
 	void setMaszyna(std::string _nazwa);
 

@@ -108,7 +108,7 @@ int Data::monthLength(int _miesiac, bool leapYear) {
 
 std::string Data::ktoryMiesiac(int _miesiac)
 {
-    if (_miesiac > 12 || _miesiac < 1) _miesiac = 1;
+    if (_miesiac > 12 || _miesiac < 1) throw std::out_of_range("Miesiac jest z poza zakresu <1,12>");
 
     const std::string miesiace[] = { "Styczen","Luty","Marzec","Kwiecien","Maj","Czerwiec","Lipiec","Sierpien","Wrzesien","Pazdziernik","Listopad","Grudzien" };
     return miesiace[_miesiac-1];

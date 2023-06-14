@@ -18,14 +18,11 @@ public:
 	void dodajZabieg(Zabieg _obiekt);
 	void dodajZabieg(char* _sciezka);
 
+	void usunZabieg();
+	void wyczyscListeZabiegow();
+
+	bool czyListaPusta();
 	std::list<Zabieg>& getlistaZabiegow() { return listaZabiegow; }; 
-
-	//zrob z tego osobn¹ klasê DrukarkaFactory 
-	//drukowanie do .txt , do .csv
-	void wydrukujlistaZabiegow();
-	void wydrukujlistaZabiegow(char* _sciezka);
-	void wydrukujlistaZabiegow(char* _sciezka,bool _csv);
-
 
 };
 

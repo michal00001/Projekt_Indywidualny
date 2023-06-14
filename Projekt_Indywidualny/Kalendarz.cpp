@@ -105,17 +105,18 @@ void Kalendarz::dodajZabieg(char* _sciezka)
 	plik.close();
 }
 
-void Kalendarz::wydrukujlistaZabiegow()
+void Kalendarz::usunZabieg()
 {
-	
 }
 
-void Kalendarz::wydrukujlistaZabiegow(char* _sciezka)
+void Kalendarz::wyczyscListeZabiegow()
 {
-	
 }
 
-void Kalendarz::wydrukujlistaZabiegow(char* _sciezka,bool _csv)
+bool Kalendarz::czyListaPusta()
 {
-	
+	if (listaZabiegow.size() > 0)
+		return false;
+	else
+		return true;
 }
