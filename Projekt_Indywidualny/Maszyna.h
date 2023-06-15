@@ -28,6 +28,7 @@ public:
 	void zbierz(Pole& _pole);
 
 	bool operator<(const Maszyna& _maszyna) const;
+	bool operator==(const Maszyna& _maszyna) const;
 
 	friend std::ostream& operator<<(std::ostream& out,const Maszyna& obiekt);
 };

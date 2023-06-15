@@ -18,7 +18,7 @@ public:
 	void dodajZabieg(Zabieg _obiekt);
 	void dodajZabieg(char* _sciezka);
 
-	void usunZabieg();
+	void usunZabieg(int _pozycja);
 	void wyczyscListeZabiegow();
 
 	bool czyListaPusta();

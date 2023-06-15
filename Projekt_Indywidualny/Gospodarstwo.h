@@ -1,13 +1,13 @@
 #pragma once
-#include <vector>
+#include <deque>
 #include "Pole.h"
 #include "Maszyna.h"
 
 class Gospodarstwo
 {
 private:
-	std::vector<Pole> ZiemiaUprawna;
-	std::vector<Maszyna> ParkMaszynowy;
+	std::deque<Pole> ZiemiaUprawna;
+	std::deque<Maszyna> ParkMaszynowy;
 public:
 	void dodajMaszyne();
 	void dodajMaszyne(Maszyna _obiekt);
@@ -21,6 +21,9 @@ public:
 
 	Maszyna& getMaszyna(int _miejsce);
 	Pole& getPole(int _miejsce);
+
+	bool sprawdzCzyNieWystepuje(Maszyna& _obiekt)const;
+	bool sprawdzCzyNieWystepuje(Pole& _obiekt)const;
 
 	void wyczyscGospodarstwo();
 

@@ -2,7 +2,6 @@
 #include <iostream>
 #include <iomanip>
 
-
 class Data
 {
 private:

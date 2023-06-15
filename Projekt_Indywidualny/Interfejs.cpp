@@ -16,7 +16,7 @@ void Interfejs::MenuGlowne()
 		while (1) { //nieskoñczona pêtla
 			std::cin >> x; //pobranie zmiennej
 			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac inta" << std::endl; //komunikat o b³êdzie
+				std::cout << "Prosze podac liczbê z zakresu od 1 do 4" << endl; //komunikat o b³êdzie
 				std::cin.clear(); //resetowanie flag b³êdu
 				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
 			} //lub do napotkania znaku nowej linii
@@ -67,7 +67,7 @@ void Interfejs::OpcjaKalendarzZabiegow()
 		while (1) { //nieskoñczona pêtla
 			std::cin >> x; //pobranie zmiennej
 			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac liczbê z wartoœci od 1 do"<<numerek << std::endl; //komunikat o b³êdzie
+				std::cout << "Prosze podac liczbê z zakresu od 1 do "<<numerek << std::endl; //komunikat o b³êdzie
 				std::cin.clear(); //resetowanie flag b³êdu
 				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
 			} //lub do napotkania znaku nowej linii
@@ -76,40 +76,49 @@ void Interfejs::OpcjaKalendarzZabiegow()
 		switch (x)
 		{
 		case 1:
-			OpcjaDodaj();
+			OpcjaDodaj(1);
 			break;
 		case 2:
-			OpcjaUsun();
+			OpcjaUsun(1);
 			break;
 		case 3:
-			OpcjaEdytuj();
+			OpcjaEdytuj(1);
 			break;
 		case 4:
-			OpcjaWczytajKalendarz();
+			OpcjaWczytaj();
 			break;
 		case 5:
 			//wyswietl terminal
 			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-			if(!KalendarzZabiegow.czyListaPusta())
+			if (!KalendarzZabiegow.czyListaPusta())
 				drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
+			else
+				cout << "Kalendarz jest pusty" << endl;
+			system("pause");
 			break;
 		case 6:
 			//zapis .csv
 			drukarka = DrukarkaFactory<CsvDrukarka>::stworzDrukarke();
 			if (!KalendarzZabiegow.czyListaPusta())
-				drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
+				drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow()); 
+			else
+				cout << "Kalendarz jest pusty" << endl;
+			system("pause");
 			break;
 		case 7:
 			//zapis .txt
 			drukarka = DrukarkaFactory<TxtDrukarka>::stworzDrukarke();
 			if (!KalendarzZabiegow.czyListaPusta())
-				drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
+				drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow()); 
+			else
+				cout << "Kalendarz jest pusty" << endl;
+			system("pause");
 			break;
 		case 8:
 			warunek = false;
 			break;
 		default:
-			cout << "Prosze podac wartosc z zakresu od 1 do 7" << endl;
+			cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << endl;
 			system("pause");
 		}
 	}
@@ -117,22 +126,238 @@ void Interfejs::OpcjaKalendarzZabiegow()
 
 void Interfejs::OpcjaZapisanePola()
 {
+	using namespace std;
+	bool warunek = true;
+	std::unique_ptr<Drukarka> drukarka;
+	while (warunek) {
+		system("cls");
+		int numerek = 1;
+		//wyswietl 5 pierwszych pól wg nazwy
+		cout << "Menu Katalog Pol" << endl;
+		cout << numerek << ". Dodaj element" << endl; numerek++;
+		cout << numerek << ". Usun wybrany element" << endl; numerek++;
+		cout << numerek << ". Edytuj wybrany element" << endl; numerek++;
+		cout << numerek << ". Wczytaj dane z pliku .CSV" << endl; numerek++;
+		cout << numerek << ". Wyswietl caly zbior na terminalu" << endl; numerek++;
+		cout << numerek << ". Zapisz jako plik .CSV" << endl; numerek++;
+		cout << numerek << ". Zapisz jako plik .txt" << endl; numerek++;
+		cout << numerek << ". Powrot" << endl;
+		int x;
+		while (1) { //nieskoñczona pêtla
+			std::cin >> x; //pobranie zmiennej
+			if (std::cin.fail() == true) { //wykrycie b³êdu
+				std::cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
+				std::cin.clear(); //resetowanie flag b³êdu
+				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			} //lub do napotkania znaku nowej linii
+			else break;
+		}
+		switch (x)
+		{
+		case 1:
+			OpcjaDodaj(2);
+			break;
+		case 2:
+			OpcjaUsun(2);
+			break;
+		case 3:
+			OpcjaEdytuj(2);
+			break;
+		case 4:
+			
+			break;
+		case 5:
+			//wyswietl terminal
+			
+			break;
+		case 6:
+			//zapis .csv
+			
+			break;
+		case 7:
+			//zapis .txt
+			
+			break;
+		case 8:
+			warunek = false;
+			break;
+		default:
+			cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << endl;
+			system("pause");
+		}
+	}
 }
 
 void Interfejs::OpcjaZapisaneMaszyny()
 {
+	using namespace std;
+	bool warunek = true;
+	std::unique_ptr<Drukarka> drukarka;
+	while (warunek) {
+		system("cls");
+		int numerek = 1;
+		//wyswietl 5 pierwszych pól wg nazwy
+		cout << "Menu Katalog Maszyn" << endl;
+		cout << numerek << ". Dodaj element" << endl; numerek++;
+		cout << numerek << ". Usun wybrany element" << endl; numerek++;
+		cout << numerek << ". Edytuj wybrany element" << endl; numerek++;
+		cout << numerek << ". Wczytaj dane z pliku .CSV" << endl; numerek++;
+		cout << numerek << ". Wyswietl caly zbior na terminalu" << endl; numerek++;
+		cout << numerek << ". Zapisz jako plik .CSV" << endl; numerek++;
+		cout << numerek << ". Zapisz jako plik .txt" << endl; numerek++;
+		cout << numerek << ". Powrot" << endl;
+		int x;
+		while (1) { //nieskoñczona pêtla
+			std::cin >> x; //pobranie zmiennej
+			if (std::cin.fail() == true) { //wykrycie b³êdu
+				std::cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
+				std::cin.clear(); //resetowanie flag b³êdu
+				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			} //lub do napotkania znaku nowej linii
+			else break;
+		}
+		switch (x)
+		{
+		case 1:
+			OpcjaDodaj(3);
+			break;
+		case 2:
+			OpcjaUsun(3);
+			break;
+		case 3:
+			OpcjaEdytuj(3);
+			break;
+		case 4:
+
+			break;
+		case 5:
+			//wyswietl terminal
+
+			break;
+		case 6:
+			//zapis .csv
+
+			break;
+		case 7:
+			//zapis .txt
+
+			break;
+		case 8:
+			warunek = false;
+			break;
+		default:
+			cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << endl;
+			system("pause");
+		}
+	}
 }
 
-void Interfejs::OpcjaDodajZabieg()
+void Interfejs::OpcjaDodaj(int _opcja)
 {
-	KalendarzZabiegow.dodajZabieg();
+	switch (_opcja) {
+	case 1:
+		KalendarzZabiegow.dodajZabieg();
+		break;
+	case 2:
+		Gospodarstwo.dodajPole();
+		break;
+	case 3:
+		Gospodarstwo.dodajMaszyne();
+		break;
+	}
 }
 
-void Interfejs::OpcjaUsunZabieg()
+void Interfejs::OpcjaUsun(int _opcja)
+{
+	int pozycja = -1;
+	bool warunekWhile = true;
+	while (warunekWhile) {
+		system("cls");
+		switch (_opcja)	{
+		case 1:
+			//wyswietl zabiegi
+			break;
+		case 2:
+			//wyswietl pola
+			break;
+		case 3:
+			//wyswietl maszyny
+			break;
+		}
+		std::cout << "Prosze podac numer elementu do usuniecia" << std::endl;
+		while (1) { //nieskoñczona pêtla
+			std::cin >> pozycja; //pobranie zmiennej
+			if (std::cin.fail() == true) { //wykrycie b³êdu
+				std::cout << "Prosze podac liczbê"<< std::endl; //komunikat o b³êdzie
+				std::cin.clear(); //resetowanie flag b³êdu
+				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			} //lub do napotkania znaku nowej linii
+			else break;
+		}
+
+		if (pozycja < 0 || czyPozaZakresem(_opcja, pozycja))
+		{
+			std::cout << "Podano wartosc poza zakresem tablicy" << std::endl;
+			system("pause");
+		}
+		else
+			warunekWhile = false;
+	}
+
+	switch (_opcja) {
+	case 1:
+		KalendarzZabiegow.usunZabieg(pozycja);
+		break;
+	case 2:
+		Gospodarstwo.usunPole(pozycja);
+		break;
+	case 3:
+		Gospodarstwo.usunMaszyne(pozycja);
+		break;
+	}
+}
+
+void Interfejs::OpcjaEdytuj(int _opcja)
+{
+	switch (_opcja) {
+	case 1:
+		//KalendarzZabiegow.edytujZabieg();
+		break;
+	case 2:
+		//Gospodarstwo.edytujPole();
+		break;
+	case 3:
+		//Gospodarstwo.edytujMaszyne();
+		break;
+	}
+}
+
+void Interfejs::OpcjaWczytaj()
 {
 
 }
 
-void Interfejs::OpcjaWczytajKalendarz()
+bool Interfejs::czyPozaZakresem(int _opcja, int _indeksTablicy)
 {
+	switch (_opcja) {
+	case 1:
+		if (KalendarzZabiegow.getlistaZabiegow().size() >= _indeksTablicy)
+		{
+			return true;
+		}
+		break;
+	case 2:
+		if (KalendarzZabiegow.getlistaZabiegow().size() >= _indeksTablicy)
+		{
+			return true;
+		}
+		break;
+	case 3:
+		if (KalendarzZabiegow.getlistaZabiegow().size() >= _indeksTablicy)
+		{
+			return true;
+		}
+		break;
+	}
+	return false;
 }

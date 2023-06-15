@@ -105,12 +105,15 @@ void Kalendarz::dodajZabieg(char* _sciezka)
 	plik.close();
 }
 
-void Kalendarz::usunZabieg()
+void Kalendarz::usunZabieg(int _pozycja)
 {
+	auto miejsce = listaZabiegow.begin() + _pozycja;
+	listaZabiegow.erase(miejsce);
 }
 
 void Kalendarz::wyczyscListeZabiegow()
 {
+	listaZabiegow.clear();
 }
 
 bool Kalendarz::czyListaPusta()

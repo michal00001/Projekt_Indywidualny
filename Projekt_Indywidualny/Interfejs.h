@@ -12,9 +12,10 @@ public:
 	void OpcjaKalendarzZabiegow();
 	void OpcjaZapisanePola();
 	void OpcjaZapisaneMaszyny();
-	void OpcjaDodaj();
-	void OpcjaUsun();
-	void OpcjaEdytuj();
-	void OpcjaWczytajKalendarz();
+	void OpcjaDodaj(int _opcja);
+	void OpcjaUsun(int _opcja);
+	void OpcjaEdytuj(int _opcja);
+	void OpcjaWczytaj();
+	bool czyPozaZakresem(int _opcja,int _indeksTablicy);
 };
 

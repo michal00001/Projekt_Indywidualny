@@ -100,3 +100,11 @@ bool Maszyna::operator<(const Maszyna& _maszyna) const
 	else
 		return true;
 }
+
+bool Maszyna::operator==(const Maszyna& _maszyna) const
+{
+	if (nazwa == _maszyna.nazwa)
+		return true;
+	else
+		return false;
+}

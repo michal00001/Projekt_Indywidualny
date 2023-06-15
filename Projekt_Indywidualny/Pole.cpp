@@ -60,3 +60,11 @@ bool Pole::operator<(const Pole& _obiekt) const
 	return (powierzchnia < _obiekt.powierzchnia);
 }
 
+bool Pole::operator==(const Pole& _obiekt) const
+{
+	if (nazwa == _obiekt.nazwa)
+		return true;
+	else
+		return false;
+}
+

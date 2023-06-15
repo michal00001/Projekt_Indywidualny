@@ -6,7 +6,7 @@ inline std::string DatatoString(Data& _data) {
 	std::string out = std::to_string(_data.getDzien()) + ";" + std::to_string(_data.getMiesiac()) + ";" + std::to_string(_data.getRok());
 	return out;
 }
-
+//Specyfikator inline informuje kompilator, ¿e funkcje mo¿na zdefiniowaæ wielokrotnie w ró¿nych miejscach, ale nale¿y je traktowaæ jako jedno. 
 inline std::string PoletoString(Pole& _pole, int _opcja) {
 	std::string out;
 	if (_opcja == 0)
