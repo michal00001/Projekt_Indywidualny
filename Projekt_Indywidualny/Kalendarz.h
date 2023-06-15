@@ -16,12 +16,13 @@ public:
 	void dodajZabieg();
 	void dodajZabieg(Zabieg _obiekt);
 	void dodajZabieg(char* _sciezka);
-
+    
 	void usunZabieg(int _pozycja);
 	void wyczyscListeZabiegow();
 
 	bool czyListaPusta();
 	std::list<Zabieg>& getlistaZabiegow() { return listaZabiegow; }; 
 	std::size_t getsizelistaZabiegowa() const { return listaZabiegow.size(); };
+	friend class Drukarka;
 };
 

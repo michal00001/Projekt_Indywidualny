@@ -1,7 +1,11 @@
 #pragma once
-#include <deque>
-#include "Pole.h"
+#include <fstream>
+#include <queue>
+#include <sstream>
 #include "Maszyna.h"
+#include "Pole.h"
+
+
 
 class Gospodarstwo
 {
@@ -25,11 +29,16 @@ public:
 	std::size_t getSizeZiemiaUprawna() const{ return ZiemiaUprawna.size(); };
 	std::size_t getSizeParkMaszynowy() const{ return ParkMaszynowy.size(); };
 
+	bool czyParkMaszynowyPusty() const;
+	bool czyZiemiaUprawnaPusta() const;
 
 	bool sprawdzCzyNieWystepuje(Maszyna& _obiekt)const;
 	bool sprawdzCzyNieWystepuje(Pole& _obiekt)const;
 
 	void wyczyscGospodarstwo();
+	friend class Drukarka;
 
+	std::queue<Maszyna> odczytajMaszynyZPliku(char* sciezka);
+    std::deque<Pole> odczytajZPliku(const std::string& nazwaPliku);
 };
 

@@ -139,7 +139,12 @@ void Interfejs::OpcjaZapisanePola()
 			break;
 		case 5:
 			//wyswietl terminal
-			
+			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+			if (!Gospodarstwo.czyZiemiaUprawnaPusta())
+				;
+			else
+				cout << "Katalog pol jest pusty" << endl;
+			system("pause");
 			break;
 		case 6:
 			//zapis .csv

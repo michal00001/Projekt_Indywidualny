@@ -11,10 +11,10 @@ private:
 	bool doNawozenia;
 	bool doZbioru;
 
-	void setNazwa(std::string _nazwa);
+	
 public:
 	Maszyna() :nazwa("Basic"),doUprawy(false),doSiewu(false),doNawozenia(false),doZbioru(false) {};
-
+	void setNazwa(std::string _nazwa);
 	void setDoUprawy();
 	void setDoSiewu();
 	void setdDoNawozenia();

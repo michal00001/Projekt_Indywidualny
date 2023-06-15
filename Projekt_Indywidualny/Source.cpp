@@ -19,7 +19,7 @@ int main(void) {
 	//	std::cerr << e.what() << std::endl;
 	//	return - 1;
 	//}
-
+	
 	Interfejs program;
 	program.MenuGlowne();
 	return 0;

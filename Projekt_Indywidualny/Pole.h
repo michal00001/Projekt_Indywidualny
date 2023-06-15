@@ -5,9 +5,9 @@
 class Pole
 {
 private:
+	std::string nazwa;
 	float powierzchnia;
 	int stadiumWzrostu;//liczba od 0 do 6
-	std::string nazwa;
 	bool uprawiono;
 	bool nawieziono;
 	bool zasiano;

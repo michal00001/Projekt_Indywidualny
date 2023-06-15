@@ -23,9 +23,11 @@ public:
 	virtual void drukuj(list<Zabieg>& _listaZabiegow) const = 0;
 	virtual void drukuj(list<Zabieg>& _listaZabiegow, int _zakres) const = 0;
 	virtual void drukuj(list<Zabieg>& _listaZabiegow, char* sciezka) const = 0;
+
 	virtual void drukuj(deque<Maszyna>& _ParkMaszynowy) const = 0;
 	virtual void drukuj(deque<Maszyna>& _ParkMaszynowy, int _zakres) const = 0;
 	virtual void drukuj(deque<Maszyna>& _ParkMaszynowy, char* sciezka) const = 0;
+
 	virtual void drukuj(deque<Pole>& _ZiemiaUprawna) const = 0;
 	virtual void drukuj(deque<Pole>& _ZiemiaUprawna, int _zakres) const = 0;
 	virtual void drukuj(deque<Pole>& _ZiemiaUprawna, char* sciezka) const = 0;
@@ -157,15 +159,76 @@ public:
 		}
 	};
 	void drukuj(deque<Pole>& _ZiemiaUprawna) const override{
-		;
+		char sciezka[]="PrzykladPole.txt";
+		drukuj(_ZiemiaUprawna, sciezka);
 	};
 	void drukuj(deque<Pole>& _ZiemiaUprawna, int _zakres) const override{
-		;
-	};
-	void drukuj(deque<Pole>& _ZiemiaUprawna, char* sciezka) const override{
-		;
-	};
 
+		if (_ZiemiaUprawna.size() == 0)
+			throw domain_error("Kalendarz zabiegow jest pusty");
+		else {
+			char sciezka[] = "PrzykladPole.txt";
+			fstream plik;
+			int liczbawydrukowanych = 0;
+			plik.open(sciezka, ofstream::out);
+
+			if (!plik.is_open())
+				return;//blad
+
+			plik << "Zapis danych do pliku " << sciezka << "\n";
+			plik.fill(' ');
+			plik << "Nazwa";			plik << "Powierzchnia";			plik << "Stadium wzrostu";			plik << "Nawieziono";			plik << "Uprawiono";			plik << "Zasiano";			plik << "Zebrano" << endl;
+			for (Pole& poletko : _ZiemiaUprawna) {
+				if (liczbawydrukowanych < _zakres && _zakres != _ZiemiaUprawna.size())
+				{
+					plik << poletko.getNazwa();
+					plik << poletko.getPowierzchnia();
+					plik << poletko.getstadiumWzrostu();
+					plik << poletko.czyNawieziono();
+					plik << poletko.czyUprawiono();
+					plik << poletko.czyZasiano();
+					plik << poletko.czyZebrano();
+
+				}
+				else
+					break;
+			}
+			plik.close();
+		}
+	};
+	void drukuj(deque<Pole>& _ZiemiaUprawna, char* _sciezka) const override{
+		if (_ZiemiaUprawna.size() == 0)
+			throw domain_error("Kalendarz zabiegow jest pusty");
+		else {
+			fstream plik;
+
+			plik.open(_sciezka, ofstream::out);
+
+			if (!plik.is_open())
+				return;//blad
+
+			plik << "Zapis danych do pliku " << _sciezka << "\n";
+			plik.fill(' ');
+			plik << "Nazwa";
+			plik << "Powierzchnia";
+			plik << "Stadium wzrostu";
+			plik << "Nawieziono";
+			plik << "Uprawiono";
+			plik << "Zasiano";
+			plik << "Zebrano"<<endl;
+			for (Pole& poletko : _ZiemiaUprawna) {
+				plik << poletko.getNazwa();
+				plik << poletko.getPowierzchnia();
+				plik << poletko.getstadiumWzrostu();
+				plik << poletko.czyNawieziono();
+				plik << poletko.czyUprawiono();
+				plik << poletko.czyZasiano();
+				plik << poletko.czyZebrano();
+			}
+
+			plik.close();
+		}
+	};
 };
 
 class CsvDrukarka : public Drukarka
@@ -206,7 +269,32 @@ public:
 	void drukuj(deque<Maszyna>& _ParkMaszynowy, int _zakres) const override{
 	
 	};
-	void drukuj(deque<Maszyna>& _ParkMaszynowy, char* sciezka) const override{
+	void drukuj(deque<Maszyna>& _ParkMaszynowy, char* _sciezka) const override{
+			std::ofstream plik;
+			plik.open(_sciezka, ofstream::out);
+
+			if (!plik.is_open()) {
+				std::cout << "B³¹d: Nie mo¿na otworzyæ pliku." << std::endl;
+				return;
+			}
+
+			plik << "Nazwa;doUprawy;doSiewu;doNawozenia;doZbioru" << std::endl;
+			std::deque<Maszyna> kopiaKolejki = _ParkMaszynowy; // Tworzenie kopii kolejki
+
+			while (!kopiaKolejki.empty()) {
+				const Maszyna& maszyna = kopiaKolejki.front();
+
+				plik << maszyna.getNazwa() << ";"
+					<< (maszyna.getdoUprawy() ? "Tak" : "Nie") << ";"
+					<< (maszyna.getdoSiewu() ? "Tak" : "Nie") << ";"
+					<< (maszyna.getdoNawozenia() ? "Tak" : "Nie") << ";"
+					<< (maszyna.getdoZbioru() ? "Tak" : "Nie") << std::endl;
+
+				kopiaKolejki.pop_front();
+			}
+
+			plik.close();
+			std::cout << "Plik zapisany pomyœlnie." << std::endl;
 	
 	};
 	void drukuj(deque<Pole>& _ZiemiaUprawna) const override{
@@ -215,8 +303,28 @@ public:
 	void drukuj(deque<Pole>& _ZiemiaUprawna, int _zakres) const override{
 	
 	};
-	void drukuj(deque<Pole>& _ZiemiaUprawna, char* sciezka) const override{
-	
+	void drukuj(deque<Pole>& _ZiemiaUprawna, char* _sciezka) const override{
+		{
+			std::ofstream plik;
+			plik.open(_sciezka, ofstream::out);
+			if (!plik.is_open()) {
+				std::cout << "B³¹d: Nie mo¿na otworzyæ pliku." << std::endl;
+				return;
+			}
+			plik << "Nazwa" << ";" << "Powierzchnia[ha]" << ";" << "Stadium Wzrostu" << ";" << "Uprawion" << ";" << "Nawieziono" << ";"<<"Zasiano" << ";" <<"Zebrano" << endl;
+			for (Pole& pole : _ZiemiaUprawna)
+			{
+				plik << pole.getNazwa() << ";"
+					<< pole.getPowierzchnia() << ";"
+					<< pole.getstadiumWzrostu() << ";"
+					<< (pole.czyUprawiono() ? "Tak" : "Nie") << ";"
+					<< (pole.czyNawieziono() ? "Tak" : "Nie") << ";"
+					<< (pole.czyZasiano() ? "Tak" : "Nie") << ";"
+					<< (pole.czyZebrano() ? "Tak" : "Nie") << "\n";
+			}
+
+			plik.close();
+		}
 	};
 };
 
