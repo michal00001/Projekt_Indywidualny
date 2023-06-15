@@ -69,11 +69,6 @@ void Gospodarstwo::usunMaszyne(int _pozycja)
 	ParkMaszynowy.erase(iterator);
 }
 
-void Gospodarstwo::dodajPole()
-{
-
-}
-
 void Gospodarstwo::dodajPole(Pole _obiekt)
 {
 	if (sprawdzCzyNieWystepuje(_obiekt))
@@ -142,15 +137,16 @@ void Gospodarstwo::wyczyscGospodarstwo()
 	ParkMaszynowy.clear();
 }
 
-std::queue<Maszyna> Gospodarstwo::odczytajMaszynyZPliku(char* sciezka)
+void Gospodarstwo::odczytajMaszynyZPliku(char* sciezka)
 {
-	{
 		std::ifstream plik(sciezka);
-		if (!plik.is_open()) {
-			throw std::runtime_error("Nie mo¿na otworzyæ pliku.");
+		if (!plik)
+		{
+			std::cout << "B³¹d otwarcia pliku." << std::endl;
+			return;
 		}
 
-		std::queue<Maszyna> kolejka;
+		std::deque<Maszyna> kolejka;
 
 		// Pomijamy nag³ówki kolumn
 		std::string linia;
@@ -187,16 +183,15 @@ std::queue<Maszyna> Gospodarstwo::odczytajMaszynyZPliku(char* sciezka)
 			if (doZbioru)
 				maszyna.setDoZbioru();
 
-			kolejka.push(maszyna);
+			kolejka.push_back(maszyna);
 		}
 
 		plik.close();
 
-		return kolejka;
-	}
+		ParkMaszynowy = kolejka;
 }
 
-std::deque<Pole> Gospodarstwo::odczytajZPliku(const std::string& nazwaPliku)
+void Gospodarstwo::odczytajPolaZPliku(const std::string& nazwaPliku)
 {
 		std::deque<Pole> pola;
 		std::ifstream plik(nazwaPliku);
@@ -204,7 +199,7 @@ std::deque<Pole> Gospodarstwo::odczytajZPliku(const std::string& nazwaPliku)
 		if (!plik)
 		{
 			std::cout << "B³¹d otwarcia pliku." << std::endl;
-			return pola;
+			return;
 		}
 
 		std::string linia;
@@ -245,5 +240,5 @@ std::deque<Pole> Gospodarstwo::odczytajZPliku(const std::string& nazwaPliku)
 
 		plik.close();
 
-		return pola;
+		ZiemiaUprawna =  pola;
 }

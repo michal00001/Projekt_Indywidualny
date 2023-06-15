@@ -33,9 +33,9 @@ public:
 	void setNawieziono (bool _stan);
 	void setZasiano (bool _stan);
 	void setZebrano (bool _stan);
+	void wprowadzDane();
 
 	bool operator<(const Pole& _obiekt) const;
 	bool operator==(const Pole& _obiekt) const;
-
-	friend std::ostream& operator<<(std::ostream& out,const Pole& obiekt);
+	
 };

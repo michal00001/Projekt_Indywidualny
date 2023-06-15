@@ -11,16 +11,16 @@ private:
 	bool doNawozenia;
 	bool doZbioru;
 
-	
+
 public:
-	Maszyna() :nazwa("Basic"),doUprawy(false),doSiewu(false),doNawozenia(false),doZbioru(false) {};
+	Maszyna() :nazwa("Basic"), doUprawy(false), doSiewu(false), doNawozenia(false), doZbioru(false) {};
 	void setNazwa(std::string _nazwa);
 	void setDoUprawy();
 	void setDoSiewu();
 	void setdDoNawozenia();
 	void setDoZbioru();
 
-	std::string getNazwa() const { return nazwa; } ;
+	std::string getNazwa() const { return nazwa; };
 	bool getdoUprawy() const { return doUprawy; };
 	bool getdoSiewu() const { return doSiewu; };
 	bool getdoNawozenia() const { return doNawozenia; };
@@ -34,5 +34,4 @@ public:
 	bool operator<(const Maszyna& _maszyna) const;
 	bool operator==(const Maszyna& _maszyna) const;
 
-	friend std::ostream& operator<<(std::ostream& out,const Maszyna& obiekt);
 };

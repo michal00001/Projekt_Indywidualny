@@ -86,19 +86,12 @@ void Interfejs::OpcjaKalendarzZabiegow()
 		case 6:
 			//zapis .csv
 			drukarka = DrukarkaFactory<CsvDrukarka>::stworzDrukarke();
-			if (!KalendarzZabiegow.czyListaPusta())
-				drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow()); 
-			else
-				cout << "Kalendarz jest pusty" << endl;
+			drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
 			system("pause");
 			break;
 		case 7:
 			//zapis .txt
 			drukarka = DrukarkaFactory<TxtDrukarka>::stworzDrukarke();
-			if (!KalendarzZabiegow.czyListaPusta())
-				drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow()); 
-			else
-				cout << "Kalendarz jest pusty" << endl;
 			system("pause");
 			break;
 		case 8:
@@ -121,6 +114,8 @@ void Interfejs::OpcjaZapisanePola()
 		int numerek = 1;
 		
 		cout << "Menu Katalog Pol" << endl;
+		drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+		
 		//wyswietl 5 pierwszych pól wg nazwy
 		
 		switch (MenuWyboru(numerek))
@@ -140,10 +135,7 @@ void Interfejs::OpcjaZapisanePola()
 		case 5:
 			//wyswietl terminal
 			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-			if (!Gospodarstwo.czyZiemiaUprawnaPusta())
-				;
-			else
-				cout << "Katalog pol jest pusty" << endl;
+
 			system("pause");
 			break;
 		case 6:
@@ -215,12 +207,14 @@ void Interfejs::OpcjaZapisaneMaszyny()
 
 void Interfejs::OpcjaDodaj(int _opcja)
 {
+	Pole temp;
 	switch (_opcja) {
 	case 1:
-		KalendarzZabiegow.dodajZabieg();
+		//KalendarzZabiegow.dodajZabieg();
 		break;
 	case 2:
-		Gospodarstwo.dodajPole();
+		temp.wprowadzDane();
+		Gospodarstwo.dodajPole(temp);
 		break;
 	case 3:
 		Gospodarstwo.dodajMaszyne();
@@ -246,20 +240,20 @@ void Interfejs::OpcjaUsun(int _opcja)
 			//wyswietl maszyny
 			break;
 		}
-		std::cout << "Prosze podac numer elementu do usuniecia" << std::endl;
+		cout << "Prosze podac numer elementu do usuniecia" << endl;
 		while (1) { //nieskoñczona pêtla
-			std::cin >> pozycja; //pobranie zmiennej
-			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac liczbê"<< std::endl; //komunikat o b³êdzie
-				std::cin.clear(); //resetowanie flag b³êdu
-				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			cin >> pozycja; //pobranie zmiennej
+			if (cin.fail() == true) { //wykrycie b³êdu
+				cout << "Prosze podac liczbê"<< endl; //komunikat o b³êdzie
+				cin.clear(); //resetowanie flag b³êdu
+				cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
 			} //lub do napotkania znaku nowej linii
 			else break;
 		}
 
 		if (pozycja < 0 || czyPozaZakresem(_opcja, pozycja))
 		{
-			std::cout << "Podano wartosc poza zakresem tablicy" << std::endl;
+			cout << "Podano wartosc poza zakresem tablicy" << endl;
 			system("pause");
 		}
 		else
@@ -268,7 +262,7 @@ void Interfejs::OpcjaUsun(int _opcja)
 
 	switch (_opcja) {
 	case 1:
-		KalendarzZabiegow.usunZabieg(pozycja);
+		//KalendarzZabiegow.usunZabieg(pozycja);
 		break;
 	case 2:
 		Gospodarstwo.usunPole(pozycja);
@@ -297,7 +291,17 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 void Interfejs::OpcjaWczytaj(int _opcja)
 {
 	char sciezka[] = "Pliczek.txt";
-	KalendarzZabiegow.dodajZabieg(sciezka);
+	switch (_opcja) {
+	case 1:
+		KalendarzZabiegow.odczytajZabiegZPliku(sciezka);
+		break;
+	case 2:
+		Gospodarstwo.odczytajMaszynyZPliku(sciezka);
+		break;
+	case 3:
+		Gospodarstwo.odczytajMaszynyZPliku(sciezka);
+		break;
+	}
 }
 
 int Interfejs::MenuWyboru(int& numerek)
@@ -315,7 +319,7 @@ int Interfejs::MenuWyboru(int& numerek)
 	while (1) { //nieskoñczona pêtla
 		std::cin >> x; //pobranie zmiennej
 		if (std::cin.fail() == true) { //wykrycie b³êdu
-			std::cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
+			std::cout << "Prosze podac liczbe z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
 			std::cin.clear(); //resetowanie flag b³êdu
 			std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
 		} //lub do napotkania znaku nowej linii

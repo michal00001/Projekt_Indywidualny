@@ -18,7 +18,6 @@ public:
 
 	void usunMaszyne(int _pozycja);
 
-	void dodajPole();
 	void dodajPole(Pole _obiekt);
 
 	void usunPole(int _pozycja);
@@ -36,9 +35,12 @@ public:
 	bool sprawdzCzyNieWystepuje(Pole& _obiekt)const;
 
 	void wyczyscGospodarstwo();
-	friend class Drukarka;
 
-	std::queue<Maszyna> odczytajMaszynyZPliku(char* sciezka);
-    std::deque<Pole> odczytajZPliku(const std::string& nazwaPliku);
+	std::deque<Pole> getListaPol() { return ZiemiaUprawna; };
+	std::deque<Maszyna> getListaMaszyn() { return ParkMaszynowy; };
+
+	void odczytajMaszynyZPliku(char* sciezka);
+    void odczytajPolaZPliku(const std::string& nazwaPliku);
+
 };
 

@@ -10,19 +10,18 @@ class Kalendarz
 
 public:
 	void sortujZabiegi(const Data& _data);
-	void sortujZabiegi(const Maszyna& _nazwa);
-	void sortujZabiegi(const Pole& _powierzchnia);
+	//void sortujZabiegi(const Maszyna& _nazwa);
+	//void sortujZabiegi(const Pole& _powierzchnia);
 
-	void dodajZabieg();
 	void dodajZabieg(Zabieg _obiekt);
-	void dodajZabieg(char* _sciezka);
-    
 	void usunZabieg(int _pozycja);
+
+	void odczytajZabiegZPliku(char* _sciezka);
+    
 	void wyczyscListeZabiegow();
 
 	bool czyListaPusta();
-	std::list<Zabieg>& getlistaZabiegow() { return listaZabiegow; }; 
 	std::size_t getsizelistaZabiegowa() const { return listaZabiegow.size(); };
-	friend class Drukarka;
+
 };
 

@@ -1,11 +1,5 @@
 #include "Pole.h"
 
-std::ostream& operator<<(std::ostream& out,const Pole& obiekt) {
-	out.fill(' ');
-	out << obiekt.nazwa << " " << std::setprecision(5)<< obiekt.powierzchnia << " [ha]" << " " << obiekt.stadiumWzrostu;
-	return out;
-}
-
 void Pole::setNazwa(std::string _nazwa)
 {
 	nazwa = _nazwa;
@@ -53,6 +47,34 @@ void Pole::setZasiano(bool _stan)
 void Pole::setZebrano(bool _stan)
 {
 	zebrano = _stan;
+}
+
+void Pole::wprowadzDane()
+{
+	using namespace std;
+	string _nazwa;
+	float _powierzchnia;
+	bool warunekWhile = true;
+	
+	system("cls");
+	cout << "Podaj nazwe pola: " << endl;
+	cin >> _nazwa;
+	
+	system("cls");
+	cout << "Podana nazwa pola to " << _nazwa << endl;
+	cout << "Podaj powierzchnie pola: " << endl;
+	while (1) { //nieskoñczona pêtla
+		cin >> _powierzchnia; //pobranie zmiennej
+		if (cin.fail() == true || _powierzchnia <= 0) { //wykrycie b³êdu
+			cout << "Prosze podac poprawna wartosc" << endl; //komunikat o b³êdzie
+			cin.clear(); //resetowanie flag b³êdu
+			cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+		} //lub do napotkania znaku nowej linii
+		else break;
+	}
+
+	setNazwa(_nazwa);
+	setPowierzchnia(_powierzchnia);
 }
 
 bool Pole::operator<(const Pole& _obiekt) const
