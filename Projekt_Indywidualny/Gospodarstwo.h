@@ -22,6 +22,10 @@ public:
 	Maszyna& getMaszyna(int _miejsce);
 	Pole& getPole(int _miejsce);
 
+	std::size_t getSizeZiemiaUprawna() const{ return ZiemiaUprawna.size(); };
+	std::size_t getSizeParkMaszynowy() const{ return ParkMaszynowy.size(); };
+
+
 	bool sprawdzCzyNieWystepuje(Maszyna& _obiekt)const;
 	bool sprawdzCzyNieWystepuje(Pole& _obiekt)const;
 

@@ -53,27 +53,14 @@ void Interfejs::OpcjaKalendarzZabiegow()
 	while (warunek) {
 		system("cls");
 		int numerek = 1;
-		//wyswietl 5 pierwszych zabiegow
-		cout<< "Menu Kalendarz Zabiegow Agrotechnicznych" << endl;
-		cout << numerek << ". Dodaj zabieg" << endl; numerek++;
-		cout << numerek << ". Usun wybrany zabieg" << endl; numerek++;
-		cout << numerek << ". Edytuj wybrany zabieg" << endl; numerek++;
-		cout << numerek << ". Wczytaj kalendarz z pliku .CSV" << endl; numerek++;
-		cout << numerek << ". Wyswietl caly kalendarz na terminalu" << endl; numerek++;
-		cout << numerek << ". Zapisz jako plik .CSV" << endl; numerek++;
-		cout << numerek << ". Zapisz jako plik .txt" << endl; numerek++;
-		cout << numerek << ". Powrot" << endl;
-		int x;
-		while (1) { //nieskoñczona pêtla
-			std::cin >> x; //pobranie zmiennej
-			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac liczbê z zakresu od 1 do "<<numerek << std::endl; //komunikat o b³êdzie
-				std::cin.clear(); //resetowanie flag b³êdu
-				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-			} //lub do napotkania znaku nowej linii
-			else break;
+
+		cout << "Menu kalendarza zabiegow" << endl;
+		if (KalendarzZabiegow.getsizelistaZabiegowa()) {
+			//wyswietl 5 pierwszych zabiegow
+			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+			drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow(), 5);
 		}
-		switch (x)
+		switch (MenuWyboru(numerek))
 		{
 		case 1:
 			OpcjaDodaj(1);
@@ -85,7 +72,7 @@ void Interfejs::OpcjaKalendarzZabiegow()
 			OpcjaEdytuj(1);
 			break;
 		case 4:
-			OpcjaWczytaj();
+			OpcjaWczytaj(1);
 			break;
 		case 5:
 			//wyswietl terminal
@@ -132,27 +119,11 @@ void Interfejs::OpcjaZapisanePola()
 	while (warunek) {
 		system("cls");
 		int numerek = 1;
-		//wyswietl 5 pierwszych pól wg nazwy
+		
 		cout << "Menu Katalog Pol" << endl;
-		cout << numerek << ". Dodaj element" << endl; numerek++;
-		cout << numerek << ". Usun wybrany element" << endl; numerek++;
-		cout << numerek << ". Edytuj wybrany element" << endl; numerek++;
-		cout << numerek << ". Wczytaj dane z pliku .CSV" << endl; numerek++;
-		cout << numerek << ". Wyswietl caly zbior na terminalu" << endl; numerek++;
-		cout << numerek << ". Zapisz jako plik .CSV" << endl; numerek++;
-		cout << numerek << ". Zapisz jako plik .txt" << endl; numerek++;
-		cout << numerek << ". Powrot" << endl;
-		int x;
-		while (1) { //nieskoñczona pêtla
-			std::cin >> x; //pobranie zmiennej
-			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
-				std::cin.clear(); //resetowanie flag b³êdu
-				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-			} //lub do napotkania znaku nowej linii
-			else break;
-		}
-		switch (x)
+		//wyswietl 5 pierwszych pól wg nazwy
+		
+		switch (MenuWyboru(numerek))
 		{
 		case 1:
 			OpcjaDodaj(2);
@@ -196,27 +167,12 @@ void Interfejs::OpcjaZapisaneMaszyny()
 	while (warunek) {
 		system("cls");
 		int numerek = 1;
-		//wyswietl 5 pierwszych pól wg nazwy
+		
+	
 		cout << "Menu Katalog Maszyn" << endl;
-		cout << numerek << ". Dodaj element" << endl; numerek++;
-		cout << numerek << ". Usun wybrany element" << endl; numerek++;
-		cout << numerek << ". Edytuj wybrany element" << endl; numerek++;
-		cout << numerek << ". Wczytaj dane z pliku .CSV" << endl; numerek++;
-		cout << numerek << ". Wyswietl caly zbior na terminalu" << endl; numerek++;
-		cout << numerek << ". Zapisz jako plik .CSV" << endl; numerek++;
-		cout << numerek << ". Zapisz jako plik .txt" << endl; numerek++;
-		cout << numerek << ". Powrot" << endl;
-		int x;
-		while (1) { //nieskoñczona pêtla
-			std::cin >> x; //pobranie zmiennej
-			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
-				std::cin.clear(); //resetowanie flag b³êdu
-				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-			} //lub do napotkania znaku nowej linii
-			else break;
-		}
-		switch (x)
+		//wyswietl 5 pierwszych pól wg nazwy
+		
+		switch (MenuWyboru(numerek))
 		{
 		case 1:
 			OpcjaDodaj(3);
@@ -269,6 +225,7 @@ void Interfejs::OpcjaDodaj(int _opcja)
 
 void Interfejs::OpcjaUsun(int _opcja)
 {
+
 	int pozycja = -1;
 	bool warunekWhile = true;
 	while (warunekWhile) {
@@ -332,28 +289,53 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 	}
 }
 
-void Interfejs::OpcjaWczytaj()
+void Interfejs::OpcjaWczytaj(int _opcja)
 {
+	char sciezka[] = "Pliczek.txt";
+	KalendarzZabiegow.dodajZabieg(sciezka);
+}
 
+int Interfejs::MenuWyboru(int& numerek)
+{
+	using namespace std;
+	cout << numerek << ". Dodaj element" << endl; numerek++;
+	cout << numerek << ". Usun wybrany element" << endl; numerek++;
+	cout << numerek << ". Edytuj wybrany element" << endl; numerek++;
+	cout << numerek << ". Wczytaj dane z pliku .CSV" << endl; numerek++;
+	cout << numerek << ". Wyswietl caly zbior na terminalu" << endl; numerek++;
+	cout << numerek << ". Zapisz jako plik .CSV" << endl; numerek++;
+	cout << numerek << ". Zapisz jako plik .txt" << endl; numerek++;
+	cout << numerek << ". Powrot" << endl;
+	int x;
+	while (1) { //nieskoñczona pêtla
+		std::cin >> x; //pobranie zmiennej
+		if (std::cin.fail() == true) { //wykrycie b³êdu
+			std::cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
+			std::cin.clear(); //resetowanie flag b³êdu
+			std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+		} //lub do napotkania znaku nowej linii
+		else break;
+	}
+	return x;
 }
 
 bool Interfejs::czyPozaZakresem(int _opcja, int _indeksTablicy)
 {
 	switch (_opcja) {
 	case 1:
-		if (KalendarzZabiegow.getlistaZabiegow().size() >= _indeksTablicy)
+		if (KalendarzZabiegow.getsizelistaZabiegowa() >= _indeksTablicy)
 		{
 			return true;
 		}
 		break;
 	case 2:
-		if (KalendarzZabiegow.getlistaZabiegow().size() >= _indeksTablicy)
+		if (Gospodarstwo.getSizeZiemiaUprawna() >= _indeksTablicy)
 		{
 			return true;
 		}
 		break;
 	case 3:
-		if (KalendarzZabiegow.getlistaZabiegow().size() >= _indeksTablicy)
+		if (Gospodarstwo.getSizeParkMaszynowy() >= _indeksTablicy)
 		{
 			return true;
 		}

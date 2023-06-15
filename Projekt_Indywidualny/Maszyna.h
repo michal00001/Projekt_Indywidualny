@@ -20,7 +20,11 @@ public:
 	void setdDoNawozenia();
 	void setDoZbioru();
 
-	std::string getNazwa() { return nazwa; };
+	std::string getNazwa() const { return nazwa; } ;
+	bool getdoUprawy() const { return doUprawy; };
+	bool getdoSiewu() const { return doSiewu; };
+	bool getdoNawozenia() const { return doNawozenia; };
+	bool getdoZbioru() const { return doZbioru; };
 
 	void zasiej(Pole& _pole);
 	void nawiez(Pole& _pole);

@@ -7,7 +7,6 @@
 class Kalendarz
 {
 	std::list<Zabieg> listaZabiegow;
-	std::list<Zabieg>::iterator K_Iter;
 
 public:
 	void sortujZabiegi(const Data& _data);
@@ -23,6 +22,6 @@ public:
 
 	bool czyListaPusta();
 	std::list<Zabieg>& getlistaZabiegow() { return listaZabiegow; }; 
-
+	std::size_t getsizelistaZabiegowa() const { return listaZabiegow.size(); };
 };
 

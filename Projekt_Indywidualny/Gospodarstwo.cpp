@@ -65,12 +65,13 @@ void Gospodarstwo::dodajMaszyne(Maszyna _obiekt)
 
 void Gospodarstwo::usunMaszyne(int _pozycja)
 {
-	auto it = ParkMaszynowy.begin()+_pozycja;
-	ParkMaszynowy.erase(it);
+	auto iterator = ParkMaszynowy.begin()+_pozycja;
+	ParkMaszynowy.erase(iterator);
 }
 
 void Gospodarstwo::dodajPole()
 {
+
 }
 
 void Gospodarstwo::dodajPole(Pole _obiekt)
@@ -81,6 +82,8 @@ void Gospodarstwo::dodajPole(Pole _obiekt)
 
 void Gospodarstwo::usunPole(int _pozycja)
 {
+	auto iterator = ZiemiaUprawna.begin() + _pozycja;
+	ZiemiaUprawna.erase(iterator);
 }
 
 Maszyna& Gospodarstwo::getMaszyna(int _miejsce)
@@ -119,4 +122,6 @@ bool Gospodarstwo::sprawdzCzyNieWystepuje(Pole& _obiekt) const
 
 void Gospodarstwo::wyczyscGospodarstwo()
 {
+	ZiemiaUprawna.clear();
+	ParkMaszynowy.clear();
 }

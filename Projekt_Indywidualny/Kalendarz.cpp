@@ -107,8 +107,12 @@ void Kalendarz::dodajZabieg(char* _sciezka)
 
 void Kalendarz::usunZabieg(int _pozycja)
 {
-	auto miejsce = listaZabiegow.begin() + _pozycja;
-	listaZabiegow.erase(miejsce);
+	auto iterator = listaZabiegow.begin();
+	for (int i = 0; i < _pozycja; i++)
+	{
+		iterator++;
+	}
+	listaZabiegow.erase(iterator);
 }
 
 void Kalendarz::wyczyscListeZabiegow()
