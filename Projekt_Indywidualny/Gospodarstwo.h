@@ -4,7 +4,7 @@
 #include <sstream>
 #include "Maszyna.h"
 #include "Pole.h"
-
+#include "Drukarka.h"
 
 
 class Gospodarstwo
@@ -17,6 +17,13 @@ public:
 	void dodajMaszyne(Maszyna _obiekt);
 
 	void usunMaszyne(int _pozycja);
+
+	void wyswietlListeMaszyn();
+	void wyswietlListeMaszyn(int _ile);
+	void wyswietlListePol();
+	void wyswietlListePol(int _ile);
+
+	void zapiszCSV();
 
 	void dodajPole(Pole _obiekt);
 
@@ -35,9 +42,6 @@ public:
 	bool sprawdzCzyNieWystepuje(Pole& _obiekt)const;
 
 	void wyczyscGospodarstwo();
-
-	std::deque<Pole> getListaPol() { return ZiemiaUprawna; };
-	std::deque<Maszyna> getListaMaszyn() { return ParkMaszynowy; };
 
 	void odczytajMaszynyZPliku(char* sciezka);
     void odczytajPolaZPliku(const std::string& nazwaPliku);

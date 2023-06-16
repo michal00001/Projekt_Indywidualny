@@ -4,5 +4,3 @@ Zapis danych
 15.05.2020;Przyklad;nr2;10;1
 18.05.2020;Przyklad;nr1;50;1
 19.05.2020;Przyklad;nr1;50;1
-13.05.2020;Przyklad;nr2;10;1
-14.05.2020;Przyklad;nr2;10;1

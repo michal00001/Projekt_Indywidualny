@@ -21,16 +21,26 @@ inline string PoletoString(Pole& _pole, int _opcja) {
 class Drukarka {
 public:
 	virtual void drukuj(list<Zabieg>& _listaZabiegow) const = 0;
+	
+
+	/*
 	virtual void drukuj(list<Zabieg>& _listaZabiegow, int _zakres) const = 0;
 	virtual void drukuj(list<Zabieg>& _listaZabiegow, char* sciezka) const = 0;
+	*/
 
 	virtual void drukuj(deque<Maszyna>& _ParkMaszynowy) const = 0;
+	/*
 	virtual void drukuj(deque<Maszyna>& _ParkMaszynowy, int _zakres) const = 0;
 	virtual void drukuj(deque<Maszyna>& _ParkMaszynowy, char* sciezka) const = 0;
+	*/
+	
 
 	virtual void drukuj(deque<Pole>& _ZiemiaUprawna) const = 0;
 	virtual void drukuj(deque<Pole>& _ZiemiaUprawna, int _zakres) const = 0;
+	/*
 	virtual void drukuj(deque<Pole>& _ZiemiaUprawna, char* sciezka) const = 0;
+	*/
+	
 };
 
 
@@ -54,59 +64,102 @@ public:
 			}
 		}
 	};
-	void drukuj(list<Zabieg>& _listaZabiegow, int _zakres) const override{
-		if (_listaZabiegow.size() == 0)
-			throw domain_error("Kalendarz zabiegow jest pusty");
-		else {
-			using namespace std;
-			list<Zabieg>::iterator _Iter;
-			list<Zabieg>::iterator _Iter2 = _listaZabiegow.begin();
-			for (int i = 0; i < _zakres; i++)
-			{
-				if(_Iter2 != _listaZabiegow.end())
-				_Iter2++;
+	/*
+		void drukuj(list<Zabieg>& _listaZabiegow, int _zakres) const override{
+			if (_listaZabiegow.size() == 0)
+				throw domain_error("Kalendarz zabiegow jest pusty");
+			else {
+				using namespace std;
+				list<Zabieg>::iterator _Iter;
+				list<Zabieg>::iterator _Iter2 = _listaZabiegow.begin();
+				for (int i = 0; i < _zakres; i++)
+				{
+					if(_Iter2 != _listaZabiegow.end())
+					_Iter2++;
+				}
+				//naglowek tabelki
+				cout.fill(' ');
+				cout << "|" << setw(8) << "Data" << setw(6) << "|" << setw(14) << "Maszyna" << setw(10)
+					<< "|" << setw(25) << "Pole" << setw(22) << "|" << endl;
+				for (_Iter = _listaZabiegow.begin(); _Iter != _Iter2; _Iter++)
+				{
+				//	cout << DatatoString((*_Iter).getData()) << ";" << (*_Iter).getMaszyna() << ";" << PoletoString((*_Iter).getPole(), 1) << endl;
+				}
 			}
-			//naglowek tabelki
-			cout.fill(' ');
-			cout << "|" << setw(8) << "Data" << setw(6) << "|" << setw(14) << "Maszyna" << setw(10)
-				<< "|" << setw(25) << "Pole" << setw(22) << "|" << endl;
-			for (_Iter = _listaZabiegow.begin(); _Iter != _Iter2; _Iter++)
-			{
-			//	cout << DatatoString((*_Iter).getData()) << ";" << (*_Iter).getMaszyna() << ";" << PoletoString((*_Iter).getPole(), 1) << endl;
-			}
-		}
-	};
-	void drukuj(list<Zabieg>& _listaZabiegow, char* sciezka) const override{
-		
-	};
+		};
+		void drukuj(list<Zabieg>& _listaZabiegow, char* sciezka) const override{
+
+		};
+	*/
 	void drukuj(deque<Maszyna>& _ParkMaszynowy) const override {
 		if (_ParkMaszynowy.size() == 0) {
-			cout << "Lista maszyn jest pusta" << endl;
-			system("pause");
+			throw domain_error("Lista maszyn jest pusta");
 		}
 		cout << "|" << "Nazwa" << "|" << "Typ Maszyny" << "|" << endl;
 	
 		for (Maszyna& maszyna : _ParkMaszynowy)
 		{
-			cout<<
+			cout << maszyna.getNazwa() << endl;	
 		}
-		cout<< 
 	};
+	/*
 	void drukuj(deque<Maszyna>& _ParkMaszynowy, int _zakres) const override{
 		
 	};
 	void drukuj(deque<Maszyna>& _ParkMaszynowy, char* sciezka) const override{
 	
 	};
+	*/
 	void drukuj(deque<Pole>& _ZiemiaUprawna) const override{
-	
+		if (_ZiemiaUprawna.size() == 0) {
+			throw domain_error("Lista pol jest pusta");
+		}
+
+		cout << "|" << "Nazwa" << "|" << "Powierzchnia" << "|"<<"Stadium Wzrostu"<<"|"<< "Stan pola"<<"|" << endl;
+
+		for (Pole& pole : _ZiemiaUprawna)
+		{
+			cout << "|" << pole.getNazwa() << "|" << to_string(pole.getPowierzchnia()) << "|" << pole.getstadiumWzrostu() << "|";
+			if (pole.czyNawieziono()) cout << "Nawieziono";
+			else if (pole.czyUprawiono()) cout << "Uprawiono";
+			else if (pole.czyZasiano()) cout << "Zasiano";
+			else if (pole.czyZebrano()) cout << "Zebrano";
+			else cout << "Ugor";
+			cout << "|" << endl;
+		}
 	};
+	
 	void drukuj(deque<Pole>& _ZiemiaUprawna, int _zakres) const override{
-	
+		//nawet jezeli zakres bedzie poza rozmiarem to wydrukuje sie tylko tyle ile jest w tablicy
+		if (_ZiemiaUprawna.size() == 0) {
+			throw domain_error("Lista pol jest pusta");
+		}
+
+		int ileWydrukowano = 0;
+		cout << "|" << "Nazwa" << "|" << "Powierzchnia" << "|" << "Stadium Wzrostu" << "|" << "Stan pola" << "|" << endl;
+
+		for (Pole& pole : _ZiemiaUprawna)
+		{
+			if (ileWydrukowano < _zakres)
+			{
+				cout << "|" << pole.getNazwa() << "|" << to_string(pole.getPowierzchnia()) << "|" << pole.getstadiumWzrostu() << "|";
+				if (pole.czyNawieziono()) cout << "Nawieziono";
+				else if (pole.czyUprawiono()) cout << "Uprawiono";
+				else if (pole.czyZasiano()) cout << "Zasiano";
+				else if (pole.czyZebrano()) cout << "Zebrano";
+				else cout << "Ugor";
+				cout << "|" << endl;
+				ileWydrukowano++;
+			}
+			else
+				break;
+		}
 	};
+	/*
 	void drukuj(deque<Pole>& _ZiemiaUprawna, char* sciezka) const override{
 	
 	};
+	*/
 };
 
 

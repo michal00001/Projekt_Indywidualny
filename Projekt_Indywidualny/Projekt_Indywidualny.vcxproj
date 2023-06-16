@@ -129,6 +129,8 @@
   <ItemGroup>
     <ClInclude Include="Data.h" />
     <ClInclude Include="Drukarka.h" />
+    <ClInclude Include="Gospodarstwo.h" />
+    <ClInclude Include="Interfejs.h" />
     <ClInclude Include="Kalendarz.h" />
     <ClInclude Include="Maszyna.h" />
     <ClInclude Include="Pole.h" />
@@ -136,11 +138,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="Gospodarstwo.cpp" />
+    <ClCompile Include="Interfejs.cpp" />
     <ClCompile Include="Kalendarz.cpp" />
     <ClCompile Include="Maszyna.cpp" />
     <ClCompile Include="Pole.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Zabieg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Projekt_Indywidualny.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

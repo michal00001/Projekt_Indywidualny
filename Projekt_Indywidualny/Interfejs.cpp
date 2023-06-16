@@ -58,7 +58,7 @@ void Interfejs::OpcjaKalendarzZabiegow()
 		if (KalendarzZabiegow.getsizelistaZabiegowa()) {
 			//wyswietl 5 pierwszych zabiegow
 			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-			drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow(), 5);
+			//drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow(), 5);
 		}
 		switch (MenuWyboru(numerek))
 		{
@@ -77,21 +77,21 @@ void Interfejs::OpcjaKalendarzZabiegow()
 		case 5:
 			//wyswietl terminal
 			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-			if (!KalendarzZabiegow.czyListaPusta())
-				drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
+			if (!KalendarzZabiegow.czyListaPusta());
+				//drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
 			else
 				cout << "Kalendarz jest pusty" << endl;
 			system("pause");
 			break;
 		case 6:
 			//zapis .csv
-			drukarka = DrukarkaFactory<CsvDrukarka>::stworzDrukarke();
-			drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
+		//	drukarka = DrukarkaFactory<CsvDrukarka>::stworzDrukarke();
+		//	drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
 			system("pause");
 			break;
 		case 7:
 			//zapis .txt
-			drukarka = DrukarkaFactory<TxtDrukarka>::stworzDrukarke();
+		//	drukarka = DrukarkaFactory<TxtDrukarka>::stworzDrukarke();
 			system("pause");
 			break;
 		case 8:
@@ -108,16 +108,19 @@ void Interfejs::OpcjaZapisanePola()
 {
 	using namespace std;
 	bool warunek = true;
-	std::unique_ptr<Drukarka> drukarka;
 	while (warunek) {
 		system("cls");
 		int numerek = 1;
 		
 		cout << "Menu Katalog Pol" << endl;
-		drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
 		
 		//wyswietl 5 pierwszych pól wg nazwy
-		
+		try {
+		Gospodarstwo.wyswietlListePol(5);
+		}
+		catch (domain_error e) {
+			cerr << e.what() << endl;
+		}
 		switch (MenuWyboru(numerek))
 		{
 		case 1:
@@ -130,21 +133,20 @@ void Interfejs::OpcjaZapisanePola()
 			OpcjaEdytuj(2);
 			break;
 		case 4:
-			
+			OpcjaWczytaj(2);
 			break;
 		case 5:
 			//wyswietl terminal
-			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-
+			Gospodarstwo.wyswietlListePol();
 			system("pause");
 			break;
 		case 6:
 			//zapis .csv
-			
+			Gospodarstwo.zapiszCSV();
 			break;
 		case 7:
 			//zapis .txt
-			
+			//Gospodarstwo.zapiszTXT();
 			break;
 		case 8:
 			warunek = false;
@@ -229,17 +231,28 @@ void Interfejs::OpcjaUsun(int _opcja)
 	bool warunekWhile = true;
 	while (warunekWhile) {
 		system("cls");
-		switch (_opcja)	{
-		case 1:
-			//wyswietl zabiegi
-			break;
-		case 2:
-			//wyswietl pola
-			break;
-		case 3:
-			//wyswietl maszyny
-			break;
+		try {
+			switch (_opcja) {
+			case 1:
+				//wyswietl zabiegi
+				//KalendarzZabiegow.wyswietlListaZabiegow();
+				break;
+			case 2:
+				//wyswietl pola
+				Gospodarstwo.wyswietlListePol();
+				break;
+			case 3:
+				//wyswietl maszyny
+				Gospodarstwo.wyswietlListeMaszyn();
+				break;
+			}
 		}
+		catch (std::domain_error e) {
+			std::cerr << e.what()<<std::endl;
+			system("pause");
+			return;
+		}
+		
 		cout << "Prosze podac numer elementu do usuniecia" << endl;
 		while (1) { //nieskoñczona pêtla
 			cin >> pozycja; //pobranie zmiennej
@@ -305,6 +318,7 @@ void Interfejs::OpcjaWczytaj(int _opcja)
 }
 
 int Interfejs::MenuWyboru(int& numerek)
+
 {
 	using namespace std;
 	cout << numerek << ". Dodaj element" << endl; numerek++;
@@ -334,21 +348,21 @@ bool Interfejs::czyPozaZakresem(int _opcja, int _indeksTablicy)
 	case 1:
 		if (KalendarzZabiegow.getsizelistaZabiegowa() >= _indeksTablicy)
 		{
-			return true;
+			return false;
 		}
 		break;
 	case 2:
 		if (Gospodarstwo.getSizeZiemiaUprawna() >= _indeksTablicy)
 		{
-			return true;
+			return false;
 		}
 		break;
 	case 3:
 		if (Gospodarstwo.getSizeParkMaszynowy() >= _indeksTablicy)
 		{
-			return true;
+			return false;
 		}
 		break;
 	}
-	return false;
+	return true;
 }

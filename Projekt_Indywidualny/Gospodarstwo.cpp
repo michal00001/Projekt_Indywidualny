@@ -69,6 +69,37 @@ void Gospodarstwo::usunMaszyne(int _pozycja)
 	ParkMaszynowy.erase(iterator);
 }
 
+void Gospodarstwo::wyswietlListeMaszyn()
+{
+	std::unique_ptr<Drukarka> drukara = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+	drukara->drukuj(ParkMaszynowy);
+}
+
+void Gospodarstwo::wyswietlListeMaszyn(int _ile)
+{
+	std::unique_ptr<Drukarka> drukara = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+	//drukara->drukuj(ZiemiaUprawna);
+}
+
+void Gospodarstwo::wyswietlListePol()
+{
+	std::unique_ptr<Drukarka> drukara = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+	drukara->drukuj(ZiemiaUprawna);
+}
+
+void Gospodarstwo::wyswietlListePol(int _ile)
+{
+	std::unique_ptr<Drukarka> drukara = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+	drukara->drukuj(ZiemiaUprawna,_ile);
+}
+
+void Gospodarstwo::zapiszCSV()
+{
+	std::cout << "Nic nie robie\n";
+	system("pause");
+
+}
+
 void Gospodarstwo::dodajPole(Pole _obiekt)
 {
 	if (sprawdzCzyNieWystepuje(_obiekt))
@@ -126,9 +157,9 @@ bool Gospodarstwo::sprawdzCzyNieWystepuje(Pole& _obiekt) const
 	for (int i = 0; i < ZiemiaUprawna.size(); i++)
 	{
 		if (ZiemiaUprawna[i] == _obiekt)
-			return true;
+			return false;
 	}
-	return false;
+	return true;
 }
 
 void Gospodarstwo::wyczyscGospodarstwo()

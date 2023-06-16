@@ -11,7 +11,7 @@ void Pole::setstadiumWzrostu(int _stadiumWzrostu)
 		stadiumWzrostu = _stadiumWzrostu;
 	else
 		throw std::out_of_range("Wartosc stadium wzrostu jest spoza zakresu <0,7>");
-	//0 - brak uprawy
+	// 0 - brak uprawy
 	// 1 - zasiane
 	// 2 - kielkowanie
 	// 3 - jeden listek
