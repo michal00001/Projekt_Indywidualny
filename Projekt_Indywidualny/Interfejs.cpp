@@ -137,7 +137,12 @@ void Interfejs::OpcjaZapisanePola()
 			break;
 		case 5:
 			//wyswietl terminal
-			Gospodarstwo.wyswietlListePol();
+			try {
+				Gospodarstwo.wyswietlListePol();
+			}
+			catch (domain_error e) {
+				std::cerr << e.what() << std::endl;
+			}
 			system("pause");
 			break;
 		case 6:
@@ -148,13 +153,16 @@ void Interfejs::OpcjaZapisanePola()
 			//zapis .txt
 			//Gospodarstwo.zapiszTXT();
 			break;
+
 		case 8:
 			warunek = false;
 			break;
 		default:
 			cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << endl;
 			system("pause");
+
 		}
+
 	}
 }
 
@@ -264,7 +272,7 @@ void Interfejs::OpcjaUsun(int _opcja)
 			else break;
 		}
 
-		if (pozycja < 0 || czyPozaZakresem(_opcja, pozycja))
+		if (czyPozaZakresem(_opcja, pozycja))
 		{
 			cout << "Podano wartosc poza zakresem tablicy" << endl;
 			system("pause");
@@ -288,12 +296,58 @@ void Interfejs::OpcjaUsun(int _opcja)
 
 void Interfejs::OpcjaEdytuj(int _opcja)
 {
+	int pozycja = -1;
+	bool warunekWhile = true;
+	while (warunekWhile) {
+		system("cls");
+		try {
+			switch (_opcja) {
+			case 1:
+				//wyswietl zabiegi
+				//KalendarzZabiegow.wyswietlListaZabiegow();
+				break;
+			case 2:
+				//wyswietl pola
+				Gospodarstwo.wyswietlListePol();
+				break;
+			case 3:
+				//wyswietl maszyny
+				Gospodarstwo.wyswietlListeMaszyn();
+				break;
+			}
+		}
+		catch (std::domain_error e) {
+			std::cerr << e.what() << std::endl;
+			system("pause");
+			return;
+		}
+
+		cout << "Prosze podac numer elementu do edycji" << endl;
+		while (1) { //nieskoñczona pêtla
+			cin >> pozycja; //pobranie zmiennej
+			if (cin.fail() == true) { //wykrycie b³êdu
+				cout << "Prosze podac liczbê" << endl; //komunikat o b³êdzie
+				cin.clear(); //resetowanie flag b³êdu
+				cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			} //lub do napotkania znaku nowej linii
+			else break;
+		}
+		pozycja--;
+		if (czyPozaZakresem(_opcja, pozycja))
+		{
+			cout << "Podano wartosc poza zakresem tablicy" << endl;
+			system("pause");
+		}
+		else
+			warunekWhile = false;
+	}
+
 	switch (_opcja) {
 	case 1:
 		//KalendarzZabiegow.edytujZabieg();
 		break;
 	case 2:
-		//Gospodarstwo.edytujPole();
+		Gospodarstwo.edytujPole(Gospodarstwo.getPole(pozycja));
 		break;
 	case 3:
 		//Gospodarstwo.edytujMaszyne();
@@ -344,25 +398,26 @@ int Interfejs::MenuWyboru(int& numerek)
 
 bool Interfejs::czyPozaZakresem(int _opcja, int _indeksTablicy)
 {
+	if (_indeksTablicy < 0) return true;
 	switch (_opcja) {
 	case 1:
-		if (KalendarzZabiegow.getsizelistaZabiegowa() >= _indeksTablicy)
+		if (_indeksTablicy >= KalendarzZabiegow.getsizelistaZabiegowa())
 		{
-			return false;
+			return true;
 		}
 		break;
 	case 2:
-		if (Gospodarstwo.getSizeZiemiaUprawna() >= _indeksTablicy)
+		if (_indeksTablicy >= Gospodarstwo.getSizeZiemiaUprawna())
 		{
-			return false;
+			return true;
 		}
 		break;
 	case 3:
-		if (Gospodarstwo.getSizeParkMaszynowy() >= _indeksTablicy)
+		if (_indeksTablicy >= Gospodarstwo.getSizeParkMaszynowy())
 		{
-			return false;
+			return true;
 		}
 		break;
 	}
-	return true;
+	return false;
 }

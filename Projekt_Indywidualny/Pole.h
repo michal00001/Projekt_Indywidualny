@@ -33,7 +33,9 @@ public:
 	void setNawieziono (bool _stan);
 	void setZasiano (bool _stan);
 	void setZebrano (bool _stan);
+
 	void wprowadzDane();
+	void wyzerujStanPola();
 
 	bool operator<(const Pole& _obiekt) const;
 	bool operator==(const Pole& _obiekt) const;

@@ -22,6 +22,8 @@ class Drukarka {
 public:
 	virtual void drukuj(list<Zabieg>& _listaZabiegow) const = 0;
 	
+	//sprobuj z argumentami domyslnymi
+
 
 	/*
 	virtual void drukuj(list<Zabieg>& _listaZabiegow, int _zakres) const = 0;

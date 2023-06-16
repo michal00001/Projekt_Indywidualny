@@ -23,14 +23,14 @@ public:
 	void wyswietlListePol();
 	void wyswietlListePol(int _ile);
 
-	void zapiszCSV();
 
 	void dodajPole(Pole _obiekt);
-
+	void edytujPole(std::deque<Pole>::iterator pole);
 	void usunPole(int _pozycja);
+	void zapiszPoleCSV(char* sciezka);
 
-	Maszyna& getMaszyna(int _miejsce);
-	Pole& getPole(int _miejsce);
+	std::deque<Maszyna>::iterator getMaszyna(int _miejsce);
+	std::deque<Pole>::iterator getPole(int _miejsce);
 
 	std::size_t getSizeZiemiaUprawna() const{ return ZiemiaUprawna.size(); };
 	std::size_t getSizeParkMaszynowy() const{ return ParkMaszynowy.size(); };
@@ -44,7 +44,7 @@ public:
 	void wyczyscGospodarstwo();
 
 	void odczytajMaszynyZPliku(char* sciezka);
-    void odczytajPolaZPliku(const std::string& nazwaPliku);
+    void odczytajPolaZPliku(char* sciezka);
 
 };
 

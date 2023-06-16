@@ -106,24 +106,66 @@ void Gospodarstwo::dodajPole(Pole _obiekt)
 		ZiemiaUprawna.push_back(_obiekt);
 }
 
+void Gospodarstwo::edytujPole(std::deque<Pole>::iterator pole)
+{
+	// zabezpieczenia do zrobienia
+
+	int element;
+	std::string nowaNazwa;
+	float nowaPowierzchnia;
+	std::cout << "Nazwa:" << pole->getNazwa() << "\nPowierzchnia pola[ha]:" << pole->getPowierzchnia() << "\n"<<"Opcja resetowania powierzchnia pola"<<std::endl;
+	std::cout << "Wybierz element ktory chcesz edytowac:" << std::endl;
+	std::cin >> element;
+	switch (element)
+	{
+	case 1:
+		std::cin >> nowaNazwa;
+		pole->setNazwa(nowaNazwa);
+		break;
+	case 2:
+		std::cin >> nowaPowierzchnia;
+		pole->setPowierzchnia(nowaPowierzchnia);
+		break;
+	case 3:
+		pole->wyzerujStanPola();
+		break;
+	default:
+		break;
+	}
+}
+
 void Gospodarstwo::usunPole(int _pozycja)
 {
 	auto iterator = ZiemiaUprawna.begin() + _pozycja;
 	ZiemiaUprawna.erase(iterator);
 }
 
-Maszyna& Gospodarstwo::getMaszyna(int _miejsce)
+void Gospodarstwo::zapiszPoleCSV(char* sciezka)
 {
-	Maszyna pusta;
-	// TODO: tu wstawiæ instrukcjê return
-	return pusta;
+	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
+	drukarka->drukuj(ZiemiaUprawna);
 }
 
-Pole& Gospodarstwo::getPole(int _miejsce)
+std::deque<Maszyna>::iterator Gospodarstwo::getMaszyna(int _miejsce)
 {
-	Pole puste;
-	return puste;
-	// TODO: tu wstawiæ instrukcjê return
+	std::deque<Maszyna>::iterator referencja ;
+	referencja = ParkMaszynowy.begin();
+	for (int i = 0; i < _miejsce; i++)
+	{
+		referencja++;
+	}
+	return referencja;
+}
+
+std::deque<Pole>::iterator Gospodarstwo::getPole(int _miejsce)
+{
+	std::deque<Pole>::iterator referencja;
+	referencja = ZiemiaUprawna.begin();
+	for (int i = 0; i < _miejsce; i++)
+	{
+		referencja++;
+	}
+	return referencja;
 }
 
 bool Gospodarstwo::czyParkMaszynowyPusty() const
@@ -222,10 +264,10 @@ void Gospodarstwo::odczytajMaszynyZPliku(char* sciezka)
 		ParkMaszynowy = kolejka;
 }
 
-void Gospodarstwo::odczytajPolaZPliku(const std::string& nazwaPliku)
+void Gospodarstwo::odczytajPolaZPliku(char* sciezka)
 {
 		std::deque<Pole> pola;
-		std::ifstream plik(nazwaPliku);
+		std::ifstream plik(sciezka);
 
 		if (!plik)
 		{

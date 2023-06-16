@@ -77,6 +77,15 @@ void Pole::wprowadzDane()
 	setPowierzchnia(_powierzchnia);
 }
 
+void Pole::wyzerujStanPola()
+{
+	uprawiono = false;
+	nawieziono = false;
+	zasiano = false;
+	zebrano = false;
+	stadiumWzrostu = 0;
+}
+
 bool Pole::operator<(const Pole& _obiekt) const
 {
 	return (powierzchnia < _obiekt.powierzchnia);
