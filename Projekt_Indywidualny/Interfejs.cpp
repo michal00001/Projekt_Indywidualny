@@ -1,8 +1,10 @@
 #include "Interfejs.h"
 
+using namespace std;
+
 void Interfejs::MenuGlowne()
 {
-	using namespace std;
+	
 	bool warunek = true;
 
 	while (warunek) {
@@ -13,7 +15,7 @@ void Interfejs::MenuGlowne()
 		cout << "3. Wejdz w zapisane maszyny" << endl;
 		cout << "4. Wyjdz z programu" << endl;
 		
-			switch (podajOpcje(1,4))
+			switch (bezpiecznyInt(1,4))
 			{
 				case 1:
 					OpcjaKalendarzZabiegow();
@@ -38,7 +40,6 @@ void Interfejs::MenuGlowne()
 
 void Interfejs::OpcjaKalendarzZabiegow()
 {
-	using namespace std;
 	bool warunek = true;
 	std::unique_ptr<Drukarka> drukarka;
 	while (warunek) {
@@ -110,7 +111,6 @@ void Interfejs::OpcjaKalendarzZabiegow()
 
 void Interfejs::OpcjaZapisanePola()
 {
-	using namespace std;
 	bool warunek = true;
 	while (warunek) {
 		system("cls");
@@ -180,7 +180,6 @@ void Interfejs::OpcjaZapisanePola()
 
 void Interfejs::OpcjaZapisaneMaszyny()
 {
-	using namespace std;
 	bool warunek = true;
 	std::unique_ptr<Drukarka> drukarka;
 	while (warunek) {
@@ -188,7 +187,7 @@ void Interfejs::OpcjaZapisaneMaszyny()
 		int numerek = 1;
 		
 	
-		cout << "Menu Katalog Maszyn" << endl;
+		cout << "Menu Katalog Maszyn\n" << endl;
 		//wyswietl 5 pierwszych maszyn
 		try {
 			Gospodarstwo.wyswietlListeMaszyn();
@@ -196,6 +195,7 @@ void Interfejs::OpcjaZapisaneMaszyny()
 		catch (domain_error e) {
 			cerr << e.what() << endl;
 		}
+		cout << "\n" << endl;
 		switch (MenuWyboru(numerek))
 		{
 		case 1:
@@ -295,7 +295,7 @@ void Interfejs::OpcjaUsun(int _opcja)
 			return;
 		}
 		cout <<"\nPodaj element ktory chcesz usunac" << endl;
-		pozycja = podajOpcje(1,size);
+		pozycja = bezpiecznyInt(1,size);
 		pozycja--;
 		if (czyPozaZakresem(_opcja, pozycja))
 		{
@@ -308,7 +308,7 @@ void Interfejs::OpcjaUsun(int _opcja)
 
 	switch (_opcja) {
 	case 1:
-		//KalendarzZabiegow.usunZabieg(pozycja);
+		KalendarzZabiegow.usunZabieg(pozycja);
 		break;
 	case 2:
 		Gospodarstwo.usunPole(pozycja);
@@ -352,7 +352,7 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 			return;
 		}
 		cout << "\nPodaj element ktory chcesz edytowac" << endl;
-		pozycja = podajOpcje(1, size);
+		pozycja = bezpiecznyInt(1, size);
 		pozycja--;
 		if (czyPozaZakresem(_opcja, pozycja))
 		{
@@ -365,7 +365,7 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 
 	switch (_opcja) {
 	case 1:
-		//KalendarzZabiegow.edytujZabieg();
+		//edycjaZabiegow(KalendarzZabiegow.edytujZabieg());
 		break;
 	case 2:
 		system("cls");
@@ -387,10 +387,10 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 
 void Interfejs::OpcjaWczytaj(int _opcja)
 {
-	char sciezka[] = "Pliczek.txt";
+	char sciezka[] = "\0";
 	switch (_opcja) {
 	case 1:
-		//KalendarzZabiegow.odczytajZabiegZPliku(sciezka);
+		KalendarzZabiegow.odczytajZabiegZPliku(sciezka);
 		break;
 	case 2:
 		Gospodarstwo.odczytajMaszynyZPliku(sciezka);
@@ -401,7 +401,7 @@ void Interfejs::OpcjaWczytaj(int _opcja)
 	}
 }
 
-int Interfejs::podajOpcje(int _od, int _do) {
+int Interfejs::bezpiecznyInt(int _od, int _do) {
 	while (1) {
 		int x;
 		while (1) { //nieskoñczona pêtla
@@ -423,7 +423,6 @@ int Interfejs::podajOpcje(int _od, int _do) {
 int Interfejs::MenuWyboru(int& numerek)
 
 {
-	using namespace std;
 	cout << numerek << ". Dodaj element" << endl; numerek++;
 	cout << numerek << ". Usun wybrany element" << endl; numerek++;
 	cout << numerek << ". Edytuj wybrany element" << endl; numerek++;
@@ -433,7 +432,7 @@ int Interfejs::MenuWyboru(int& numerek)
 	cout << numerek << ". Zapisz jako plik .txt" << endl; numerek++;
 	cout << numerek << ". Powrot" << endl;
 	
-	return podajOpcje(1,numerek);
+	return bezpiecznyInt(1,numerek);
 }
 
 bool Interfejs::czyPozaZakresem(int _opcja, int _indeksTablicy)
@@ -464,17 +463,92 @@ bool Interfejs::czyPozaZakresem(int _opcja, int _indeksTablicy)
 
 void Interfejs::dodawaniePol()
 {
-	Gospodarstwo.dodajPole(wprowadzDane());
+	Gospodarstwo.dodajPole(utworzPoleObiekt());
 }
 
 void Interfejs::dodawanieZabiegow()
 {
+	if (Gospodarstwo.getSizeParkMaszynowy() == 0 || Gospodarstwo.getSizeZiemiaUprawna() == 0) {
+		cout << "Nie dodales pol i maszyn.\n"
+			<< "Nie mozesz uzywac tego menu bez tych informacji.\n"
+			<< "Uzyj opcji menu nr 2 i 3, aby dodac potrzebne dane." << endl;
+		system("pause");
+		return;
+	}
 
+	Zabieg noweZadanie;
+	try
+	{
+		noweZadanie.setData(utworzDataObiekt());
+	}
+	catch (const out_of_range& exc)
+	{
+		system("cls");
+		cerr << exc.what() << endl;
+		system("pause");
+	}
+	
+	system("cls");
+	cout<<"Data wykonania zabiegu:\n" << noweZadanie.getData()<<endl;
+	try
+	{
+		Gospodarstwo.wyswietlListePol();
+	}
+	catch (const domain_error& exc)
+	{
+		system("cls");
+		cerr << exc.what() << endl;
+		cout << "Uzyj opcji menu nr 2 i 3, aby uzupelnic potrzebne dane" << endl;
+		system("pause");
+		return;
+	}
+	cout << "\n";
+	noweZadanie.setPole(wybierzPole());
+
+	system("cls");
+	cout << "Data wykonania zabiegu:\n" << noweZadanie.getData() << endl;
+	cout << "Pole na ktory bedzie wykonany zabieg:\n" << noweZadanie.getPole()->getNazwa() << endl;
+	try
+	{
+	Gospodarstwo.wyswietlListeMaszyn();
+	}
+	catch (const domain_error& exc)
+	{
+		system("cls");
+		cerr << exc.what() << endl;
+		cout << "Uzyj opcji menu nr 2 i 3, aby uzupelnic potrzebne dane" << endl;
+		system("pause");
+		return;
+	}
+	cout << "\n";
+	int nrOpcji;
+	noweZadanie.setMaszyna(wybierzMaszyne(nrOpcji));
+	noweZadanie.wykonajZabieg(nrOpcji);
+	system("cls");
+	noweZadanie.wyswietl();
+	system("pause");
+	KalendarzZabiegow.dodajZabieg(noweZadanie);
+}
+
+Maszyna* Interfejs::wybierzMaszyne(int& numer)
+{
+	Maszyna* wskaznik;
+	int indeksKolejki = bezpiecznyInt(1, Gospodarstwo.getSizeParkMaszynowy()) - 1;
+	numer = indeksKolejki + 1;
+	wskaznik = &Gospodarstwo.getMaszyna(indeksKolejki);
+	return wskaznik;
+}
+
+Pole* Interfejs::wybierzPole()
+{
+	Pole* wskaznik;
+	int indeksKolejki = bezpiecznyInt(1, Gospodarstwo.getSizeZiemiaUprawna()) - 1;
+	wskaznik = &Gospodarstwo.getPole(indeksKolejki);
+	return wskaznik;
 }
 
 void Interfejs::dodawanieMaszyn()
 {
-	using namespace std;
 	bool warunek = true;
 	while (warunek)
 	{
@@ -489,7 +563,7 @@ void Interfejs::dodawanieMaszyn()
 
 		Maszyna pojazd;
 
-		switch (podajOpcje(1, numerek))
+		switch (bezpiecznyInt(1, numerek))
 		{
 		case 1:
 			pojazd.setDoZbioru();
@@ -529,7 +603,7 @@ void Interfejs::edycjaPol(Pole& _pole)
 	std::cout << "1.Nazwa:" << _pole.getNazwa() << "\n" << "2.Powierzchnia pola[ha]:" << _pole.getPowierzchnia()
 		<< "\n" << "3.Opcja resetowania powierzchnia pola" << std::endl;
 	std::cout<<"4.Powrot" << std::endl;
-	switch (podajOpcje(1,3))
+	switch (bezpiecznyInt(1,3))
 	{
 	case 1:
 		std::cin >> nowaNazwa;
@@ -548,9 +622,32 @@ void Interfejs::edycjaPol(Pole& _pole)
 	}
 }
 
-Pole Interfejs::wprowadzDane()
+void Interfejs::edycjaZabiegow()
 {
-	using namespace std;
+}
+
+Data Interfejs::utworzDataObiekt()
+{
+	
+	int dzien, miesiac, rok;
+
+	system("cls");
+	cout << "Podaj rok wykonania zabiegu:" << endl;
+	rok = bezpiecznyInt(1901, 2199);
+
+	system("cls");
+	cout << "Podaj miesiac wykonania zabiegu:" << endl;
+	miesiac = bezpiecznyInt(1, 12);
+
+	system("cls");
+	cout << "Podaj dzien wykonania zabiegu:" << endl;
+	dzien = bezpiecznyInt(1, Data::monthLength(miesiac, Data::isLeap(rok)));
+	
+	return Data(dzien,miesiac,rok);
+}
+
+Pole Interfejs::utworzPoleObiekt()
+{
 	string _nazwa;
 	float _powierzchnia=0.0;
 	bool warunekWhile = true;
@@ -576,8 +673,5 @@ Pole Interfejs::wprowadzDane()
 		}
 	}
 
-	nowePole.setNazwa(_nazwa);
-	nowePole.setPowierzchnia(_powierzchnia);
-
-	return nowePole;
+	return Pole(_nazwa,_powierzchnia);
 }

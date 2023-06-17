@@ -41,6 +41,7 @@ void Zabieg::setPole(Pole* _obiekt)
 
 void Zabieg::wykonajZabieg(int _opcja)
 {
+	
 	switch (_opcja) {
 	case 1:
 		maszyna->nawiez(*pole);

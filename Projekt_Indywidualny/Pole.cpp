@@ -4,6 +4,11 @@ Pole::Pole(std::string _nazwa, float powierzchnia)
 {
 	setNazwa(_nazwa);
 	setPowierzchnia(powierzchnia);
+	stadiumWzrostu = 0;//liczba od 0 do 7
+	uprawiono = 0;
+	nawieziono = 0;
+	zasiano = 0;
+	zebrano = 0;
 }
 
 void Pole::setNazwa(std::string _nazwa)

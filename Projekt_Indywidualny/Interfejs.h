@@ -17,7 +17,7 @@ class Interfejs
 	void OpcjaEdytuj(int _opcja);
 	void OpcjaWczytaj(int _opcja);
 	
-	int podajOpcje(int _od, int _do = 2000000);
+	int bezpiecznyInt(int _od, int _do = 2000000);
 	int MenuWyboru(int& numerek);
 
 	bool czyPozaZakresem(int _opcja, int _indeksTablicy);
@@ -26,9 +26,13 @@ class Interfejs
 	void dodawaniePol();
 	void dodawanieZabiegow();
 
-	Pole wprowadzDane();
-	void edycjaPol(Pole& _pole);
+	Maszyna* wybierzMaszyne(int& numer);
+	Pole* wybierzPole();
 
+	Data utworzDataObiekt();
+	Pole utworzPoleObiekt();
+	void edycjaPol(Pole& _pole);
+	void edycjaZabiegow();
 public:
 	void MenuGlowne();
 	
