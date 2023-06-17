@@ -1,20 +1,9 @@
 #include "Zabieg.h"
 
-Zabieg::Zabieg(Data _data, Maszyna _maszyna, Pole _pole)
-{
-	//if(_data.czyPoprawny())
-	data = _data;
-
-	//maszyna = _maszyna;
-
-	//pole = _pole;
-}
-
-bool Zabieg::czyPoprawny(Data& _data) const
+bool Zabieg::czyPoprawny(Data& _data)
 {
 	int dlugosc = _data.monthLength(_data.getMiesiac(), _data.isLeap(_data.getRok()));
 
-	//if(_data == nullptr) return false;
 	if (_data.getRok() <= 1900 || _data.getRok() >= 2200)		return false;
 	if (_data.getMiesiac() <= 0 || _data.getMiesiac() >= 13)		return false;
 	if (_data.getDzien() > dlugosc || _data.getDzien() <= 0)		return false;
@@ -22,24 +11,64 @@ bool Zabieg::czyPoprawny(Data& _data) const
 	return true;
 }
 
-bool Zabieg::czyPoprawny(Maszyna* _maszyna) const
+void Zabieg::setData(Data _data)
 {
-	if(_maszyna == nullptr) return false;
-	
-	return true;
+	data = _data;
 }
-
-bool Zabieg::czyPoprawny(Pole* _pole) const
-{
-	if (_pole == nullptr) return false;
-	
-	return true;
-}
-
 
 void Zabieg::setData(int _dzien,int _miesiac, int _rok)
 {
 	data.setDzien(_dzien);
 	data.setMiesiac(_miesiac);
 	data.setRok(_rok);
+}
+
+void Zabieg::setMaszyna(Maszyna* _obiekt)
+{
+	if (_obiekt)
+	{
+		maszyna = _obiekt;
+	}
+}
+
+void Zabieg::setPole(Pole* _obiekt)
+{
+	if (_obiekt)
+	{
+		pole = _obiekt;
+	}
+}
+
+void Zabieg::wykonajZabieg(int _opcja)
+{
+	switch (_opcja) {
+	case 1:
+		maszyna->nawiez(*pole);
+		break;
+	case 2:
+		maszyna->upraw(*pole);
+		break;
+	case 3:
+		maszyna->zasiej(*pole);
+		break;
+	case 4:
+		maszyna->zbierz(*pole);
+		break;
+	default:
+		break;
+	}
+}
+void Zabieg::wyswietl() {
+	std::cout << data<<std::endl;
+
+	std::cout << "|" << pole->getNazwa() << "|" << std::to_string(pole->getPowierzchnia()) << "|" << pole->getstadiumWzrostu() << "|";
+	if (pole->czyNawieziono()) std::cout << "Nawieziono";
+	else if (pole->czyUprawiono()) std::cout << "Uprawiono";
+	else if (pole->czyZasiano()) std::cout << "Zasiano";
+	else if (pole->czyZebrano()) std::cout << "Zebrano";
+	else std::cout << "Ugor";
+	std::cout << "|" << std::endl;
+
+	std::cout << maszyna->getNazwa() << std::endl;
+
 }

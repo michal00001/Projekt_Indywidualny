@@ -14,25 +14,26 @@ void Gospodarstwo::usunMaszyne(int _pozycja)
 
 void Gospodarstwo::zapiszMaszynyCSV(char* sciezka)
 {
-	std::cout << "Jak zrobisz drukarki to mnie odwiedz" << std::endl;
+	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
+	drukarka->drukuj(ParkMaszynowy,(int) ParkMaszynowy.size(), sciezka);
 }
 
 void Gospodarstwo::wyswietlListeMaszyn()
 {
 	std::unique_ptr<Drukarka> drukara = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-	drukara->drukuj(ParkMaszynowy);
+	drukara->drukuj(ParkMaszynowy,(int)ParkMaszynowy.size());
 }
 
 void Gospodarstwo::wyswietlListeMaszyn(int _ile)
 {
 	std::unique_ptr<Drukarka> drukara = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-	//drukara->drukuj(ZiemiaUprawna);
+	drukara->drukuj(ParkMaszynowy, _ile);
 }
 
 void Gospodarstwo::wyswietlListePol()
 {
 	std::unique_ptr<Drukarka> drukara = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-	drukara->drukuj(ZiemiaUprawna);
+	drukara->drukuj(ZiemiaUprawna,(int) ZiemiaUprawna.size());
 }
 
 void Gospodarstwo::wyswietlListePol(int _ile)
@@ -47,10 +48,10 @@ void Gospodarstwo::dodajPole(Pole _obiekt)
 		ZiemiaUprawna.push_back(_obiekt);
 }
 
-void Gospodarstwo::edytujPole(std::deque<Pole>::iterator pole,std::string _nazwa,float _powierzchnia)
+void Gospodarstwo::edytujPole(Pole& pole,std::string _nazwa,float _powierzchnia)
 {
-	pole->setNazwa(_nazwa);
-	pole->setPowierzchnia(_powierzchnia);
+	pole.setNazwa(_nazwa);
+	pole.setPowierzchnia(_powierzchnia);
 }
 
 void Gospodarstwo::usunPole(int _pozycja)
@@ -61,46 +62,18 @@ void Gospodarstwo::usunPole(int _pozycja)
 
 void Gospodarstwo::zapiszPoleCSV(char* sciezka)
 {
-	/*std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
-	drukarka->drukuj(ZiemiaUprawna,sciezka);*/
+	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
+	drukarka->drukuj(ZiemiaUprawna,(int) ZiemiaUprawna.size(), sciezka);
 }
 
-std::deque<Maszyna>::iterator Gospodarstwo::getMaszyna(int _miejsce)
+Maszyna& Gospodarstwo::getMaszyna(int _indeks)
 {
-	std::deque<Maszyna>::iterator referencja ;
-	referencja = ParkMaszynowy.begin();
-	for (int i = 0; i < _miejsce; i++)
-	{
-		referencja++;
-	}
-	return referencja;
+	return ParkMaszynowy.at(_indeks);
 }
 
-std::deque<Pole>::iterator Gospodarstwo::getPole(int _miejsce)
+Pole& Gospodarstwo::getPole(int _indeks)
 {
-	std::deque<Pole>::iterator referencja;
-	referencja = ZiemiaUprawna.begin();
-	for (int i = 0; i < _miejsce; i++)
-	{
-		referencja++;
-	}
-	return referencja;
-}
-
-bool Gospodarstwo::czyParkMaszynowyPusty() const
-{
-	if (ParkMaszynowy.size() > 0)
-		return false;
-	else 
-		return true;
-}
-
-bool Gospodarstwo::czyZiemiaUprawnaPusta() const
-{
-	if (ZiemiaUprawna.size() > 0)
-		return false;
-	else
-		return true;
+	return ZiemiaUprawna.at(_indeks);;
 }
 
 bool Gospodarstwo::sprawdzCzyNieWystepuje(Maszyna& _obiekt) const
@@ -170,7 +143,7 @@ void Gospodarstwo::odczytajMaszynyZPliku(char* sciezka)
 				maszyna.setDoSiewu();
 
 			if (doNawozenia)
-				maszyna.setdDoNawozenia();
+				maszyna.setDoNawozenia();
 
 			if (doZbioru)
 				maszyna.setDoZbioru();

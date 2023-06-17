@@ -16,7 +16,7 @@ public:
 	void setNazwa(std::string _nazwa);
 	void setDoUprawy();
 	void setDoSiewu();
-	void setdDoNawozenia();
+	void setDoNawozenia();
 	void setDoZbioru();
 
 	std::string getNazwa() const { return nazwa; };

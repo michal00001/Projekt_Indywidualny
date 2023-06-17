@@ -24,15 +24,27 @@ void Kalendarz::sortujZabiegi(const Data& _data)
 //	listaZabiegow.sort([](Zabieg& a, Zabieg& b) ->bool {return a.getMaszyna() < b.getMaszyna(); });
 //}
 
+std::list<Zabieg>::iterator Kalendarz::getZabieg(int _indeks)
+{
+	//niebezpieczna funkcja
+	std::list<Zabieg>::iterator iterator = listaZabiegow.begin();
+	for (int i = 0; i < _indeks; i++)
+	{
+		iterator++;
+	}
+	return iterator;
+}
+
 void Kalendarz::dodajZabieg(Zabieg _obiekt)
 {
 	listaZabiegow.push_back(_obiekt);
 	sortujZabiegi(Data());
 }
 
+
 void Kalendarz::usunZabieg(int _pozycja)
 {
-	auto iterator = listaZabiegow.begin();
+	std::list<Zabieg>::iterator iterator = listaZabiegow.begin();
 	for (int i = 0; i < _pozycja; i++)
 	{
 		iterator++;
@@ -40,15 +52,35 @@ void Kalendarz::usunZabieg(int _pozycja)
 	listaZabiegow.erase(iterator);
 }
 
+void Kalendarz::edytujZabieg(std::list<Zabieg>::iterator _zabieg, Data _data)
+{
+	if (Zabieg::czyPoprawny(_data))
+	{
+
+	}
+	_zabieg->setData(_data);
+}
+
+void Kalendarz::ZapiszZabiegiCSV(const char* _sciezka)
+{
+	try
+	{
+	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
+	drukarka->drukuj(listaZabiegow,(int)listaZabiegow.size());
+	}
+	catch (const std::domain_error& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+}
+
+void Kalendarz::odczytajZabiegZPliku(const char* _sciezka)
+{
+
+}
+
 void Kalendarz::wyczyscListeZabiegow()
 {
 	listaZabiegow.clear();
 }
 
-bool Kalendarz::czyListaPusta()
-{
-	if (listaZabiegow.size() > 0)
-		return false;
-	else
-		return true;
-}

@@ -1,8 +1,10 @@
 #pragma once
 #include <list>
-#include <fstream>
-#include "Zabieg.h"
 #include <string>
+#include <fstream>
+
+#include "Zabieg.h"
+#include "Drukarka.h"
 
 class Kalendarz
 {
@@ -13,14 +15,16 @@ public:
 	//void sortujZabiegi(const Maszyna& _nazwa);
 	//void sortujZabiegi(const Pole& _powierzchnia);
 
+	std::list<Zabieg>::iterator getZabieg(int _indeks);
+
 	void dodajZabieg(Zabieg _obiekt);
 	void usunZabieg(int _pozycja);
-
-	//void odczytajZabiegZPliku(char* _sciezka);
+	void edytujZabieg(std::list<Zabieg>::iterator _zabieg, Data data);
+	void ZapiszZabiegiCSV(const char* _sciezka);
+	void odczytajZabiegZPliku(const char* _sciezka);
     
 	void wyczyscListeZabiegow();
 
-	bool czyListaPusta();
 	std::size_t getsizelistaZabiegowa() const { return listaZabiegow.size(); };
 
 };

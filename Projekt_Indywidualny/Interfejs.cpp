@@ -69,11 +69,7 @@ void Interfejs::OpcjaKalendarzZabiegow()
 		case 5:
 			//wyswietl terminal
 			system("cls");
-			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-			if (!KalendarzZabiegow.czyListaPusta());
-				//drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
-			else
-				cout << "Kalendarz jest pusty" << endl;
+			//KalendarzZabiegow.
 			system("pause");
 			break;
 		case 6:
@@ -323,7 +319,12 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 		break;
 	case 2:
 		system("cls");
-		edycjaPol(Gospodarstwo.getPole(pozycja));
+		try {
+			edycjaPol(Gospodarstwo.getPole(pozycja));
+		}
+		catch(out_of_range const& exc){
+			cerr << exc.what() << endl;
+		}
 		break;
 	case 3:
 		cout << "W obecnej wersji maszyn nie da siê edytowac" << endl;
@@ -337,7 +338,7 @@ void Interfejs::OpcjaWczytaj(int _opcja)
 	char sciezka[] = "Pliczek.txt";
 	switch (_opcja) {
 	case 1:
-		KalendarzZabiegow.odczytajZabiegZPliku(sciezka);
+		//KalendarzZabiegow.odczytajZabiegZPliku(sciezka);
 		break;
 	case 2:
 		Gospodarstwo.odczytajMaszynyZPliku(sciezka);
@@ -440,7 +441,7 @@ void Interfejs::dodawanieMaszyn()
 			pojazd.setDoUprawy();
 			break;
 		case 3:
-			pojazd.setdDoNawozenia();
+			pojazd.setDoNawozenia();
 			break;
 		case 4:
 			pojazd.setDoSiewu();
@@ -462,25 +463,25 @@ void Interfejs::dodawanieMaszyn()
 	}
 }
 
-void Interfejs::edycjaPol(std::deque<Pole>::iterator _pole)
+void Interfejs::edycjaPol(Pole& _pole)
 {
 	std::string nowaNazwa;
 	float nowaPowierzchnia;
 	std::cout << "Wybierz element ktory chcesz edytowac:" << std::endl;
-	std::cout << "1.Nazwa:" << _pole->getNazwa() << "\n" << "2.Powierzchnia pola[ha]:" << _pole->getPowierzchnia() 
+	std::cout << "1.Nazwa:" << _pole.getNazwa() << "\n" << "2.Powierzchnia pola[ha]:" << _pole.getPowierzchnia() 
 		<< "\n" << "3.Opcja resetowania powierzchnia pola" << std::endl;
 	switch (podajOpcje(1,3))
 	{
 	case 1:
 		std::cin >> nowaNazwa;
-		_pole->setNazwa(nowaNazwa);
+		_pole.setNazwa(nowaNazwa);
 		break;
 	case 2:
 		std::cin >> nowaPowierzchnia;
-		_pole->setPowierzchnia(nowaPowierzchnia);
+		_pole.setPowierzchnia(nowaPowierzchnia);
 		break;
 	case 3:
-		_pole->wyzerujStanPola();
+		_pole.wyzerujStanPola();
 		break;
 	default:
 		break;

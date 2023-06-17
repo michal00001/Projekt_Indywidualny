@@ -14,6 +14,7 @@ private:
 
 public:
 	Pole() :powierzchnia(0.0), stadiumWzrostu(0), nazwa("Basic"), uprawiono(false), nawieziono(false), zasiano(false), zebrano(false) {};
+	Pole(std::string _nazwa, float powierzchnia);
 
 	std::string const getNazwa() { return nazwa; };
 	int const getstadiumWzrostu() { return stadiumWzrostu; };

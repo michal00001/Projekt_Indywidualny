@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <string>
+
 #include "Data.h"
 #include "Maszyna.h"
 #include "Pole.h"
@@ -13,22 +16,20 @@ private:
 
 public:
 	Zabieg() :data(1, 1, 1901), maszyna(nullptr), pole(nullptr) {} ;
-	Zabieg(Data _data, Maszyna _maszyna, Pole _pole);
-
-	/*void ustawDate();
-	void ustawMaszyn();
-	void ustawPole();*/
 
 	Data& getData() { return data; };
+	Maszyna* getMaszyna() { return maszyna; };
+	Pole* getPole() { return pole; };
 
+	static bool czyPoprawny( Data& _data);
 
-	bool czyPoprawny(Data& _data) const ;
-	bool czyPoprawny( Maszyna* _maszyna) const ;
-	bool czyPoprawny( Pole* _pole) const ;
-
+	void setData(Data _data);
 	void setData(int _dzien, int _miesiac, int _rok);
+	void setMaszyna(Maszyna* _obiekt);
+	void setPole(Pole* _obiekt);
 
-
+	void wykonajZabieg(int _opcja);
+	void wyswietl();
 };
 
 

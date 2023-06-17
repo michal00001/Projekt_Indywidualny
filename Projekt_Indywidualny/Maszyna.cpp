@@ -23,7 +23,7 @@ void Maszyna::setDoSiewu()
 	nazwa = "Siewnik";
 }
 
-void Maszyna::setdDoNawozenia()
+void Maszyna::setDoNawozenia()
 {
 	doUprawy = false;
 	doSiewu = false;

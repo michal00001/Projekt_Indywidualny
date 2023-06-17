@@ -27,7 +27,7 @@ class Interfejs
 	//void dodawanieZabiegow();
 
 	Pole wprowadzDane();
-	void edycjaPol(std::deque<Pole>::iterator _pole);
+	void edycjaPol(Pole& _pole);
 
 public:
 	void MenuGlowne();

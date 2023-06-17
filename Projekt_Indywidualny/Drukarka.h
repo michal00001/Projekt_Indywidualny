@@ -25,14 +25,11 @@ private:
 	bool operator==(const Drukarka& other) const {};
 
 public:
-	virtual void drukuj(list<Zabieg>& _listaZabiegow, int _ile,const char* sciezka) const = 0;
+	virtual void drukuj(list<Zabieg>& _listaZabiegow, int _ile,const char* sciezka = "\0") const = 0;
 
-
-	virtual void drukuj(deque<Maszyna>& _ParkMaszynowy, int _ile, const char* sciezka) const = 0;
+	virtual void drukuj(deque<Maszyna>& _ParkMaszynowy, int _ile, const char* sciezka = "\0") const = 0;
 	
-
-	virtual void drukuj(deque<Pole>& _ZiemiaUprawna, int _ile, const char* sciezka) const = 0;
-
+	virtual void drukuj(deque<Pole>& _ZiemiaUprawna, int _ile, const char* sciezka = "\0") const = 0;
 };
 
 
@@ -43,7 +40,7 @@ public:
 
 		//nawet jezeli ile bedzie poza rozmiarem to wydrukuje sie tylko tyle ile jest w tablicy
 
-		if (_listaZabiegow.size() == 0)
+		if (_listaZabiegow.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 		else {
 			using namespace std;
@@ -68,7 +65,7 @@ public:
 
 		//nawet jezeli ile bedzie poza rozmiarem to wydrukuje sie tylko tyle ile jest w tablicy
 
-		if (_ParkMaszynowy.size() == 0) {
+		if (_ParkMaszynowy.empty()) {
 			throw domain_error("Lista maszyn jest pusta");
 		}
 
@@ -89,7 +86,7 @@ public:
 
 		//nawet jezeli ile bedzie poza rozmiarem to wydrukuje sie tylko tyle ile jest w tablicy
 
-		if (_ZiemiaUprawna.size() == 0) {
+		if (_ZiemiaUprawna.empty()) {
 			throw domain_error("Lista pol jest pusta");
 		}
 
@@ -116,12 +113,12 @@ public:
 };
 
 
-class CsvDrukarka : public Drukarka
+class CSVDrukarka : public Drukarka
 {
 public:
 
 	void drukuj(list<Zabieg>& _listaZabiegow,int _ile,const char* _sciezka="ZabiegPlik.csv") const override {
-		if (_listaZabiegow.size() == 0)
+		if (_listaZabiegow.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 
 			fstream plik;
@@ -144,7 +141,7 @@ public:
 	}
 
 	void drukuj(deque<Maszyna>& _ParkMaszynowy, int _ile, const char* _sciezka) const override{
-		if (_ParkMaszynowy.size() == 0)
+		if (_ParkMaszynowy.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 
 			std::ofstream plik;
@@ -219,7 +216,7 @@ public:
 		drukuj(_listaZabiegow, sciezka);
 	};
 	void drukuj(list<Zabieg>& _listaZabiegow, int _ile) const override {
-		if (_listaZabiegow.size() == 0)
+		if (_listaZabiegow.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 		else {
 			char sciezka[] = "PrzykladKalendarz.txt";
@@ -251,7 +248,7 @@ public:
 		}
 	};
 	void drukuj(list<Zabieg>& _listaZabiegow, char* _sciezka) const override {
-		if (_listaZabiegow.size() == 0)
+		if (_listaZabiegow.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 		else {
 			fstream plik;
@@ -281,7 +278,7 @@ public:
 		char sciezka[] = "Przyklad_maszyn.txt";
 		int liczba_wydrukowanych = 0;
 
-		if (_ParkMaszynowy.size() == 0)
+		if (_ParkMaszynowy.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 		else {
 			fstream plik;
@@ -312,7 +309,7 @@ public:
 		}
 	};
 	void drukuj(deque<Maszyna>& _ParkMaszynowy, char* _sciezka) const override {
-		if (_ParkMaszynowy.size() == 0)
+		if (_ParkMaszynowy.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 		else {
 			fstream plik;
@@ -342,7 +339,7 @@ public:
 	};
 	void drukuj(deque<Pole>& _ZiemiaUprawna, int _ile) const override {
 
-		if (_ZiemiaUprawna.size() == 0)
+		if (_ZiemiaUprawna.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 		else {
 			char sciezka[] = "PrzykladPole.txt";
@@ -375,7 +372,7 @@ public:
 		}
 	};
 	void drukuj(deque<Pole>& _ZiemiaUprawna, char* _sciezka) const override {
-		if (_ZiemiaUprawna.size() == 0)
+		if (_ZiemiaUprawna.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
 		else {
 			fstream plik;

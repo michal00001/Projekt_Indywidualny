@@ -1,5 +1,11 @@
 #include "Pole.h"
 
+Pole::Pole(std::string _nazwa, float powierzchnia)
+{
+	setNazwa(_nazwa);
+	setPowierzchnia(powierzchnia);
+}
+
 void Pole::setNazwa(std::string _nazwa)
 {
 	nazwa = _nazwa;
@@ -9,8 +15,8 @@ void Pole::setstadiumWzrostu(int _stadiumWzrostu)
 {
 	if (_stadiumWzrostu >= 0 && _stadiumWzrostu <= 7)
 		stadiumWzrostu = _stadiumWzrostu;
-	else
-		throw std::out_of_range("Wartosc stadium wzrostu jest spoza zakresu <0,7>");
+	/*else
+		throw std::out_of_range("Wartosc stadium wzrostu jest spoza zakresu <0,7>");*/
 	// 0 - brak uprawy
 	// 1 - zasiane
 	// 2 - kielkowanie
@@ -26,7 +32,7 @@ void Pole::setPowierzchnia(float _powierzchnia)
 	if (_powierzchnia > 0)
 		powierzchnia = _powierzchnia;
 	else
-		throw std::domain_error("Powierzchnia pola jest <= 0");
+		powierzchnia = 0.0;
 }
 
 void Pole::setUprawiono(bool _stan)
