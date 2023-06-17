@@ -22,20 +22,20 @@ bool Zabieg::czyPoprawny(Data& _data) const
 	return true;
 }
 
-bool Zabieg::czyPoprawny(Pole& _pole) const
+bool Zabieg::czyPoprawny(Maszyna* _maszyna) const
 {
-	//if(_pole == nullptr) return false;
-	if(_pole.getPowierzchnia() <= 0)		return false;
-	if (_pole.getstadiumWzrostu() < 0 || _pole.getstadiumWzrostu() > 6)		return false;
+	if(_maszyna == nullptr) return false;
 	
 	return true;
 }
 
-bool Zabieg::czyPoprawny(Maszyna& _maszyna) const
+bool Zabieg::czyPoprawny(Pole* _pole) const
 {
-	//if(_maszyna == nullptr) return false;
+	if (_pole == nullptr) return false;
+	
 	return true;
 }
+
 
 void Zabieg::setData(int _dzien,int _miesiac, int _rok)
 {

@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <iomanip>
 
 class Pole
 {
@@ -34,7 +33,6 @@ public:
 	void setZasiano (bool _stan);
 	void setZebrano (bool _stan);
 
-	void wprowadzDane();
 	void wyzerujStanPola();
 
 	bool operator<(const Pole& _obiekt) const;

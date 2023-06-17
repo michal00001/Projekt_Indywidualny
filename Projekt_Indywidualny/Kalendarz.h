@@ -16,7 +16,7 @@ public:
 	void dodajZabieg(Zabieg _obiekt);
 	void usunZabieg(int _pozycja);
 
-	void odczytajZabiegZPliku(char* _sciezka);
+	//void odczytajZabiegZPliku(char* _sciezka);
     
 	void wyczyscListeZabiegow();
 

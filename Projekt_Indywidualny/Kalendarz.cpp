@@ -30,22 +30,6 @@ void Kalendarz::dodajZabieg(Zabieg _obiekt)
 	sortujZabiegi(Data());
 }
 
-void Kalendarz::odczytajZabiegZPliku(char* _sciezka)
-{
-	int i = 0;
-	int dzien, miesiac, rok,klasaPola;
-	float powierzchniaPola;
-	std::string nazwaMaszyny, nazwaPola;
-	std::fstream plik;
-	
-	std::string bufor;
-	plik.open(_sciezka, std::ofstream::in);
-
-	sortujZabiegi(Data());
-
-	plik.close();
-}
-
 void Kalendarz::usunZabieg(int _pozycja)
 {
 	auto iterator = listaZabiegow.begin();

@@ -1,10 +1,12 @@
 #pragma once
-#include <fstream>
+
 #include <queue>
 #include <sstream>
+#include <fstream>
+
+#include "Drukarka.h"
 #include "Maszyna.h"
 #include "Pole.h"
-#include "Drukarka.h"
 
 
 class Gospodarstwo
@@ -13,10 +15,10 @@ private:
 	std::deque<Pole> ZiemiaUprawna;
 	std::deque<Maszyna> ParkMaszynowy;
 public:
-	void dodajMaszyne();
 	void dodajMaszyne(Maszyna _obiekt);
-
+	//void edytujNazwa(std::deque<Maszyna>::iterator _maszyna);
 	void usunMaszyne(int _pozycja);
+	void zapiszMaszynyCSV(char* sciezka);
 
 	void wyswietlListeMaszyn();
 	void wyswietlListeMaszyn(int _ile);
@@ -25,7 +27,7 @@ public:
 
 
 	void dodajPole(Pole _obiekt);
-	void edytujPole(std::deque<Pole>::iterator pole);
+	void edytujPole(std::deque<Pole>::iterator pole, std::string _nazwa, float _powierzchnia);
 	void usunPole(int _pozycja);
 	void zapiszPoleCSV(char* sciezka);
 

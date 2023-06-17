@@ -23,8 +23,8 @@ public:
 
 
 	bool czyPoprawny(Data& _data) const ;
-	bool czyPoprawny( Pole& _pole) const ;
-	bool czyPoprawny( Maszyna& _maszyna) const ;
+	bool czyPoprawny( Maszyna* _maszyna) const ;
+	bool czyPoprawny( Pole* _pole) const ;
 
 	void setData(int _dzien, int _miesiac, int _rok);
 

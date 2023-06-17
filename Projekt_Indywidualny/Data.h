@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <iomanip>
 
 class Data
@@ -12,9 +11,6 @@ public:
 	//konstruktory
 	Data() :dzien(1), miesiac(1), rok(1901) {};
 	Data(int _dzien, int _miesiac, int _rok);
-	//Data(int _dzien);
-	//Data(int _dzien, int _miesiac);
-
 
 	//fragmenty biblioteki QuantLib
 	//problem z dodaniem do Visuala

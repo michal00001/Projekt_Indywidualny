@@ -1,62 +1,5 @@
 #include "Gospodarstwo.h"
 
-void Gospodarstwo::dodajMaszyne()
-{
-	using namespace std;
-	bool warunek = true;
-	while (warunek)
-	{
-		system("cls");
-		int numerek = 1;
-		cout << "Wybierz jedna z dostepnych klas maszyn lub opcje powrot"<<endl;
-		cout << numerek << ". Kombajn" << endl; numerek++;
-		cout << numerek << ". Kultywator" << endl; numerek++;
-		cout << numerek << ". Rozsiewacz" << endl; numerek++;
-		cout << numerek << ". Siewnik" << endl; numerek++;
-		cout << numerek << ". Powrot" << endl;
-
-		int x;
-		while (1) { //nieskoñczona pêtla
-			std::cin >> x; //pobranie zmiennej
-			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac liczbe z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
-				std::cin.clear(); //resetowanie flag b³êdu
-				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-			} //lub do napotkania znaku nowej linii
-			else break;
-		}
-		Maszyna pojazd;
-		switch (x)
-		{
-		case 1:
-			pojazd.setDoZbioru();
-			break;
-		case 2:
-			pojazd.setDoUprawy();
-			break;
-		case 3:
-			pojazd.setdDoNawozenia();
-			break;
-		case 4:
-			pojazd.setDoSiewu();
-			break;
-		case 5:
-			warunek = false;
-			return;
-		default:
-			break;
-		}
-		if (sprawdzCzyNieWystepuje(pojazd)) {
-			ParkMaszynowy.push_back(pojazd);
-			warunek = false;
-		}
-		else {
-			cout << "Podana maszyna juz wystêpuje na liscie"<<endl;
-			system("cls");
-		}
-	}
-}
-
 void Gospodarstwo::dodajMaszyne(Maszyna _obiekt)
 {
 	if (sprawdzCzyNieWystepuje(_obiekt))
@@ -67,6 +10,11 @@ void Gospodarstwo::usunMaszyne(int _pozycja)
 {
 	auto iterator = ParkMaszynowy.begin()+_pozycja;
 	ParkMaszynowy.erase(iterator);
+}
+
+void Gospodarstwo::zapiszMaszynyCSV(char* sciezka)
+{
+	std::cout << "Jak zrobisz drukarki to mnie odwiedz" << std::endl;
 }
 
 void Gospodarstwo::wyswietlListeMaszyn()
@@ -93,45 +41,16 @@ void Gospodarstwo::wyswietlListePol(int _ile)
 	drukara->drukuj(ZiemiaUprawna,_ile);
 }
 
-void Gospodarstwo::zapiszCSV()
-{
-	std::cout << "Nic nie robie\n";
-	system("pause");
-
-}
-
 void Gospodarstwo::dodajPole(Pole _obiekt)
 {
 	if (sprawdzCzyNieWystepuje(_obiekt))
 		ZiemiaUprawna.push_back(_obiekt);
 }
 
-void Gospodarstwo::edytujPole(std::deque<Pole>::iterator pole)
+void Gospodarstwo::edytujPole(std::deque<Pole>::iterator pole,std::string _nazwa,float _powierzchnia)
 {
-	// zabezpieczenia do zrobienia
-
-	int element;
-	std::string nowaNazwa;
-	float nowaPowierzchnia;
-	std::cout << "Nazwa:" << pole->getNazwa() << "\nPowierzchnia pola[ha]:" << pole->getPowierzchnia() << "\n"<<"Opcja resetowania powierzchnia pola"<<std::endl;
-	std::cout << "Wybierz element ktory chcesz edytowac:" << std::endl;
-	std::cin >> element;
-	switch (element)
-	{
-	case 1:
-		std::cin >> nowaNazwa;
-		pole->setNazwa(nowaNazwa);
-		break;
-	case 2:
-		std::cin >> nowaPowierzchnia;
-		pole->setPowierzchnia(nowaPowierzchnia);
-		break;
-	case 3:
-		pole->wyzerujStanPola();
-		break;
-	default:
-		break;
-	}
+	pole->setNazwa(_nazwa);
+	pole->setPowierzchnia(_powierzchnia);
 }
 
 void Gospodarstwo::usunPole(int _pozycja)
@@ -142,8 +61,8 @@ void Gospodarstwo::usunPole(int _pozycja)
 
 void Gospodarstwo::zapiszPoleCSV(char* sciezka)
 {
-	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
-	drukarka->drukuj(ZiemiaUprawna);
+	/*std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
+	drukarka->drukuj(ZiemiaUprawna,sciezka);*/
 }
 
 std::deque<Maszyna>::iterator Gospodarstwo::getMaszyna(int _miejsce)

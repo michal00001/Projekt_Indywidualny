@@ -49,34 +49,6 @@ void Pole::setZebrano(bool _stan)
 	zebrano = _stan;
 }
 
-void Pole::wprowadzDane()
-{
-	using namespace std;
-	string _nazwa;
-	float _powierzchnia;
-	bool warunekWhile = true;
-	
-	system("cls");
-	cout << "Podaj nazwe pola: " << endl;
-	cin >> _nazwa;
-	
-	system("cls");
-	cout << "Podana nazwa pola to " << _nazwa << endl;
-	cout << "Podaj powierzchnie pola: " << endl;
-	while (1) { //nieskoñczona pêtla
-		cin >> _powierzchnia; //pobranie zmiennej
-		if (cin.fail() == true || _powierzchnia <= 0) { //wykrycie b³êdu
-			cout << "Prosze podac poprawna wartosc" << endl; //komunikat o b³êdzie
-			cin.clear(); //resetowanie flag b³êdu
-			cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-		} //lub do napotkania znaku nowej linii
-		else break;
-	}
-
-	setNazwa(_nazwa);
-	setPowierzchnia(_powierzchnia);
-}
-
 void Pole::wyzerujStanPola()
 {
 	uprawiono = false;

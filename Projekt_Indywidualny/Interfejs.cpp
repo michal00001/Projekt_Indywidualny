@@ -12,17 +12,8 @@ void Interfejs::MenuGlowne()
 		cout << "2. Wejdz w zapisane pola" << endl;
 		cout << "3. Wejdz w zapisane maszyny" << endl;
 		cout << "4. Wyjdz z programu" << endl;
-		int x;
-		while (1) { //nieskoñczona pêtla
-			std::cin >> x; //pobranie zmiennej
-			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac liczbê z zakresu od 1 do 4" << endl; //komunikat o b³êdzie
-				std::cin.clear(); //resetowanie flag b³êdu
-				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-			} //lub do napotkania znaku nowej linii
-			else break;
-		}
-			switch (x)
+		
+			switch (podajOpcje(1,4))
 			{
 				case 1:
 					OpcjaKalendarzZabiegow();
@@ -54,12 +45,13 @@ void Interfejs::OpcjaKalendarzZabiegow()
 		system("cls");
 		int numerek = 1;
 
-		cout << "Menu kalendarza zabiegow" << endl;
+		cout << "Menu kalendarza zabiegow\n"<< endl;
 		if (KalendarzZabiegow.getsizelistaZabiegowa()) {
 			//wyswietl 5 pierwszych zabiegow
 			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
 			//drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow(), 5);
 		}
+		cout << "\n";
 		switch (MenuWyboru(numerek))
 		{
 		case 1:
@@ -76,6 +68,7 @@ void Interfejs::OpcjaKalendarzZabiegow()
 			break;
 		case 5:
 			//wyswietl terminal
+			system("cls");
 			drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
 			if (!KalendarzZabiegow.czyListaPusta());
 				//drukarka->drukuj(KalendarzZabiegow.getlistaZabiegow());
@@ -147,7 +140,7 @@ void Interfejs::OpcjaZapisanePola()
 			break;
 		case 6:
 			//zapis .csv
-			Gospodarstwo.zapiszCSV();
+			//Gospodarstwo.zapiszCSV();
 			break;
 		case 7:
 			//zapis .txt
@@ -220,14 +213,13 @@ void Interfejs::OpcjaDodaj(int _opcja)
 	Pole temp;
 	switch (_opcja) {
 	case 1:
-		//KalendarzZabiegow.dodajZabieg();
+		//dodawanieZabiegow();
 		break;
 	case 2:
-		temp.wprowadzDane();
-		Gospodarstwo.dodajPole(temp);
+		dodawaniePol();
 		break;
 	case 3:
-		Gospodarstwo.dodajMaszyne();
+		dodawanieMaszyn();
 		break;
 	}
 }
@@ -260,17 +252,8 @@ void Interfejs::OpcjaUsun(int _opcja)
 			system("pause");
 			return;
 		}
-		
-		cout << "Prosze podac numer elementu do usuniecia" << endl;
-		while (1) { //nieskoñczona pêtla
-			cin >> pozycja; //pobranie zmiennej
-			if (cin.fail() == true) { //wykrycie b³êdu
-				cout << "Prosze podac liczbê"<< endl; //komunikat o b³êdzie
-				cin.clear(); //resetowanie flag b³êdu
-				cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-			} //lub do napotkania znaku nowej linii
-			else break;
-		}
+		cout << endl;
+		pozycja = podajOpcje(0);
 
 		if (czyPozaZakresem(_opcja, pozycja))
 		{
@@ -300,6 +283,7 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 	bool warunekWhile = true;
 	while (warunekWhile) {
 		system("cls");
+		cout << "Menu edycji\n" << endl;
 		try {
 			switch (_opcja) {
 			case 1:
@@ -321,17 +305,8 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 			system("pause");
 			return;
 		}
-
-		cout << "Prosze podac numer elementu do edycji" << endl;
-		while (1) { //nieskoñczona pêtla
-			cin >> pozycja; //pobranie zmiennej
-			if (cin.fail() == true) { //wykrycie b³êdu
-				cout << "Prosze podac liczbê" << endl; //komunikat o b³êdzie
-				cin.clear(); //resetowanie flag b³êdu
-				cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-			} //lub do napotkania znaku nowej linii
-			else break;
-		}
+		cout << "Podaj element ktory chcesz edytowac" << endl;
+		pozycja = podajOpcje(1);
 		pozycja--;
 		if (czyPozaZakresem(_opcja, pozycja))
 		{
@@ -347,9 +322,11 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 		//KalendarzZabiegow.edytujZabieg();
 		break;
 	case 2:
-		Gospodarstwo.edytujPole(Gospodarstwo.getPole(pozycja));
+		system("cls");
+		edycjaPol(Gospodarstwo.getPole(pozycja));
 		break;
 	case 3:
+		cout << "W obecnej wersji maszyn nie da siê edytowac" << endl;
 		//Gospodarstwo.edytujMaszyne();
 		break;
 	}
@@ -371,6 +348,25 @@ void Interfejs::OpcjaWczytaj(int _opcja)
 	}
 }
 
+int Interfejs::podajOpcje(int _od, int _do) {
+	while (1) {
+		int x;
+		while (1) { //nieskoñczona pêtla
+			std::cin >> x; //pobranie zmiennej
+			if (std::cin.fail() == true) { //wykrycie b³êdu
+				std::cout << "Prosze podac liczbe z zakresu od " << _od << " do " << _do << std::endl; //komunikat o b³êdzie
+				std::cin.clear(); //resetowanie flag b³êdu
+				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			} //lub do napotkania znaku nowej linii
+			else break;
+		}
+		if (x >= _od && x <= _do)
+			return x;
+		else
+			std::cout << "Prosze podac liczbe z zakresu od " << _od << " do " << _do << std::endl; //komunikat o b³êdzie
+	}
+}
+
 int Interfejs::MenuWyboru(int& numerek)
 
 {
@@ -383,17 +379,8 @@ int Interfejs::MenuWyboru(int& numerek)
 	cout << numerek << ". Zapisz jako plik .CSV" << endl; numerek++;
 	cout << numerek << ". Zapisz jako plik .txt" << endl; numerek++;
 	cout << numerek << ". Powrot" << endl;
-	int x;
-	while (1) { //nieskoñczona pêtla
-		std::cin >> x; //pobranie zmiennej
-		if (std::cin.fail() == true) { //wykrycie b³êdu
-			std::cout << "Prosze podac liczbe z zakresu od 1 do " << numerek << std::endl; //komunikat o b³êdzie
-			std::cin.clear(); //resetowanie flag b³êdu
-			std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
-		} //lub do napotkania znaku nowej linii
-		else break;
-	}
-	return x;
+	
+	return podajOpcje(1,numerek);
 }
 
 bool Interfejs::czyPozaZakresem(int _opcja, int _indeksTablicy)
@@ -420,4 +407,116 @@ bool Interfejs::czyPozaZakresem(int _opcja, int _indeksTablicy)
 		break;
 	}
 	return false;
+}
+
+void Interfejs::dodawaniePol()
+{
+	Gospodarstwo.dodajPole(wprowadzDane());
+}
+
+void Interfejs::dodawanieMaszyn()
+{
+	using namespace std;
+	bool warunek = true;
+	while (warunek)
+	{
+		system("cls");
+		int numerek = 1;
+		cout << "Wybierz jedna z dostepnych klas maszyn lub opcje powrot" << endl;
+		cout << numerek << ". Kombajn" << endl; numerek++;
+		cout << numerek << ". Kultywator" << endl; numerek++;
+		cout << numerek << ". Rozsiewacz" << endl; numerek++;
+		cout << numerek << ". Siewnik" << endl; numerek++;
+		cout << numerek << ". Powrot" << endl;
+
+		Maszyna pojazd;
+
+		switch (podajOpcje(1, numerek))
+		{
+		case 1:
+			pojazd.setDoZbioru();
+			break;
+		case 2:
+			pojazd.setDoUprawy();
+			break;
+		case 3:
+			pojazd.setdDoNawozenia();
+			break;
+		case 4:
+			pojazd.setDoSiewu();
+			break;
+		case 5:
+			warunek = false;
+			return;
+		default:
+			break;
+		}
+		if (Gospodarstwo.sprawdzCzyNieWystepuje(pojazd)) {
+			Gospodarstwo.dodajMaszyne(pojazd);
+			warunek = false;
+		}
+		else {
+			cout << "Podana maszyna juz wystêpuje na liscie" << endl;
+			system("cls");
+		}
+	}
+}
+
+void Interfejs::edycjaPol(std::deque<Pole>::iterator _pole)
+{
+	std::string nowaNazwa;
+	float nowaPowierzchnia;
+	std::cout << "Wybierz element ktory chcesz edytowac:" << std::endl;
+	std::cout << "1.Nazwa:" << _pole->getNazwa() << "\n" << "2.Powierzchnia pola[ha]:" << _pole->getPowierzchnia() 
+		<< "\n" << "3.Opcja resetowania powierzchnia pola" << std::endl;
+	switch (podajOpcje(1,3))
+	{
+	case 1:
+		std::cin >> nowaNazwa;
+		_pole->setNazwa(nowaNazwa);
+		break;
+	case 2:
+		std::cin >> nowaPowierzchnia;
+		_pole->setPowierzchnia(nowaPowierzchnia);
+		break;
+	case 3:
+		_pole->wyzerujStanPola();
+		break;
+	default:
+		break;
+	}
+}
+
+Pole Interfejs::wprowadzDane()
+{
+	using namespace std;
+	string _nazwa;
+	float _powierzchnia=0.0;
+	bool warunekWhile = true;
+	Pole nowePole;
+	system("cls");
+
+	getline(cin, _nazwa);
+	cout << "Podaj nazwe pola: " << endl;
+	getline(cin, _nazwa);
+
+	while (_powierzchnia <= 0) {
+		system("cls");
+		cout << "Podana nazwa pola to " << _nazwa << endl;
+		cout << "Podaj powierzchnie pola: " << endl;
+		while (1) { //nieskoñczona pêtla
+			cin >> _powierzchnia; //pobranie zmiennej
+			if (cin.fail() == true || _powierzchnia <= 0) { //wykrycie b³êdu
+				cout << "Prosze podac poprawna wartosc" << endl; //komunikat o b³êdzie
+				cin.clear(); //resetowanie flag b³êdu
+				cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			} //lub do napotkania znaku nowej linii
+			else break;
+		}
+	}
+
+	nowePole.setNazwa(_nazwa);
+	nowePole.setPowierzchnia(_powierzchnia);
+
+	return nowePole;
 }
