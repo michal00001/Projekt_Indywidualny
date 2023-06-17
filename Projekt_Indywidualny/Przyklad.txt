@@ -1,8 +1,0 @@
-Zapis danych do pliku Przyklad.txt
-|    Data    |       Maszyna      |           Pole           |
-| 12.05.2020 |       Przyklad     |           nr1 50.855999 1|
-| 13.05.2020 |       Przyklad     |           nr2 10.000000 1|
-| 14.05.2020 |       Przyklad     |           nr2 10.000000 1|
-| 15.05.2020 |       Przyklad     |           nr2 10.000000 1|
-| 18.05.2020 |       Przyklad     |           nr1 50.000000 1|
-| 19.05.2020 |       Przyklad     |           nr1 50.000000 1|

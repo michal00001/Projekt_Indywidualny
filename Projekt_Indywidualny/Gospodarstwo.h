@@ -18,7 +18,7 @@ public:
 	void dodajMaszyne(Maszyna _obiekt);
 	//void edytujMaszyne(std::deque<Maszyna>::iterator _maszyna);
 	void usunMaszyne(int _pozycja);
-	void zapiszMaszynyCSV(char* sciezka);
+	void zapiszMaszynyCSV(const char* _sciezka);
 
 	void wyswietlListeMaszyn();
 	void wyswietlListeMaszyn(int _ile);
@@ -29,7 +29,7 @@ public:
 	void dodajPole(Pole _obiekt);
 	void edytujPole(Pole& pole, std::string _nazwa, float _powierzchnia);
 	void usunPole(int _pozycja);
-	void zapiszPoleCSV(char* sciezka);
+	void zapiszPoleCSV(const char* _sciezka);
 
 	Maszyna& getMaszyna(int _indeks);
 	Pole& getPole(int _indeks);
@@ -42,8 +42,8 @@ public:
 
 	void wyczyscGospodarstwo();
 
-	void odczytajMaszynyZPliku(char* sciezka);
-    void odczytajPolaZPliku(char* sciezka);
+	void odczytajMaszynyZPliku(const char* sciezka);
+    void odczytajPolaZPliku(const char* sciezka);
 
 };
 

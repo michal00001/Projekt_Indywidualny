@@ -12,10 +12,10 @@ void Gospodarstwo::usunMaszyne(int _pozycja)
 	ParkMaszynowy.erase(iterator);
 }
 
-void Gospodarstwo::zapiszMaszynyCSV(char* sciezka)
+void Gospodarstwo::zapiszMaszynyCSV(const char* _sciezka)
 {
 	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
-	drukarka->drukuj(ParkMaszynowy,(int) ParkMaszynowy.size(), sciezka);
+	drukarka->drukuj(ParkMaszynowy,(int) ParkMaszynowy.size(), _sciezka);
 }
 
 void Gospodarstwo::wyswietlListeMaszyn()
@@ -60,10 +60,10 @@ void Gospodarstwo::usunPole(int _pozycja)
 	ZiemiaUprawna.erase(iterator);
 }
 
-void Gospodarstwo::zapiszPoleCSV(char* sciezka)
+void Gospodarstwo::zapiszPoleCSV(const char* _sciezka)
 {
 	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
-	drukarka->drukuj(ZiemiaUprawna,(int) ZiemiaUprawna.size(), sciezka);
+	drukarka->drukuj(ZiemiaUprawna,(int) ZiemiaUprawna.size(), _sciezka);
 }
 
 Maszyna& Gospodarstwo::getMaszyna(int _indeks)
@@ -102,7 +102,7 @@ void Gospodarstwo::wyczyscGospodarstwo()
 	ParkMaszynowy.clear();
 }
 
-void Gospodarstwo::odczytajMaszynyZPliku(char* sciezka)
+void Gospodarstwo::odczytajMaszynyZPliku(const char* sciezka)
 {
 		std::ifstream plik(sciezka);
 		if (!plik)
@@ -156,7 +156,7 @@ void Gospodarstwo::odczytajMaszynyZPliku(char* sciezka)
 		ParkMaszynowy = kolejka;
 }
 
-void Gospodarstwo::odczytajPolaZPliku(char* sciezka)
+void Gospodarstwo::odczytajPolaZPliku(const char* sciezka)
 {
 		std::deque<Pole> pola;
 		std::ifstream plik(sciezka);
@@ -168,6 +168,8 @@ void Gospodarstwo::odczytajPolaZPliku(char* sciezka)
 		}
 
 		std::string linia;
+		//pominiecie naglowka
+		std::getline(plik, linia);
 		while (std::getline(plik, linia))
 		{
 			std::string nazwa, stadiumWzrostuStr, powierzchniaStr, uprawionoStr, nawiezionoStr, zasianoStr, zebranoStr;
@@ -186,10 +188,10 @@ void Gospodarstwo::odczytajPolaZPliku(char* sciezka)
 
 			powierzchnia = std::stof(powierzchniaStr);
 			stadiumWzrostu = std::stoi(stadiumWzrostuStr);
-			uprawiono = (uprawionoStr == "1");
-			nawieziono = (nawiezionoStr == "1");
-			zasiano = (zasianoStr == "1");
-			zebrano = (zebranoStr == "1");
+			uprawiono = (uprawionoStr == "Tak");
+			nawieziono = (nawiezionoStr == "Tak");
+			zasiano = (zasianoStr == "Tak");
+			zebrano = (zebranoStr == "Tak");
 
 			Pole pole;
 			pole.setNazwa(nazwa);

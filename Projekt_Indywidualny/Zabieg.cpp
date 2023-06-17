@@ -59,6 +59,7 @@ void Zabieg::wykonajZabieg(int _opcja)
 		break;
 	}
 }
+
 void Zabieg::wyswietl() {
 	std::cout << data<<std::endl;
 

@@ -47,13 +47,17 @@ public:
 	
 			int ileWydrukowano = 0;
 			//naglowek tabelki
-			cout.fill(' ');
+			cout.fill('-');
+			cout << "|" << setw(14) << "|";
+			cout.fill('-');
 			cout << "|" << setw(8) << "Data" << setw(6) << "|" << setw(14) << "Maszyna" << setw(10)
 				<< "|" << setw(25) << "Pole" << setw(22) << "|" << endl;
-			for (const Zabieg& _Iter:_listaZabiegow)
+			for (auto _Iter=_listaZabiegow.begin();_Iter!=_listaZabiegow.end();_Iter++)
 			{
 				if (ileWydrukowano < _ile)
 				{
+					cout.fill(' ');
+					cout << "Zabieg nr " << ileWydrukowano + 1 << setw(13) << _Iter->getData() << setw(14) << (*_Iter).getMaszyna()->getNazwa() << setw(20) << _Iter->getPole()->getNazwa() << endl;
 					//cout << DatatoString((*_Iter).getData()) << ";" << (*_Iter).getMaszyna() << ";" << PoletoString((*_Iter).getPole(), 1) << endl;
 					ileWydrukowano++;
 				}

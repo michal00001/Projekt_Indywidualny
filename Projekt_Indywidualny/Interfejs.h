@@ -33,6 +33,8 @@ class Interfejs
 	Pole utworzPoleObiekt();
 	void edycjaPol(Pole& _pole);
 	void edycjaZabiegow();
+
+	string podajSciezke(const char* _rozszerzenie);
 public:
 	void MenuGlowne();
 	

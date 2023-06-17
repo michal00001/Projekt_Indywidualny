@@ -1,6 +1,0 @@
-Zapis danych
-|    Data     |       Maszyna         |                     Pole                     |
-12.05.2020;Przyklad;nr1;50.856;1
-15.05.2020;Przyklad;nr2;10;1
-18.05.2020;Przyklad;nr1;50;1
-19.05.2020;Przyklad;nr1;50;1

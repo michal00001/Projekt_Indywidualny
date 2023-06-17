@@ -84,7 +84,8 @@ void Interfejs::OpcjaKalendarzZabiegow()
 		case 6:
 			//zapis .csv
 			try {
-				//KalendarzZabiegow.ZapiszZabiegiCSV();
+				string sciezka = podajSciezke(".csv");
+				KalendarzZabiegow.ZapiszZabiegiCSV(sciezka.c_str());
 			}
 			catch (domain_error e) {
 				cerr << e.what() << endl;
@@ -155,12 +156,13 @@ void Interfejs::OpcjaZapisanePola()
 			//zapis .csv
 			system("cls");
 			try {
-				//Gospodarstwo.zapiszPoleCSV();
+				string sciezka = podajSciezke(".csv");
+				Gospodarstwo.zapiszPoleCSV(sciezka.c_str());
 			}
 			catch (domain_error e) {
 				cerr << e.what() << endl;
 			}
-			break;
+			system("pause");
 		case 7:
 			//zapis .txt
 			//Gospodarstwo.zapiszTXT();
@@ -226,7 +228,13 @@ void Interfejs::OpcjaZapisaneMaszyny()
 		case 6:
 			//zapis .csv
 			system("cls");
-			std::cout << "In developement" << std::endl;
+			try {
+				string sciezka = podajSciezke(".csv");
+				Gospodarstwo.zapiszMaszynyCSV(sciezka.c_str());
+			}
+			catch (domain_error e) {
+				cerr << e.what() << endl;
+			}
 			system("pause");
 			break;
 		case 7:
@@ -387,16 +395,16 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 
 void Interfejs::OpcjaWczytaj(int _opcja)
 {
-	char sciezka[] = "\0";
+	string sciezka = podajSciezke(".csv");
 	switch (_opcja) {
 	case 1:
-		KalendarzZabiegow.odczytajZabiegZPliku(sciezka);
+		KalendarzZabiegow.odczytajZabiegZPliku(sciezka.c_str());
 		break;
 	case 2:
-		Gospodarstwo.odczytajMaszynyZPliku(sciezka);
+		Gospodarstwo.odczytajPolaZPliku(sciezka.c_str());
 		break;
 	case 3:
-		Gospodarstwo.odczytajMaszynyZPliku(sciezka);
+		Gospodarstwo.odczytajMaszynyZPliku(sciezka.c_str());
 		break;
 	}
 }
@@ -624,6 +632,19 @@ void Interfejs::edycjaPol(Pole& _pole)
 
 void Interfejs::edycjaZabiegow()
 {
+}
+
+string Interfejs::podajSciezke(const char* _rozszerzenie)
+{
+	std::string sciezka;
+	cout << "Podaj nazwe pliku.\n" << "Nie podawaj rozszerzenia zostanie dopisane automatycznie" << endl;
+	cin >> sciezka;
+
+	size_t pozycja = sciezka.find(_rozszerzenie);
+	if (pozycja == std::string::npos)
+	sciezka += _rozszerzenie;
+	
+	return sciezka;
 }
 
 Data Interfejs::utworzDataObiekt()
