@@ -20,6 +20,7 @@ int main(void) {
 	//	return - 1;
 	//}
 	
+	/*
 	Maszyna traktor;
 	traktor.setDoNawozenia();
 	Pole laka;
@@ -31,7 +32,9 @@ int main(void) {
 	nawozenie.setPole(&laka);
 	nawozenie.wykonajZabieg(1);
 	nawozenie.wyswietl();
-	/*Interfejs program;
-	program.MenuGlowne();*/
+	*/
+
+	Interfejs program;
+	program.MenuGlowne();
 	return 0;
 }

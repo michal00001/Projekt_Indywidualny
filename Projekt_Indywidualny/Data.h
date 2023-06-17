@@ -14,8 +14,8 @@ public:
 
 	//fragmenty biblioteki QuantLib
 	//problem z dodaniem do Visuala
-	bool isLeap(int _rok);
-	int monthLength(int _miesiac, bool leapYear);
+	static bool isLeap(int _rok);
+	static int monthLength(int _miesiac, bool leapYear);
 	std::string ktoryMiesiac(int _miesiac);
 
 	//akcesory

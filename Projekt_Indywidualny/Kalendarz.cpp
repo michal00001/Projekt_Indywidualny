@@ -79,6 +79,18 @@ void Kalendarz::odczytajZabiegZPliku(const char* _sciezka)
 
 }
 
+void Kalendarz::wyswietlListeZabiegow()
+{
+	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+	drukarka->drukuj(listaZabiegow, listaZabiegow.size());
+}
+
+void Kalendarz::wyswietlListeZabiegow(int _ile)
+{
+	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
+	drukarka->drukuj(listaZabiegow, _ile);
+}
+
 void Kalendarz::wyczyscListeZabiegow()
 {
 	listaZabiegow.clear();

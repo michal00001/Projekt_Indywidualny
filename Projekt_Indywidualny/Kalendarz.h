@@ -23,6 +23,8 @@ public:
 	void ZapiszZabiegiCSV(const char* _sciezka);
 	void odczytajZabiegZPliku(const char* _sciezka);
     
+	void wyswietlListeZabiegow();
+	void wyswietlListeZabiegow(int _ile);
 	void wyczyscListeZabiegow();
 
 	std::size_t getsizelistaZabiegowa() const { return listaZabiegow.size(); };

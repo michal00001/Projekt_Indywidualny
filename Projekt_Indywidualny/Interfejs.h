@@ -24,7 +24,7 @@ class Interfejs
 	
 	void dodawanieMaszyn();
 	void dodawaniePol();
-	//void dodawanieZabiegow();
+	void dodawanieZabiegow();
 
 	Pole wprowadzDane();
 	void edycjaPol(Pole& _pole);
