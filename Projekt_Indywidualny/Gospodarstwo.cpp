@@ -107,7 +107,7 @@ void Gospodarstwo::odczytajMaszynyZPliku(const char* sciezka)
 		std::ifstream plik(sciezka);
 		if (!plik)
 		{
-			std::cout << "B³¹d otwarcia pliku." << std::endl;
+			std::cout << "B³¹d otwarcia pliku "<<sciezka << std::endl;
 			return;
 		}
 
@@ -115,7 +115,13 @@ void Gospodarstwo::odczytajMaszynyZPliku(const char* sciezka)
 
 		// Pomijamy nag³ówki kolumn
 		std::string linia;
+		std::string naglowek = "Nazwa;doUprawy;doSiewu;doNawozenia;doZbioru";
 		std::getline(plik, linia);
+		if (linia != naglowek) {
+			plik.close();
+			std::cout << "Plik "<<sciezka<<" nie zawiera poprawnie sformatowanych danych." << std::endl;
+			return;
+		}
 
 		while (std::getline(plik, linia)) {
 			std::string nazwa, doUprawyStr, doSiewuStr, doNawozeniaStr, doZbioruStr;
@@ -154,6 +160,7 @@ void Gospodarstwo::odczytajMaszynyZPliku(const char* sciezka)
 		plik.close();
 
 		ParkMaszynowy = kolejka;
+		std::cout << "Wczytywanie danych zakonczylo sie sukcesem" << std::endl;;
 }
 
 void Gospodarstwo::odczytajPolaZPliku(const char* sciezka)
@@ -163,13 +170,19 @@ void Gospodarstwo::odczytajPolaZPliku(const char* sciezka)
 
 		if (!plik)
 		{
-			std::cout << "B³¹d otwarcia pliku." << std::endl;
+			std::cout << "B³¹d otwarcia pliku "<<sciezka << std::endl;
 			return;
 		}
 
+		// Pomijamy nag³ówki kolumn
 		std::string linia;
-		//pominiecie naglowka
+		std::string naglowek = "Nazwa;Powierzchnia[ha];Stadium Wzrostu;Uprawion;Nawieziono;Zasiano;Zebrano";
 		std::getline(plik, linia);
+		if (linia != naglowek) {
+			plik.close();
+			std::cout << "Plik " << sciezka << " nie zawiera poprawnie sformatowanych danych." << std::endl;
+			return;
+		}
 		while (std::getline(plik, linia))
 		{
 			std::string nazwa, stadiumWzrostuStr, powierzchniaStr, uprawionoStr, nawiezionoStr, zasianoStr, zebranoStr;
@@ -208,4 +221,6 @@ void Gospodarstwo::odczytajPolaZPliku(const char* sciezka)
 		plik.close();
 
 		ZiemiaUprawna =  pola;
+
+		std::cout << "Wczytywanie danych zakonczylo sie sukcesem" << std::endl;;
 }

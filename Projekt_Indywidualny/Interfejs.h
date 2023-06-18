@@ -17,7 +17,8 @@ class Interfejs
 	void OpcjaEdytuj(int _opcja);
 	void OpcjaWczytaj(int _opcja);
 	
-	int bezpiecznyInt(int _od, int _do = 2000000);
+	int bezpiecznyInt(int _od, int _do = INT_MAX);
+	float bezpiecznyFloat(float _od, float _do = FLT_MAX);
 	int MenuWyboru(int& numerek);
 
 	bool czyPozaZakresem(int _opcja, int _indeksTablicy);

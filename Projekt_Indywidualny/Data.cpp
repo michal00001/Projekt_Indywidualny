@@ -1,6 +1,7 @@
 #include "Data.h"
 
 std::ostream& operator<<(std::ostream& out,const Data& obiekt) {
+    out.fill('0');
     out <<std::setw(2)<< obiekt.dzien << ".";
     out.width(2);
     out.fill('0');

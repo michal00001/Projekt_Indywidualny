@@ -42,14 +42,14 @@ public:
 
 		if (_listaZabiegow.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
-		
+		string numerPorzadkowy;
 		string drukuj;
-		string naglowek[] = { "Data" ,"Maszyna","Pole" };
+		string naglowek[] = {"Data" ,"Maszyna","Pole" };
 		int ileWydrukowano = 0;
 
 		//naglowek tabelki
 		cout.fill('-');
-		cout << "|" << setw(14) << "|";
+		cout << "|" << setw(15) << "|";
 		cout.fill(' ');
 		cout << setw(15) << naglowek[0];
 		cout << "|" << setw(15) << naglowek[1];
@@ -59,10 +59,12 @@ public:
 		{
 			if (ileWydrukowano < _ile)
 			{
-				cout.fill(' ');
-				drukuj = "Zabieg nr " + (ileWydrukowano + 1);
+				numerPorzadkowy = to_string(ileWydrukowano + 1) + ".";
+				drukuj = "Zabieg nr " + numerPorzadkowy;
+
 				cout << "|" << setw(14) << drukuj;
 				cout << "|" << setw(15) << _Iter->getData();
+				cout.fill(' ');
 				cout << "|" << setw(15) << (*_Iter).getMaszyna()->getNazwa();
 				cout << "|" << setw(20) << _Iter->getPole()->getNazwa();
 				cout << "|" << endl;
@@ -79,19 +81,24 @@ public:
 		if (_ParkMaszynowy.empty()) {
 			throw domain_error("Lista maszyn jest pusta");
 		}
-		string naglowek[] = { "Nazwa" ,"Typ Maszyny" };
+		string numerPorzadkowy;
+		string naglowek[] = {"LP", "Nazwa" ,"Typ Maszyny" };
 		string typMaszyny[] = { "Do Nawozenia" ,"Do Uprawy", "Do Siewu", "Do Zbioru" ,"Ugor" };
 		int ileWydrukowano = 0;
 
 		cout.fill(' ');
-		cout << "|"<<setw(15) << naglowek[0];
-		cout << "|"<<setw(15) << naglowek[1];
+		cout << "|" << setw(4) << naglowek[0];
+		cout << "|" << setw(15) << naglowek[1];
+		cout << "|" << setw(15) << naglowek[2];
 		cout << "|" << endl;
 
 		for (auto maszyna : _ParkMaszynowy)
 		{
 			if (ileWydrukowano < _ile)
 			{
+				numerPorzadkowy = to_string(ileWydrukowano + 1)+".";
+				cout.fill(' ');
+				cout << "|" << setw(4) << numerPorzadkowy;
 				cout << "|" << setw(15) << maszyna.getNazwa();
 				cout << "|" << setw(15);
 				if (maszyna.getdoNawozenia())		cout << typMaszyny[0];
@@ -112,21 +119,26 @@ public:
 			throw domain_error("Lista pol jest pusta");
 		}
 
-		string naglowek[] = { "Nazwa" ,"Powierzchnia","Stadium Wzrostu", "Stan pola" };
+		string numerPorzadkowy;
+		string naglowek[] = { "LP","Nazwa" ,"Powierzchnia","Stadium Wzrostu", "Stan pola" };
 		string stanPol[] = { "Nawieziono" ,"Uprawiono", "Zasiano", "Zebrano" ,"Ugor" };
 		int ileWydrukowano = 0;
 
 		cout.fill(' ');
-		cout << "|" << setw(15) << naglowek[0];
+		cout << "|" << setw(4) << naglowek[0];
 		cout << "|" << setw(15) << naglowek[1];
 		cout << "|" << setw(15) << naglowek[2];
-		cout << "|" << setw(12) << naglowek[3];
+		cout << "|" << setw(15) << naglowek[3];
+		cout << "|" << setw(12) << naglowek[4];
 		cout << "|" << endl;
 
 		for (auto pole : _ZiemiaUprawna)
 		{
 			if (ileWydrukowano < _ile)
 			{
+				numerPorzadkowy = to_string(ileWydrukowano + 1) + ".";
+				cout.fill(' ');
+				cout << "|" << setw(4) << numerPorzadkowy;
 				cout  << "|" << setw(15) << pole.getNazwa();
 				cout  << "|" << setw(15) << pole.getPowierzchnia();
 				cout  << "|" << setw(15) << pole.getstadiumWzrostu();
@@ -156,7 +168,8 @@ public:
 
 			fstream plik;
 			string naglowek[] = { "Data", "Maszyna","Pole" };
-			string naglowek2[] = { "Dzien","Miesiac","Rok","Nazwa" };
+			string naglowek2[] = { "Dzien","Miesiac","Rok","Nazwa","Powierzchnia [ha]","Status wzrostu" };
+			string deli = ";";
 			list<Zabieg>::iterator _Iter;
 
 			plik.open(_sciezka, ofstream::out);
@@ -165,11 +178,28 @@ public:
 
 			plik << "Zapis danych\n";
 			plik.fill(' ');
-			plik << "Data" << ";" << "Data" << ";" << "Data" << ";" << "Maszyna" << ";" << "Pole" << ";" << "Pole" << ";" << "Pole" << endl;
-			plik << "Dzien" << ";" << "Miesiac" << ";" << "Rok" << ";" << "Nazwa" << ";" << "Nazwa" << ";" << "Powierzchnia [ha]" << ";" << "Status wzrostu" << endl;
+			//naglowek 
+			//data;data;data
+			plik << naglowek[0] << deli << naglowek[0] << deli << naglowek[0] << deli;
+			//maszyna
+			plik << naglowek[1] << deli;
+			//pole;pole;pole
+			plik << naglowek[2] << deli << naglowek[2] << deli << naglowek[2]  << endl;
+			//naglowek 2
+			// dzien ; miesiac ; rok
+			plik << naglowek2[0] << deli << naglowek2[1] << deli << naglowek2[2]<<deli;
+			// nazwa
+			plik << naglowek2[3] << deli;
+			// nazwa ; powierzchnia[ha] ; status wzrostu
+			plik << naglowek2[3] << deli << naglowek2[4] << deli << naglowek2[5] << endl;
 			for (_Iter = _listaZabiegow.begin(); _Iter != _listaZabiegow.end(); _Iter++)
 			{
-			
+				// dzien ; miesiac ; rok
+				plik << _Iter->getData().getDzien() << deli << _Iter->getData().getMiesiac() << deli << _Iter->getData().getRok() << deli;
+				// nazwa
+				plik << _Iter->getMaszyna()->getNazwa() << deli;
+				// nazwa ; powierzchnia[ha] ; status wzrostu
+				plik << _Iter->getPole()->getNazwa() << deli << _Iter->getPole()->getPowierzchnia() << deli << _Iter->getPole()->getstadiumWzrostu() << std::endl;
 			}
 			plik.close();
 

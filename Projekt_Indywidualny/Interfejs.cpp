@@ -41,7 +41,7 @@ void Interfejs::MenuGlowne()
 void Interfejs::OpcjaKalendarzZabiegow()
 {
 	bool warunek = true;
-	std::unique_ptr<Drukarka> drukarka;
+	unique_ptr<Drukarka> drukarka;
 	while (warunek) {
 		system("cls");
 		int numerek = 1;
@@ -148,7 +148,7 @@ void Interfejs::OpcjaZapisanePola()
 				Gospodarstwo.wyswietlListePol();
 			}
 			catch (domain_error e) {
-				std::cerr << e.what() << std::endl;
+				cerr << e.what() << endl;
 			}
 			system("pause");
 			break;
@@ -183,7 +183,7 @@ void Interfejs::OpcjaZapisanePola()
 void Interfejs::OpcjaZapisaneMaszyny()
 {
 	bool warunek = true;
-	std::unique_ptr<Drukarka> drukarka;
+	unique_ptr<Drukarka> drukarka;
 	while (warunek) {
 		system("cls");
 		int numerek = 1;
@@ -210,9 +210,7 @@ void Interfejs::OpcjaZapisaneMaszyny()
 			OpcjaEdytuj(3);
 			break;
 		case 4:
-			system("cls");
 			OpcjaWczytaj(3);
-			system("pause");
 			break;
 		case 5:
 			//wyswietl terminal
@@ -240,7 +238,7 @@ void Interfejs::OpcjaZapisaneMaszyny()
 		case 7:
 			//zapis .txt
 			system("cls");
-			std::cout << "In developement" << std::endl;
+			cout << "In developement" << endl;
 			system("pause");
 			break;
 		case 8:
@@ -256,6 +254,7 @@ void Interfejs::OpcjaZapisaneMaszyny()
 void Interfejs::OpcjaDodaj(int _opcja)
 {
 	Pole temp;
+	system("cls");
 	switch (_opcja) {
 	case 1:
 		dodawanieZabiegow();
@@ -267,6 +266,7 @@ void Interfejs::OpcjaDodaj(int _opcja)
 		dodawanieMaszyn();
 		break;
 	}
+	system("pause");
 }
 
 void Interfejs::OpcjaUsun(int _opcja)
@@ -297,8 +297,8 @@ void Interfejs::OpcjaUsun(int _opcja)
 				break;
 			}
 		}
-		catch (std::domain_error e) {
-			std::cerr << e.what()<<std::endl;
+		catch (domain_error e) {
+			cerr << e.what()<<endl;
 			system("pause");
 			return;
 		}
@@ -314,6 +314,7 @@ void Interfejs::OpcjaUsun(int _opcja)
 			warunekWhile = false;
 	}
 
+	system("cls");
 	switch (_opcja) {
 	case 1:
 		KalendarzZabiegow.usunZabieg(pozycja);
@@ -325,6 +326,7 @@ void Interfejs::OpcjaUsun(int _opcja)
 		Gospodarstwo.usunMaszyne(pozycja);
 		break;
 	}
+	system("pause");
 }
 
 void Interfejs::OpcjaEdytuj(int _opcja)
@@ -354,8 +356,8 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 				break;
 			}
 		}
-		catch (std::domain_error e) {
-			std::cerr << e.what() << std::endl;
+		catch (domain_error e) {
+			cerr << e.what() << endl;
 			system("pause");
 			return;
 		}
@@ -371,12 +373,12 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 			warunekWhile = false;
 	}
 
+	system("cls");
 	switch (_opcja) {
 	case 1:
 		//edycjaZabiegow(KalendarzZabiegow.edytujZabieg());
 		break;
 	case 2:
-		system("cls");
 		try {
 			edycjaPol(Gospodarstwo.getPole(pozycja));
 		}
@@ -385,17 +387,18 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 		}
 		break;
 	case 3:
-		system("cls");
 		cout << "W obecnej wersji maszyn nie da siê edytowac" << endl;
-		system("pause");
 		//Gospodarstwo.edytujMaszyne();
 		break;
 	}
+	system("pause");
+
 }
 
 void Interfejs::OpcjaWczytaj(int _opcja)
 {
 	string sciezka = podajSciezke(".csv");
+	system("cls");
 	switch (_opcja) {
 	case 1:
 		KalendarzZabiegow.odczytajZabiegZPliku(sciezka.c_str());
@@ -407,24 +410,45 @@ void Interfejs::OpcjaWczytaj(int _opcja)
 		Gospodarstwo.odczytajMaszynyZPliku(sciezka.c_str());
 		break;
 	}
+	system("pause");
 }
 
 int Interfejs::bezpiecznyInt(int _od, int _do) {
 	while (1) {
 		int x;
 		while (1) { //nieskoñczona pêtla
-			std::cin >> x; //pobranie zmiennej
-			if (std::cin.fail() == true) { //wykrycie b³êdu
-				std::cout << "Prosze podac liczbe z zakresu od " << _od << " do " << _do << std::endl; //komunikat o b³êdzie
-				std::cin.clear(); //resetowanie flag b³êdu
-				std::cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			cin >> x; //pobranie zmiennej
+			if (cin.fail() == true) { //wykrycie b³êdu
+				cout << "Prosze podac liczbe z zakresu od " << _od << " do " << _do << endl; //komunikat o b³êdzie
+				cin.clear(); //resetowanie flag b³êdu
+				cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
 			} //lub do napotkania znaku nowej linii
 			else break;
 		}
 		if (x >= _od && x <= _do)
 			return x;
 		else
-			std::cout << "Prosze podac liczbe z zakresu od " << _od << " do " << _do << std::endl; //komunikat o b³êdzie
+			cout << "Prosze podac liczbe z zakresu od " << _od << " do " << _do << endl; //komunikat o b³êdzie
+	}
+}
+
+float Interfejs::bezpiecznyFloat(float _od, float _do)
+{
+	while (1) {
+		float x;
+		while (1) { //nieskoñczona pêtla
+			cin >> x; //pobranie zmiennej
+			if (cin.fail() == true) { //wykrycie b³êdu
+				cout << "Prosze podac liczbe z zakresu od " << _od << " do " << _do << endl; //komunikat o b³êdzie
+				cin.clear(); //resetowanie flag b³êdu
+				cin.ignore(256, '\n'); //czyszczenie 256 znaków bufora
+			} //lub do napotkania znaku nowej linii
+			else break;
+		}
+		if (x >= _od && x <= _do)
+			return x;
+		else
+			cout << "Prosze podac liczbe z zakresu od " << _od << " do " << _do << endl; //komunikat o b³êdzie
 	}
 }
 
@@ -605,20 +629,20 @@ void Interfejs::dodawanieMaszyn()
 
 void Interfejs::edycjaPol(Pole& _pole)
 {
-	std::string nowaNazwa;
+	string nowaNazwa;
 	float nowaPowierzchnia;
-	std::cout << "Wybierz element ktory chcesz edytowac:" << std::endl;
-	std::cout << "1.Nazwa:" << _pole.getNazwa() << "\n" << "2.Powierzchnia pola[ha]:" << _pole.getPowierzchnia()
-		<< "\n" << "3.Opcja resetowania powierzchnia pola" << std::endl;
-	std::cout<<"4.Powrot" << std::endl;
-	switch (bezpiecznyInt(1,3))
+	cout << "Wybierz element ktory chcesz edytowac:" << endl;
+	cout << "1.Nazwa:" << _pole.getNazwa() << "\n" << "2.Powierzchnia pola[ha]:" << _pole.getPowierzchnia()
+		<< "\n" << "3.Opcja resetowania powierzchnia pola" << endl;
+	cout<<"4.Powrot" << endl;
+	switch (bezpiecznyInt(1,4))
 	{
 	case 1:
-		std::cin >> nowaNazwa;
+		getline(cin,nowaNazwa);
 		_pole.setNazwa(nowaNazwa);
 		break;
 	case 2:
-		std::cin >> nowaPowierzchnia;
+		nowaPowierzchnia = bezpiecznyFloat(0);
 		_pole.setPowierzchnia(nowaPowierzchnia);
 		break;
 	case 3:
@@ -636,12 +660,12 @@ void Interfejs::edycjaZabiegow()
 
 string Interfejs::podajSciezke(const char* _rozszerzenie)
 {
-	std::string sciezka;
+	string sciezka;
 	cout << "Podaj nazwe pliku.\n" << "Nie podawaj rozszerzenia zostanie dopisane automatycznie" << endl;
 	cin >> sciezka;
 
 	size_t pozycja = sciezka.find(_rozszerzenie);
-	if (pozycja == std::string::npos)
+	if (pozycja == string::npos)
 	sciezka += _rozszerzenie;
 	
 	return sciezka;
