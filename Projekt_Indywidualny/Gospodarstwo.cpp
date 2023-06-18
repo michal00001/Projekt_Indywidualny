@@ -133,22 +133,22 @@ void Gospodarstwo::odczytajMaszynyZPliku(const char* sciezka)
 			doNawozenia = (doNawozeniaStr == "Tak");
 			doZbioru = (doZbioruStr == "Tak");
 
-			Maszyna maszyna;
-			maszyna.setNazwa(nazwa);
+			Maszyna NoweMaszyna;
+			NoweMaszyna.setNazwa(nazwa);
 
 			if (doUprawy)
-				maszyna.setDoUprawy();
+				NoweMaszyna.setDoUprawy();
 
 			if (doSiewu)
-				maszyna.setDoSiewu();
+				NoweMaszyna.setDoSiewu();
 
 			if (doNawozenia)
-				maszyna.setDoNawozenia();
+				NoweMaszyna.setDoNawozenia();
 
 			if (doZbioru)
-				maszyna.setDoZbioru();
+				NoweMaszyna.setDoZbioru();
 
-			kolejka.push_back(maszyna);
+			kolejka.push_back(NoweMaszyna);
 		}
 
 		plik.close();
@@ -193,16 +193,16 @@ void Gospodarstwo::odczytajPolaZPliku(const char* sciezka)
 			zasiano = (zasianoStr == "Tak");
 			zebrano = (zebranoStr == "Tak");
 
-			Pole pole;
-			pole.setNazwa(nazwa);
-			pole.setPowierzchnia(powierzchnia);
-			pole.setstadiumWzrostu(stadiumWzrostu);
-			pole.setUprawiono(uprawiono);
-			pole.setNawieziono(nawieziono);
-			pole.setZasiano(zasiano);
-			pole.setZebrano(zebrano);
+			Pole NowePole;
+			NowePole.setNazwa(nazwa);
+			NowePole.setPowierzchnia(powierzchnia);
+			NowePole.setstadiumWzrostu(stadiumWzrostu);
+			NowePole.setUprawiono(uprawiono);
+			NowePole.setNawieziono(nawieziono);
+			NowePole.setZasiano(zasiano);
+			NowePole.setZebrano(zebrano);
 
-			pola.push_back(pole);
+			pola.push_back(NowePole);
 		}
 
 		plik.close();

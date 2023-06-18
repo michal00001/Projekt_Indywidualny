@@ -211,7 +211,7 @@ void Interfejs::OpcjaZapisaneMaszyny()
 			break;
 		case 4:
 			system("cls");
-			std::cout << "In developement" << std::endl;
+			OpcjaWczytaj(3);
 			system("pause");
 			break;
 		case 5:
@@ -541,7 +541,7 @@ void Interfejs::dodawanieZabiegow()
 Maszyna* Interfejs::wybierzMaszyne(int& numer)
 {
 	Maszyna* wskaznik;
-	int indeksKolejki = bezpiecznyInt(1, Gospodarstwo.getSizeParkMaszynowy()) - 1;
+	int indeksKolejki = bezpiecznyInt(1,(int) Gospodarstwo.getSizeParkMaszynowy()) - 1;
 	numer = indeksKolejki + 1;
 	wskaznik = &Gospodarstwo.getMaszyna(indeksKolejki);
 	return wskaznik;
@@ -550,7 +550,7 @@ Maszyna* Interfejs::wybierzMaszyne(int& numer)
 Pole* Interfejs::wybierzPole()
 {
 	Pole* wskaznik;
-	int indeksKolejki = bezpiecznyInt(1, Gospodarstwo.getSizeZiemiaUprawna()) - 1;
+	int indeksKolejki = bezpiecznyInt(1,(int) Gospodarstwo.getSizeZiemiaUprawna()) - 1;
 	wskaznik = &Gospodarstwo.getPole(indeksKolejki);
 	return wskaznik;
 }

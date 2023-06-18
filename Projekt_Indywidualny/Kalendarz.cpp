@@ -66,7 +66,7 @@ void Kalendarz::ZapiszZabiegiCSV(const char* _sciezka)
 	try
 	{
 	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<CSVDrukarka>::stworzDrukarke();
-	drukarka->drukuj(listaZabiegow,(int)listaZabiegow.size());
+	drukarka->drukuj(listaZabiegow,(int)listaZabiegow.size(),_sciezka);
 	}
 	catch (const std::domain_error& e)
 	{
@@ -82,7 +82,7 @@ void Kalendarz::odczytajZabiegZPliku(const char* _sciezka)
 void Kalendarz::wyswietlListeZabiegow()
 {
 	std::unique_ptr<Drukarka> drukarka = DrukarkaFactory<TerminalDrukarka>::stworzDrukarke();
-	drukarka->drukuj(listaZabiegow, listaZabiegow.size());
+	drukarka->drukuj(listaZabiegow,(int) listaZabiegow.size());
 }
 
 void Kalendarz::wyswietlListeZabiegow(int _ile)

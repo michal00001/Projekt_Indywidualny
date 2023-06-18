@@ -42,27 +42,34 @@ public:
 
 		if (_listaZabiegow.empty())
 			throw domain_error("Kalendarz zabiegow jest pusty");
-		else {
-			using namespace std;
-	
-			int ileWydrukowano = 0;
-			//naglowek tabelki
-			cout.fill('-');
-			cout << "|" << setw(14) << "|";
-			cout.fill('-');
-			cout << "|" << setw(8) << "Data" << setw(6) << "|" << setw(14) << "Maszyna" << setw(10)
-				<< "|" << setw(25) << "Pole" << setw(22) << "|" << endl;
-			for (auto _Iter=_listaZabiegow.begin();_Iter!=_listaZabiegow.end();_Iter++)
+		
+		string drukuj;
+		string naglowek[] = { "Data" ,"Maszyna","Pole" };
+		int ileWydrukowano = 0;
+
+		//naglowek tabelki
+		cout.fill('-');
+		cout << "|" << setw(14) << "|";
+		cout.fill(' ');
+		cout << setw(15) << naglowek[0];
+		cout << "|" << setw(15) << naglowek[1];
+		cout << "|" << setw(20) << naglowek[2];
+			cout << "|" << endl;
+		for (auto _Iter=_listaZabiegow.begin();_Iter!=_listaZabiegow.end();_Iter++)
+		{
+			if (ileWydrukowano < _ile)
 			{
-				if (ileWydrukowano < _ile)
-				{
-					cout.fill(' ');
-					cout << "Zabieg nr " << ileWydrukowano + 1 << setw(13) << _Iter->getData() << setw(14) << (*_Iter).getMaszyna()->getNazwa() << setw(20) << _Iter->getPole()->getNazwa() << endl;
-					//cout << DatatoString((*_Iter).getData()) << ";" << (*_Iter).getMaszyna() << ";" << PoletoString((*_Iter).getPole(), 1) << endl;
-					ileWydrukowano++;
-				}
+				cout.fill(' ');
+				drukuj = "Zabieg nr " + (ileWydrukowano + 1);
+				cout << "|" << setw(14) << drukuj;
+				cout << "|" << setw(15) << _Iter->getData();
+				cout << "|" << setw(15) << (*_Iter).getMaszyna()->getNazwa();
+				cout << "|" << setw(20) << _Iter->getPole()->getNazwa();
+				cout << "|" << endl;
+				ileWydrukowano++;
 			}
 		}
+		
 	};
 
 	void drukuj(deque<Maszyna>& _ParkMaszynowy, int _ile, const char* sciezka = "\0") const override {
@@ -72,15 +79,27 @@ public:
 		if (_ParkMaszynowy.empty()) {
 			throw domain_error("Lista maszyn jest pusta");
 		}
-
+		string naglowek[] = { "Nazwa" ,"Typ Maszyny" };
+		string typMaszyny[] = { "Do Nawozenia" ,"Do Uprawy", "Do Siewu", "Do Zbioru" ,"Ugor" };
 		int ileWydrukowano = 0;
-		cout << "|" << "Nazwa" << "|" << "Typ Maszyny" << "|" << endl;
 
-		for (Maszyna& maszyna : _ParkMaszynowy)
+		cout.fill(' ');
+		cout << "|"<<setw(15) << naglowek[0];
+		cout << "|"<<setw(15) << naglowek[1];
+		cout << "|" << endl;
+
+		for (auto maszyna : _ParkMaszynowy)
 		{
 			if (ileWydrukowano < _ile)
 			{
-				cout << maszyna.getNazwa() << endl;
+				cout << "|" << setw(15) << maszyna.getNazwa();
+				cout << "|" << setw(15);
+				if (maszyna.getdoNawozenia())		cout << typMaszyny[0];
+				else if (maszyna.getdoUprawy())		cout << typMaszyny[1];
+				else if (maszyna.getdoSiewu())		cout << typMaszyny[2];
+				else if (maszyna.getdoZbioru())		cout << typMaszyny[3];
+				else cout << typMaszyny[4];
+				cout << "|" << endl;
 				ileWydrukowano++;
 			}
 		}
@@ -89,24 +108,34 @@ public:
 	void drukuj(deque<Pole>& _ZiemiaUprawna, int _ile, const char* _sciezka = "\0") const override {
 
 		//nawet jezeli ile bedzie poza rozmiarem to wydrukuje sie tylko tyle ile jest w tablicy
-
 		if (_ZiemiaUprawna.empty()) {
 			throw domain_error("Lista pol jest pusta");
 		}
 
+		string naglowek[] = { "Nazwa" ,"Powierzchnia","Stadium Wzrostu", "Stan pola" };
+		string stanPol[] = { "Nawieziono" ,"Uprawiono", "Zasiano", "Zebrano" ,"Ugor" };
 		int ileWydrukowano = 0;
-		cout << "|" << "Nazwa" << "|" << "Powierzchnia" << "|" << "Stadium Wzrostu" << "|" << "Stan pola" << "|" << endl;
 
-		for (Pole& pole : _ZiemiaUprawna)
+		cout.fill(' ');
+		cout << "|" << setw(15) << naglowek[0];
+		cout << "|" << setw(15) << naglowek[1];
+		cout << "|" << setw(15) << naglowek[2];
+		cout << "|" << setw(12) << naglowek[3];
+		cout << "|" << endl;
+
+		for (auto pole : _ZiemiaUprawna)
 		{
 			if (ileWydrukowano < _ile)
 			{
-				cout << "|" << pole.getNazwa() << "|" << to_string(pole.getPowierzchnia()) << "|" << pole.getstadiumWzrostu() << "|";
-				if (pole.czyNawieziono()) cout << "Nawieziono";
-				else if (pole.czyUprawiono()) cout << "Uprawiono";
-				else if (pole.czyZasiano()) cout << "Zasiano";
-				else if (pole.czyZebrano()) cout << "Zebrano";
-				else cout << "Ugor";
+				cout  << "|" << setw(15) << pole.getNazwa();
+				cout  << "|" << setw(15) << pole.getPowierzchnia();
+				cout  << "|" << setw(15) << pole.getstadiumWzrostu();
+				cout  << "|" << setw(12);
+				if (pole.czyNawieziono())		cout << stanPol[0];
+				else if (pole.czyUprawiono())	cout << stanPol[1];
+				else if (pole.czyZasiano())		cout << stanPol[2];
+				else if (pole.czyZebrano())		cout << stanPol[3];
+				else							cout << stanPol[4];
 				cout << "|" << endl;
 				ileWydrukowano++;
 			}
@@ -126,6 +155,8 @@ public:
 			throw domain_error("Kalendarz zabiegow jest pusty");
 
 			fstream plik;
+			string naglowek[] = { "Data", "Maszyna","Pole" };
+			string naglowek2[] = { "Dzien","Miesiac","Rok","Nazwa" };
 			list<Zabieg>::iterator _Iter;
 
 			plik.open(_sciezka, ofstream::out);
@@ -138,7 +169,7 @@ public:
 			plik << "Dzien" << ";" << "Miesiac" << ";" << "Rok" << ";" << "Nazwa" << ";" << "Nazwa" << ";" << "Powierzchnia [ha]" << ";" << "Status wzrostu" << endl;
 			for (_Iter = _listaZabiegow.begin(); _Iter != _listaZabiegow.end(); _Iter++)
 			{
-			//	plik << DatatoString((*_Iter).getData()) << ";" << (*_Iter).getMaszyna() << ";" << PoletoString((*_Iter).getPole(), 0) << endl;
+			
 			}
 			plik.close();
 
@@ -157,10 +188,11 @@ public:
 			}
 
 			plik << "Nazwa;doUprawy;doSiewu;doNawozenia;doZbioru" << std::endl;
-			std::deque<Maszyna> kopiaKolejki = _ParkMaszynowy; // Tworzenie kopii kolejki
+			// Tworzenie kopii kolejki
+			std::deque<Maszyna> kopiaKolejki = _ParkMaszynowy; 
 
 			while (!kopiaKolejki.empty()) {
-				const Maszyna& maszyna = kopiaKolejki.front();
+				const std::deque<Maszyna>::iterator::value_type maszyna = kopiaKolejki.front();
 
 				plik << maszyna.getNazwa() << ";"
 					<< (maszyna.getdoUprawy() ? "Tak" : "Nie") << ";"
@@ -168,6 +200,7 @@ public:
 					<< (maszyna.getdoNawozenia() ? "Tak" : "Nie") << ";"
 					<< (maszyna.getdoZbioru() ? "Tak" : "Nie") << std::endl;
 
+				//usuniecie pierwszego elementu kolejki
 				kopiaKolejki.pop_front();
 			}
 
@@ -186,13 +219,13 @@ public:
 			plik << "Nazwa" << ";" << "Powierzchnia[ha]" << ";" << "Stadium Wzrostu" << ";" << "Uprawion" << ";" << "Nawieziono" << ";" << "Zasiano" << ";" << "Zebrano" << endl;
 			for (Pole& pole : _ZiemiaUprawna)
 			{
-				plik << pole.getNazwa() << ";"
-					<< pole.getPowierzchnia() << ";"
-					<< pole.getstadiumWzrostu() << ";"
-					<< (pole.czyUprawiono() ? "Tak" : "Nie") << ";"
-					<< (pole.czyNawieziono() ? "Tak" : "Nie") << ";"
-					<< (pole.czyZasiano() ? "Tak" : "Nie") << ";"
-					<< (pole.czyZebrano() ? "Tak" : "Nie") << "\n";
+				plik << pole.getNazwa() << ";";
+				plik << setw(5) << pole.getPowierzchnia() << ";";
+				plik << setw(1) << pole.getstadiumWzrostu() << ";";
+				plik << (pole.czyUprawiono() ? "Tak" : "Nie") << ";";
+				plik << (pole.czyNawieziono() ? "Tak" : "Nie") << ";";
+				plik << (pole.czyZasiano() ? "Tak" : "Nie") << ";";
+				plik << (pole.czyZebrano() ? "Tak" : "Nie") << "\n";
 			}
 			plik.close();
 			std::cout << "Plik zapisany pomyœlnie." << std::endl;

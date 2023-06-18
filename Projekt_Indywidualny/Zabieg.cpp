@@ -18,9 +18,18 @@ void Zabieg::setData(Data _data)
 
 void Zabieg::setData(int _dzien,int _miesiac, int _rok)
 {
+	try {
 	data.setDzien(_dzien);
 	data.setMiesiac(_miesiac);
 	data.setRok(_rok);
+	}
+	catch (std::out_of_range& exc)
+	{
+		std::cerr << exc.what() << std::endl;
+		setData(Data(1, 1, 1901));
+		std::cout << "Data zostala ustawiona na wartosc domyslna [01.01.1901] zmien ja pozniej w menu edycji" << std::endl;
+			
+	}
 }
 
 void Zabieg::setMaszyna(Maszyna* _obiekt)
