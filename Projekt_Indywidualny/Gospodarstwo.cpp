@@ -4,6 +4,8 @@ void Gospodarstwo::dodajMaszyne(Maszyna _obiekt)
 {
 	if (sprawdzCzyNieWystepuje(_obiekt))
 		ParkMaszynowy.push_back(_obiekt);
+	else
+		std::cout << _obiekt.getNazwa() << " juz wystepuje na liscie";
 }
 
 void Gospodarstwo::usunMaszyne(int _pozycja)
@@ -46,6 +48,8 @@ void Gospodarstwo::dodajPole(Pole _obiekt)
 {
 	if (sprawdzCzyNieWystepuje(_obiekt))
 		ZiemiaUprawna.push_back(_obiekt);
+	else
+		std::cout << _obiekt.getNazwa() << " juz wystepuje na liscie";
 }
 
 void Gospodarstwo::edytujPole(Pole& pole,std::string _nazwa,float _powierzchnia)

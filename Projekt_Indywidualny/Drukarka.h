@@ -51,7 +51,7 @@ public:
 		cout.fill('-');
 		cout << "|" << setw(15) << "|";
 		cout.fill(' ');
-		cout << setw(15) << naglowek[0];
+		cout << setw(10) << naglowek[0];
 		cout << "|" << setw(15) << naglowek[1];
 		cout << "|" << setw(20) << naglowek[2];
 			cout << "|" << endl;
@@ -192,6 +192,7 @@ public:
 			plik << naglowek2[3] << deli;
 			// nazwa ; powierzchnia[ha] ; status wzrostu
 			plik << naglowek2[3] << deli << naglowek2[4] << deli << naglowek2[5] << endl;
+
 			for (_Iter = _listaZabiegow.begin(); _Iter != _listaZabiegow.end(); _Iter++)
 			{
 				// dzien ; miesiac ; rok

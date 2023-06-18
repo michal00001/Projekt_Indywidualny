@@ -2,7 +2,8 @@
 
 void Kalendarz::sortujZabiegi(const Data& _data)
 {
-	listaZabiegow.sort([](Zabieg& a, Zabieg& b) ->bool {return a.getData() < b.getData();});
+	//przy takim samym elemencie dostaje blad invalid comparator
+	//listaZabiegow.sort([](Zabieg& a, Zabieg& b) ->bool {return a.getData() < b.getData();});
 
 	//[] funkcja lamba 
 	// pozwala definiowac funkcje bezposrednio w miejscu ich uzycia np jako argumenty
@@ -52,13 +53,18 @@ void Kalendarz::usunZabieg(int _pozycja)
 	listaZabiegow.erase(iterator);
 }
 
-void Kalendarz::edytujZabieg(std::list<Zabieg>::iterator _zabieg, Data _data)
+void Kalendarz::edytujZabieg(std::list<Zabieg>::iterator _zabieg, Data _data,Maszyna* _maszyna, Pole* _pole)
 {
 	if (Zabieg::czyPoprawny(_data))
-	{
+		_zabieg->setData(_data);
+	else
+		std::cout << "Data nie zostala zmieniona. Jej format jest niepoprawny" << endl;
 
-	}
-	_zabieg->setData(_data);
+	if (_maszyna != nullptr)
+		_zabieg->setMaszyna(_maszyna);
+
+	if (_pole != nullptr)
+		_zabieg->setPole(_pole);
 }
 
 void Kalendarz::ZapiszZabiegiCSV(const char* _sciezka)

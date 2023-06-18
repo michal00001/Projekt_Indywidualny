@@ -53,16 +53,16 @@ void Zabieg::wykonajZabieg(int _opcja)
 	
 	switch (_opcja) {
 	case 1:
-		maszyna->nawiez(*pole);
+		maszyna->nawiez(pole);
 		break;
 	case 2:
-		maszyna->upraw(*pole);
+		maszyna->upraw(pole);
 		break;
 	case 3:
-		maszyna->zasiej(*pole);
+		maszyna->zasiej(pole);
 		break;
 	case 4:
-		maszyna->zbierz(*pole);
+		maszyna->zbierz(pole);
 		break;
 	default:
 		break;

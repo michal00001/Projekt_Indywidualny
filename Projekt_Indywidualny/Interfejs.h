@@ -33,13 +33,10 @@ class Interfejs
 	Data utworzDataObiekt();
 	Pole utworzPoleObiekt();
 	void edycjaPol(Pole& _pole);
-	void edycjaZabiegow();
+	void edycjaZabiegow(std::list<Zabieg>::iterator _obiekt);
 
 	string podajSciezke(const char* _rozszerzenie);
 public:
 	void MenuGlowne();
-	
-	
-
 };
 

@@ -20,7 +20,7 @@ public:
 
 	void dodajZabieg(Zabieg _obiekt);
 	void usunZabieg(int _pozycja);
-	void edytujZabieg(std::list<Zabieg>::iterator _zabieg, Data data);
+	void edytujZabieg(std::list<Zabieg>::iterator _zabieg, Data _data, Maszyna* _maszyna, Pole* _pole);
 	void ZapiszZabiegiCSV(const char* _sciezka);
 	void odczytajZabiegZPliku(const char* _sciezka);
     
@@ -28,6 +28,7 @@ public:
 	void wyswietlListeZabiegow(int _ile);
 	void wyczyscListeZabiegow();
 
+	bool sprawdzCzyNieWystepuj(Zabieg& _obiekt);
 	std::size_t getsizelistaZabiegowa() const { return listaZabiegow.size(); };
 
 };

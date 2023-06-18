@@ -25,10 +25,10 @@ public:
 	bool getdoNawozenia() const { return doNawozenia; };
 	bool getdoZbioru() const { return doZbioru; };
 
-	void zasiej(Pole& _pole);
-	void nawiez(Pole& _pole);
-	void upraw(Pole& _pole);
-	void zbierz(Pole& _pole);
+	void zasiej(Pole* _pole);
+	void nawiez(Pole* _pole);
+	void upraw(Pole* _pole);
+	void zbierz(Pole* _pole);
 
 	bool operator<(const Maszyna& _maszyna) const;
 	bool operator==(const Maszyna& _maszyna) const;

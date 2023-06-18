@@ -41,7 +41,7 @@ void Interfejs::MenuGlowne()
 void Interfejs::OpcjaKalendarzZabiegow()
 {
 	bool warunek = true;
-	unique_ptr<Drukarka> drukarka;
+	
 	while (warunek) {
 		system("cls");
 		int numerek = 1;
@@ -79,7 +79,6 @@ void Interfejs::OpcjaKalendarzZabiegow()
 			catch (domain_error e) {
 				cerr << e.what() << endl;
 			}
-			system("pause");
 			break;
 		case 6:
 			//zapis .csv
@@ -93,6 +92,7 @@ void Interfejs::OpcjaKalendarzZabiegow()
 			break;
 		case 7:
 			//zapis .txt
+			cout << "In developement";
 			try {
 				//KalendarzZabiegow.wyswietlListeZabiegow(5);
 			}
@@ -105,8 +105,8 @@ void Interfejs::OpcjaKalendarzZabiegow()
 			break;
 		default:
 			cout << "Prosze podac liczbê z zakresu od 1 do " << numerek << endl;
-			system("pause");
 		}
+			system("pause");
 	}
 }
 
@@ -150,7 +150,7 @@ void Interfejs::OpcjaZapisanePola()
 			catch (domain_error e) {
 				cerr << e.what() << endl;
 			}
-			system("pause");
+			
 			break;
 		case 6:
 			//zapis .csv
@@ -266,7 +266,7 @@ void Interfejs::OpcjaDodaj(int _opcja)
 		dodawanieMaszyn();
 		break;
 	}
-	system("pause");
+	
 }
 
 void Interfejs::OpcjaUsun(int _opcja)
@@ -376,7 +376,8 @@ void Interfejs::OpcjaEdytuj(int _opcja)
 	system("cls");
 	switch (_opcja) {
 	case 1:
-		//edycjaZabiegow(KalendarzZabiegow.edytujZabieg());
+		
+		edycjaZabiegow(KalendarzZabiegow.getZabieg(pozycja));
 		break;
 	case 2:
 		try {
@@ -566,7 +567,12 @@ Maszyna* Interfejs::wybierzMaszyne(int& numer)
 {
 	Maszyna* wskaznik;
 	int indeksKolejki = bezpiecznyInt(1,(int) Gospodarstwo.getSizeParkMaszynowy()) - 1;
-	numer = indeksKolejki + 1;
+
+	if (Gospodarstwo.getMaszyna(indeksKolejki).getNazwa() == "Kultywator") numer = 2;
+	else if (Gospodarstwo.getMaszyna(indeksKolejki).getNazwa() == "Rozsiewacz") numer = 1;
+	else if (Gospodarstwo.getMaszyna(indeksKolejki).getNazwa() == "Siewnik") numer = 3;
+	else if (Gospodarstwo.getMaszyna(indeksKolejki).getNazwa() == "Kombajn") numer = 4;
+	
 	wskaznik = &Gospodarstwo.getMaszyna(indeksKolejki);
 	return wskaznik;
 }
@@ -632,9 +638,10 @@ void Interfejs::edycjaPol(Pole& _pole)
 	string nowaNazwa;
 	float nowaPowierzchnia;
 	cout << "Wybierz element ktory chcesz edytowac:" << endl;
-	cout << "1.Nazwa:" << _pole.getNazwa() << "\n" << "2.Powierzchnia pola[ha]:" << _pole.getPowierzchnia()
-		<< "\n" << "3.Opcja resetowania powierzchnia pola" << endl;
-	cout<<"4.Powrot" << endl;
+	cout << "1.Nazwa:" << _pole.getNazwa() << endl;
+	cout << "2.Powierzchnia pola[ha]:" << _pole.getPowierzchnia();
+	cout << "3.Opcja resetowania powierzchnia pola" << endl;
+	cout << "4.Powrot" << endl;
 	switch (bezpiecznyInt(1,4))
 	{
 	case 1:
@@ -654,8 +661,45 @@ void Interfejs::edycjaPol(Pole& _pole)
 	}
 }
 
-void Interfejs::edycjaZabiegow()
+void Interfejs::edycjaZabiegow(std::list<Zabieg>::iterator _obiekt)
 {
+	int indeks;
+	cout << "Wybierz element ktory chcesz edytowac:" << endl;
+	cout << "1.Data:" << _obiekt->getData() << endl;
+	cout << "2.Maszyna:" << _obiekt->getMaszyna()->getNazwa() << endl;
+	cout << "3.Pole: "<< _obiekt->getPole()->getNazwa() << endl;
+	cout << "4.Powrot" << endl;
+	switch (bezpiecznyInt(1, 4))
+	{
+	case 1:
+		_obiekt->setData(utworzDataObiekt());
+		break;
+	case 2:
+		try{
+		Gospodarstwo.wyswietlListeMaszyn();
+		}
+		catch (domain_error& exc) {
+			cerr << exc.what() << endl;
+			system("pause");
+			return;
+		}
+		_obiekt->setMaszyna(wybierzMaszyne(indeks));
+		break;
+	case 3:
+		try {
+			Gospodarstwo.wyswietlListePol();
+		}
+		catch (domain_error& exc) {
+			cerr << exc.what() << endl;
+			system("pause");
+			return;
+		}
+		_obiekt->setPole(wybierzPole());
+		break;
+	case 4:
+	default:
+		break;
+	}
 }
 
 string Interfejs::podajSciezke(const char* _rozszerzenie)
